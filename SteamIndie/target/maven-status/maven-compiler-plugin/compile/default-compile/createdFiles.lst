@@ -1,0 +1,7 @@
+controller\UsuarioControllerLocal.class
+model\Jugador.class
+controller\UsuarioController.class
+model\DataTypes\DataUsuario.class
+sistem\Main.class
+model\Usuario.class
+sistem\Fabric.class
