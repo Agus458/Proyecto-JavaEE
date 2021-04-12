@@ -1,12 +1,10 @@
 package model.DataTypes;
 
-
-
 public class DataUsuario {
 
 	// Attributes
 	
-	private Integer id;
+	private String nick;
 	private String nombre;
 	private String apellido;
 	private Integer edad;
@@ -23,9 +21,9 @@ public class DataUsuario {
 	 * @param email
 	 * @param password
 	 */
-	public DataUsuario(Integer id, String nombre, String apellido, Integer edad, String email, String password) {
+	public DataUsuario(String nick, String nombre, String apellido, Integer edad, String email, String password) {
 		super();
-		this.id = id;
+		this.nick = nick;
 		this.nombre = nombre;
 		this.apellido = apellido;
 		this.edad = edad;
@@ -36,10 +34,10 @@ public class DataUsuario {
 	// Getters
 
 	/**
-	 * @return the id
+	 * @return the nick
 	 */
-	public Integer getId() {
-		return id;
+	public String getNick() {
+		return nick;
 	}
 
 	/**

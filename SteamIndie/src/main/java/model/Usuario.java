@@ -3,8 +3,6 @@ package model;
 import java.io.Serializable;
 import javax.persistence.*;
 
-import model.DataTypes.DataUsuario;
-
 /**
  * Entity implementation class for Entity: Usuario
  *
@@ -12,19 +10,18 @@ import model.DataTypes.DataUsuario;
 @Entity
 @Table(name = "usuario")
 @Inheritance(strategy = InheritanceType.JOINED)
-public class Usuario implements Serializable {
+public abstract class Usuario implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	// Attributes
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
-	
+	private String nick;
 	private String nombre;
 	private String apellido;
 	private Integer edad;
+	@Column(unique = true)
 	private String email;
 	private String password;
 
@@ -44,8 +41,9 @@ public class Usuario implements Serializable {
 	 * @param email
 	 * @param password
 	 */
-	public Usuario(String nombre, String apellido, Integer edad, String email, String password) {
+	public Usuario(String nick, String nombre, String apellido, Integer edad, String email, String password) {
 		super();
+		this.nick = nick;
 		this.nombre = nombre;
 		this.apellido = apellido;
 		this.edad = edad;
@@ -56,10 +54,10 @@ public class Usuario implements Serializable {
 	// Getters
 
 	/**
-	 * @return the id
+	 * @return the nick
 	 */
-	public Integer getId() {
-		return id;
+	public String getNick() {
+		return nick;
 	}
 
 	/**
@@ -100,6 +98,13 @@ public class Usuario implements Serializable {
 	// Setters
 
 	/**
+	 * @param nick the nick to set
+	 */
+	public void setNick(String nick) {
+		this.nick = nick;
+	}
+	
+	/**
 	 * @param nombre the nombre to set
 	 */
 	public void setNombre(String nombre) {
@@ -132,12 +137,6 @@ public class Usuario implements Serializable {
 	 */
 	public void setPassword(String password) {
 		this.password = password;
-	}
-	
-	// Functions
-	
-	public DataUsuario darDatos() {
-		return new DataUsuario(id,nombre,apellido,edad,email,password);
 	}
 
 }
