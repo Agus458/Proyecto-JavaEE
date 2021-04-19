@@ -1,0 +1,29 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"> <h:head>
+
+	<ui:include src="/partials/head.xhtml" />
+</h:head> 
+<h:body>
+	<header> 
+		<ui:include src="/partials/nav.xhtml" />
+	 </header>
+	 
+	 <div class="container-lg pt-5">
+ 	    <div class="row justify-content-center">
+ 	    	<div class="card">
+				<img class="card-img-top" src="#{gameBean.imagen}" alt="Card image cap"></img>
+		  	<div class="card-body">
+			    <h5 class="card-title">#{gameBean.nombre}</h5>
+			    <p class="card-text">#{gameBean.desc}</p>
+			    <p class="card-text"><small class="text-muted">#{gameBean.precio}$</small></p>
+			  </div>
+  			</div>
+  			
+		</div>
+	 </div>
+	<ui:include src="/partials/footer.xhtml"></ui:include>
+</h:body> 
+</html>
