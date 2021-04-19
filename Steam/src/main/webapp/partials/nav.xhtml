@@ -1,0 +1,83 @@
+
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+
+	<!-- Navbar -->
+	<h:panelGroup rendered='#{userBean.email==""}'>
+		<nav class="navbar navbar-dark bg-dark justify-content-between">
+			<a class="navbar-brand" href="index.xhtml">SteamIndie</a>
+			<button type="button" class="btn btn-primary" data-toggle="modal"
+				data-target="#exampleModal">Iniciar Sesion</button>
+		</nav>
+	</h:panelGroup>
+	<h:panelGroup rendered='#{userBean.email!=""}'>
+		<nav class="navbar navbar-dark bg-dark justify-content-between">
+			<a class="navbar-brand" href="index.xhtml">SteamIndie</a>
+			<button type="button" class="btn btn-primary" disabled="true">Bienvenido
+				#{userBean.email}</button>
+		</nav>
+	</h:panelGroup>
+	<!-- Modal Login-->
+	<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Iniciar</h5>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true"></span>
+					</button>
+				</div>
+				<h:form>
+					<div class="modal-body">
+
+						<div class="form-group">
+							<label for="email">Email</label>
+							<h:inputText id="email" class="form-control"
+								value="#{userBean.email}" required="true"></h:inputText>
+
+						</div>
+						<div class="form-group">
+							<label for="pwd">Contraseña</label>
+							<h:inputSecret id="pwd" class="form-control"
+								value="#{userBean.pwd}" required="true"></h:inputSecret>
+						</div>
+						<div class="form-inline">
+							<div class="g-signin2" data-onsuccess="onSignIn"
+								data-theme="dark"></div>
+						</div>
+
+
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary"
+							data-dismiss="modal">Cerrar</button>
+						<h:commandButton value="Iniciar Sesion" action="#{userBean.Login}"
+							class="btn btn-primary"></h:commandButton>
+
+					</div>
+				</h:form>
+			</div>
+		</div>
+	</div>
+	<script>
+      function onSignIn(googleUser) {
+        // Useful data for your client-side scripts:
+        var profile = googleUser.getBasicProfile();
+        console.log("ID: " + profile.getId()); // Don't send this directly to your server!
+        console.log('Full Name: ' + profile.getName());
+        console.log('Given Name: ' + profile.getGivenName());
+        console.log('Family Name: ' + profile.getFamilyName());
+        console.log("Image URL: " + profile.getImageUrl());
+        console.log("Email: " + profile.getEmail());
+
+        // The ID token you need to pass to your backend:
+        var id_token = googleUser.getAuthResponse().id_token;
+        console.log("ID Token: " + id_token);
+      }
+    </script>
+</ui:composition>
