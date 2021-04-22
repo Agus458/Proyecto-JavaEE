@@ -8,6 +8,8 @@ public class DataUsuario {
 
 	// Atributes
 
+	private Integer id;
+	
 	private String nombre;
 
 	private String apellido;
@@ -34,8 +36,9 @@ public class DataUsuario {
 	 * @param password
 	 * @param nickname
 	 */
-	public DataUsuario(String nombre, String apellido, String email, String password, String nickname) {
+	public DataUsuario(Integer id, String nombre, String apellido, String email, String password, String nickname) {
 		super();
+		this.id = id;
 		this.nombre = nombre;
 		this.apellido = apellido;
 		this.email = email;
@@ -44,6 +47,13 @@ public class DataUsuario {
 	}
 
 	// Getters
+
+	/**
+	 * @return the id
+	 */
+	public Integer getId() {
+		return id;
+	}
 	
 	/**
 	 * @return the nombre

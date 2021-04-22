@@ -9,6 +9,7 @@ import javax.jws.WebService;
 
 import controllers.ControllerUsuario;
 import controllers.Fabric;
+import data_types.DataCreador;
 import data_types.DataJugador;
 import data_types.DataUsuario;
 
@@ -33,12 +34,6 @@ public class SteamIndieImp implements SteamIndie{
 	}
 
 	@Override
-	public Boolean validarRegistro(String email, String nick) {
-		ControllerUsuario controller = Fabric.getControllerUsuario();
-		return controller.validarRegistro(email, nick);
-	}
-
-	@Override
 	public List<DataUsuario> listarUsuarios() {
 		ControllerUsuario controller = Fabric.getControllerUsuario();
 		return controller.listarUsuarios();
@@ -54,6 +49,30 @@ public class SteamIndieImp implements SteamIndie{
 	public DataUsuario buscarUsuarioNick(String nick) {
 		ControllerUsuario controller = Fabric.getControllerUsuario();
 		return controller.buscarUsuarioNick(nick);
+	}
+
+	@Override
+	public Boolean emailEnUso(String email) {
+		ControllerUsuario controller = Fabric.getControllerUsuario();
+		return controller.emailEnUso(email);
+	}
+
+	@Override
+	public Boolean nickEnUso(String nick) {
+		ControllerUsuario controller = Fabric.getControllerUsuario();
+		return controller.nickEnUso(nick);
+	}
+
+	@Override
+	public void registrarCreador(DataCreador creador) {
+		ControllerUsuario controller = Fabric.getControllerUsuario();
+		controller.registrarCreador(creador);
+	}
+
+	@Override
+	public DataUsuario buscarUsuarioId(Integer id) {
+		ControllerUsuario controller = Fabric.getControllerUsuario();
+		return controller.buscarUsuarioId(id);
 	}
 
 }

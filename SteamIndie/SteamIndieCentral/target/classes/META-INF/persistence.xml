@@ -3,6 +3,11 @@
 	<persistence-unit name="SteamIndieUnit" transaction-type="RESOURCE_LOCAL">
 		<class>model.Usuario</class>
 		<class>model.Jugador</class>
+		<class>model.Creador</class>
+		<class>model.Juego</class>
+		<class>model.Categoria</class>
+		<class>model.Media</class>
+		<class>model.Publicacion</class>
 		<properties>
 			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/steamindiedb"/>
 			<property name="javax.persistence.jdbc.user" value="root"/>

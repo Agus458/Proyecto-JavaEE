@@ -5,6 +5,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
+import data_types.DataCreador;
 import data_types.DataJugador;
 import data_types.DataUsuario;
 import persistence.UsuarioDAO;
@@ -28,24 +29,19 @@ public class ControllerUsuarioImp implements ControllerUsuario {
     
     @Override
     public Boolean emailEnUso(String email) {
-    	return usuarioPersistence.buscarUsuarioEmail(email) != null;
+    	return usuarioPersistence.buscarUsuarioEmail(email).getId() != null;
     }
 
 	@Override
 	public void registrarJugador(DataJugador jugador) {
-		if(validarRegistro(jugador.getEmail(), jugador.getNickname())) {
+		if(!emailEnUso(jugador.getEmail()) &&  !nickEnUso(jugador.getNickname())) {
 			usuarioPersistence.insertarJugador(jugador);
 		}
 	}
 
 	@Override
 	public Boolean nickEnUso(String nick) {
-		return usuarioPersistence.buscarUsuarioNick(nick) != null;
-	}
-
-	@Override
-	public Boolean validarRegistro(String email, String nick) {
-		return !emailEnUso(email) && !nickEnUso(nick);
+		return usuarioPersistence.buscarUsuarioNick(nick).getId() != null;
 	}
 
 	@Override
@@ -61,6 +57,18 @@ public class ControllerUsuarioImp implements ControllerUsuario {
 	@Override
 	public DataUsuario buscarUsuarioNick(String nick) {
 		return usuarioPersistence.buscarUsuarioNick(nick);
+	}
+
+	@Override
+	public void registrarCreador(DataCreador creador) {
+		if(!emailEnUso(creador.getEmail()) &&  !nickEnUso(creador.getNickname())) {
+			usuarioPersistence.insertarCreador(creador);
+		}
+	}
+
+	@Override
+	public DataUsuario buscarUsuarioId(Integer id) {
+		return usuarioPersistence.buscarUsuarioId(id);
 	}
 
 }

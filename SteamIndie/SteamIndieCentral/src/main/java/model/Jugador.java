@@ -41,6 +41,6 @@ public class Jugador extends Usuario implements Serializable {
 	// Methods
 	
 	public DataJugador darDatos() {
-		return new DataJugador(this.getNombre(), this.getApellido(), this.getEmail(), this.getPassword(), this.getNickname());
+		return new DataJugador(this.getId(), this.getNombre(), this.getApellido(), this.getEmail(), this.getPassword(), this.getNickname());
 	}
 }

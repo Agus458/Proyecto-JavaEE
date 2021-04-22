@@ -28,8 +28,8 @@ public class DataJugador extends DataUsuario{
 	 * @param password
 	 * @param nickname
 	 */
-	public DataJugador(String nombre, String apellido, String email, String password, String nickname) {
-		super(nombre, apellido, email, password, nickname);
+	public DataJugador(Integer id, String nombre, String apellido, String email, String password, String nickname) {
+		super(id, nombre, apellido, email, password, nickname);
 	}
 	
 }
