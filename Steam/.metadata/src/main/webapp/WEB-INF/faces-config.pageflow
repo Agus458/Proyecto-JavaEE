@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<pageflow:Pageflow xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pageflow="http://www.sybase.com/suade/pageflow" id="pf16181695886820" configfile="/Steam/src/main/webapp/WEB-INF/faces-config.xml">
-  <nodes xsi:type="pageflow:PFPage" name="HolaMundo.xhtml" id="pf16185248494433" referenceLink="//@navigationRule.0/@fromViewId|" outlinks="pf16185248494434" path="HolaMundo.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="bienvenido.xhtml" id="pf16185248494435" referenceLink="//@navigationRule.0/@navigationCase.0/@toViewId|" inlinks="pf16185248494434" path="bienvenido.xhtml"/>
-  <links id="pf16185248494434" target="pf16185248494435" source="pf16185248494433" outcome="login"/>
-</pageflow:Pageflow>

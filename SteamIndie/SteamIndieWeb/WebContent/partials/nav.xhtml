@@ -1,0 +1,111 @@
+
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+
+	<!-- Navbar -->
+	<h:panelGroup rendered='#{sesionBean.activo!=true}'>
+		<nav class="navbar navbar-expand-lg navbar-light bg-secondary">
+                <div class="container-fluid">
+
+                    <button type="button" id="sidebarCollapse" class="btn btn-dark">
+                        <i class="fas fa-align-left"></i>
+                    </button>
+                    <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse"
+                        data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                        <i class="fas fa-align-justify"></i>
+                    </button>
+
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="nav navbar-nav ml-auto">
+                            <li class="nav-item">
+                                <a class="navbar-brand" data-toggle="modal" data-target="#myModal">
+                                	<i class="fas fa-user-circle d-inline-block align-center" style="height=30px; width=30px;"></i>                           
+                                   	Usuario
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+            <ui:include src="/partials/modalForms.xhtml" />
+	</h:panelGroup>
+	<h:panelGroup rendered='#{sesionBean.activo}'>
+		<nav class="navbar navbar-expand-lg navbar-light bg-secondary">
+                <div class="container-fluid">
+
+                    <button type="button" id="sidebarCollapse" class="btn btn-dark">
+                        <i class="fas fa-align-left"></i>
+                    </button>
+                    <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse"
+                        data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                        <i class="fas fa-align-justify"></i>
+                    </button>
+
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="nav navbar-nav ml-auto">
+                          	<li class="nav-item">
+                                <a class="navbar-brand" href="/SteamIndieWeb/views/billetera.xhtml">	
+                                	<i class="fas fa-money-bill d-inline-block align-center" style="height=30px; width=30px;" />                               
+									Mi saldo
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="navbar-brand" href="/SteamIndieWeb/views/cart.xhtml">
+                                	<i class="fas fa-shopping-cart d-inline-block align-center" style="height=30px; width=30px;" />                               
+									Carrito
+                                </a>
+                            </li>
+                            <h:panelGroup rendered="#{sesionBean.creador!=null}">
+                            <li class="nav-item">                   	
+                            	<a class="navbar-brand" data-toggle="modal" data-target="#publicarJuegoModal">
+                                	<i class="fas fa-upload d-inline-block align-center" style="height=30px; width=30px;" />                               
+									Carrito
+                                </a>
+                            </li>
+                            <ui:include src="/partials/modalPublicarJuego.xhtml"></ui:include>
+                            </h:panelGroup>
+                            <li class="nav-item">
+                                <a class="navbar-brand">
+                                	<i class="fas fa-user-circle d-inline-block align-center" style="height=30px; width=30px;"></i>                           
+                                    #{sesionBean.usuario.nickname}
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                       			<h:form>
+                                 <h:commandLink styleClass="navbar-brand" action="#{sesionBean.logout()}" >
+									<i class="fas fa-sign-out-alt d-inline-block align-center" style="height=30px; width=30px;"></i>                           
+                                	LogOut
+                                  </h:commandLink>
+								</h:form>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    
+                </div>
+            </nav>
+	</h:panelGroup>
+	<!-- Modal Login-->
+	<!-- Registro Modal -->
+	<script>
+      function onSignIn(googleUser) {
+        // Useful data for your client-side scripts:
+        var profile = googleUser.getBasicProfile();
+        console.log("ID: " + profile.getId()); // Don't send this directly to your server!
+        console.log('Full Name: ' + profile.getName());
+        console.log('Given Name: ' + profile.getGivenName());
+        console.log('Family Name: ' + profile.getFamilyName());
+        console.log("Image URL: " + profile.getImageUrl());
+        console.log("Email: " + profile.getEmail());
+
+        // The ID token you need to pass to your backend:
+        var id_token = googleUser.getAuthResponse().id_token;
+        console.log("ID Token: " + id_token);
+      }
+    </script>
+</ui:composition>

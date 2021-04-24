@@ -1,0 +1,69 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+<h:head>
+    <meta charset="utf-8"></meta>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"></meta>
+
+    <title>Steam Indie</title>
+    <ui:include src="../partials/head.xhtml"/>
+    
+    
+</h:head>
+
+<h:body class="bg-dark">
+
+	    <div class="wrapper">
+			<!-- Sidebar  -->
+			<ui:include src="../partials/sidebar.xhtml"> </ui:include>
+	
+	        <!-- Page Content  -->
+	        <div id="content">
+				<ui:include src="../partials/nav.xhtml" />
+	
+				<div class="container main-section">
+					<div class="row">
+						<div class="card bg-dark text-white">
+							<img class="card-img" src="/SteamIndieWeb/partials/images/pngkey.com-wallet-png-1044244.png" alt="Card image"></img>
+							<div class="card-img-overlay">
+							  <h1 class="card-title">Mi billetera</h1>
+							  <div class="row justify-content-md-center">
+								<div class="col-lg-4 mt-5">
+									<div class="card-body">
+										<label>Agregar fondos a billetera virtual</label>
+										<form class="form-inline">	
+											<div class="form-group">
+												<input id="fondos" class="form-control" type="number" value="0"></input>
+											</div>
+											<div class="form-group">
+												<button class="btn bg-white" value="0">Checkout</button>
+											</div>
+										</form>
+									</div>
+								</div>
+								<div class="col-lg-2"></div>
+								<div class="col-lg-4 mt-5">
+									<table class="table mt-4 border text-white border-white text-center">
+										<thead>
+										  <tr>
+											<th scope="col">Saldo</th>
+											<th>$0,00</th>
+										  </tr>
+										</thead>		
+									  </table>
+								</div>
+							  </div>
+							</div>
+						  </div>
+					</div>
+				</div>
+			</div>
+		</div>
+	<ui:include src="../partials/footer.xhtml" />    
+
+</h:body>
+
+</html>

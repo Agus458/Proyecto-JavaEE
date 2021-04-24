@@ -1,0 +1,96 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+<h:head>
+    <meta charset="utf-8"></meta>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"></meta>
+
+    <title>Steam Indie</title>
+    <ui:include src="/partials/head.xhtml"/>
+    
+    
+</h:head>
+
+<h:body class="bg-dark">
+
+    <div class="wrapper">
+		<!-- Sidebar  -->
+		<ui:include src="partials/sidebar.xhtml"> </ui:include>
+
+        <!-- Page Content  -->
+        <div id="content">
+
+            <ui:include src="/partials/nav.xhtml" />
+            
+            <div class="container">
+                <div class="row">
+                    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                        <ol class="carousel-indicators">
+                            <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                            <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                            <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                        </ol>
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                            	<h:graphicImage value="https://www.gamerfocus.co/wp-content/uploads/2020/08/dead_by_daylight_juego_cruzado.jpg" 
+                                    styleClass="d-block w-100" />
+                            </div>
+                            <div class="carousel-item">
+								<h:graphicImage value="https://areajugones.sport.es/wp-content/uploads/2021/02/stardew-valley.jpg"
+                                    class="d-block w-100" />
+                            </div>
+                            <div class="carousel-item">
+								<h:graphicImage value="https://elintransigente.com/wp-content/uploads/2021/03/Terraria.jpg"
+                                    class="d-block w-100" />
+                            </div>
+                        </div>
+                        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button"
+                            data-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button"
+                            data-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="line"></div>
+                <div class="row justify-content-center">
+                    <div class="card-group">
+                        <div class="card mr-5">
+							<h:graphicImage value="https://www.androidfreeware.net/img2/among-us.jpg" class="card-img-top" />
+                            <div class="card-body">
+                                <h5 class="card-title">Among Us</h5>                           
+                            </div>
+                        </div>
+                        <div class="card ml-5 mr-5">
+                            <h:graphicImage value="https://files.gamebanana.com/img/ico/sprays/50f021fa7ba55.jpg" class="card-img-top"  />
+                            <div class="card-body">
+                                <h5 class="card-title">GTA V</h5>
+                               
+                            </div>
+                        </div>
+                        <div class="card ml-5">
+							<h:graphicImage value="https://storage.gra.cloud.ovh.net/v1/AUTH_296c7803aa594af69d39b970927c8fb9/media/game_avatars/DF/DF1K22vDMkbNfeom.png" class="card-img-top" />
+                            <div class="card-body">
+                                <h5 class="card-title">Left 4 Dead</h5>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<ui:include src="/partials/footer.xhtml" />    
+
+</h:body>
+
+</html>
