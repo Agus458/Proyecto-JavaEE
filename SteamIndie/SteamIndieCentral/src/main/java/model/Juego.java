@@ -33,10 +33,10 @@ public class Juego implements Serializable {
 
 	@ManyToMany
 	private List<Categoria> categorias;
-	
-	@OneToOne
+
+	@OneToOne(cascade = CascadeType.PERSIST)
 	private Media media;
-	
+
 	@OneToOne
 	private Publicacion publicacion;
 
@@ -58,18 +58,18 @@ public class Juego implements Serializable {
 	 * @param media
 	 * @param creador
 	 */
-	public Juego(String nombre, String descripcion, Float precio, List<Categoria> categorias, Media media) {
+	public Juego(String nombre, String descripcion, Float precio, Media media, List<Categoria> categorias) {
 		super();
 		this.nombre = nombre;
 		this.descripcion = descripcion;
 		this.precio = precio;
-		this.categorias = categorias;
 		this.media = media;
 		this.publicacion = null;
+		this.categorias = categorias;
 	}
 
 	// Getters
-	
+
 	/**
 	 * @return the id
 	 */
@@ -120,7 +120,7 @@ public class Juego implements Serializable {
 	}
 
 	// Setters
-	
+
 	/**
 	 * @param nombre the nombre to set
 	 */
@@ -164,14 +164,20 @@ public class Juego implements Serializable {
 	}
 
 	// Methods
-	
+
 	public DataJuego darDatos() {
 		List<DataCategoria> cats = new ArrayList<DataCategoria>();
-		for(Categoria aux : this.categorias) {
+		for (Categoria aux : this.categorias) {
 			cats.add(aux.darDatos());
 		}
-		
-		return new DataJuego(this.id, this.nombre, this.descripcion, this.precio, cats, this.media.darDatos(), this.publicacion.darDatos());
+
+		return new DataJuego(this.id, this.nombre, this.descripcion, this.precio, cats, this.media.darDatos(),
+				this.publicacion.darDatos());
 	}
-	
+
+	public void agregarCategoria(Categoria categoria) {
+		if (categoria != null) {
+			this.categorias.add(categoria);
+		}
+	}
 }

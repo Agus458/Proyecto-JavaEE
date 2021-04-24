@@ -30,7 +30,7 @@ public class DataJuego {
 	 * Default Constructor
 	 */
 	public DataJuego() {
-		// TODO Auto-generated constructor stub
+		
 	}
 
 	/**

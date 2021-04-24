@@ -23,8 +23,12 @@ public class Media implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
+	private String logo;
+	
+	@ElementCollection
 	private List<String> videos;
 	
+	@ElementCollection
 	private List<String> imagenes;
 	
 	// Constructor
@@ -41,8 +45,9 @@ public class Media implements Serializable {
 	 * @param videos
 	 * @param imagenes
 	 */
-	public Media(List<String> videos, List<String> imagenes) {
+	public Media(String logo, List<String> videos, List<String> imagenes) {
 		super();
+		this.logo = logo;
 		this.videos = videos;
 		this.imagenes = imagenes;
 	}
@@ -56,6 +61,13 @@ public class Media implements Serializable {
 		return id;
 	}
 
+	/**
+	 * @return the logo
+	 */
+	public String getLogo() {
+		return logo;
+	}
+	
 	/**
 	 * @return the videos
 	 */
@@ -85,11 +97,18 @@ public class Media implements Serializable {
 	public void setImagenes(List<String> imagenes) {
 		this.imagenes = imagenes;
 	}
+	
+	/**
+	 * @param logo the logo to set
+	 */
+	public void setImagenes(String logo) {
+		this.logo = logo;
+	}
    
 	// Methods
 	
 	public DataMedia darDatos() {
-		return new DataMedia(this.id, this.videos, this.imagenes);
+		return new DataMedia(this.id, this.logo, this.videos, this.imagenes);
 	}
 	
 }

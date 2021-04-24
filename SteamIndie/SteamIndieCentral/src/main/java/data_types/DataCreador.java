@@ -23,7 +23,7 @@ public class DataCreador extends DataUsuario{
 	 * Default constructor
 	 */
 	public DataCreador() {
-		// TODO Auto-generated constructor stub
+		
 	}
 
 	/**

@@ -7,9 +7,11 @@ import java.util.List;
 
 import javax.jws.WebService;
 
+import controllers.ControllerJuego;
 import controllers.ControllerUsuario;
 import controllers.Fabric;
 import data_types.DataCreador;
+import data_types.DataJuego;
 import data_types.DataJugador;
 import data_types.DataUsuario;
 
@@ -73,6 +75,36 @@ public class SteamIndieImp implements SteamIndie{
 	public DataUsuario buscarUsuarioId(Integer id) {
 		ControllerUsuario controller = Fabric.getControllerUsuario();
 		return controller.buscarUsuarioId(id);
+	}
+
+	@Override
+	public void publicarJuego(DataJuego juego, Integer id) {
+		ControllerJuego controller = Fabric.getControllerJuego();
+		controller.publicarJuego(juego, id);
+	}
+
+	@Override
+	public Boolean nombreEnUso(String nombre) {
+		ControllerJuego controller = Fabric.getControllerJuego();
+		return controller.nombreEnUso(nombre);
+	}
+
+	@Override
+	public List<DataJuego> listarJuegos() {
+		ControllerJuego controller = Fabric.getControllerJuego();
+		return controller.listarJuegos();
+	}
+
+	@Override
+	public DataJuego buscarJuegoId(Integer id) {
+		ControllerJuego controller = Fabric.getControllerJuego();
+		return controller.buscarJuegoId(id);
+	}
+
+	@Override
+	public DataJuego buscarJuegoNombre(String nombre) {
+		ControllerJuego controller = Fabric.getControllerJuego();
+		return controller.buscarJuegoNombre(nombre);
 	}
 
 }

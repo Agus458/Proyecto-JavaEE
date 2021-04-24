@@ -76,4 +76,12 @@ public class Creador extends Usuario implements Serializable {
 		return new DataCreador(this.getId(), this.getNombre(), this.getApellido(), this.getEmail(), this.getPassword(), this.getNickname(), pubs);
 	}
 	
+	/*
+	 * Adds a publication into the creators collection
+	 */
+	public void agregarPublicacion(Publicacion publicacion) {
+		if(publicacion != null) {
+			publicaciones.add(publicacion);
+		}
+	}
 }

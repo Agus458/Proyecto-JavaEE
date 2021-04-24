@@ -1,6 +1,5 @@
 package persistence;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.Stateless;
@@ -32,30 +31,38 @@ public class CategoriaDAOImp implements CategoriaDAO {
     // Methods
     
 	@Override
-	public void insertarCategoria(DataCategoria categoria) {
+	public Categoria insertarCategoria(DataCategoria categoria) {
+		Categoria entity = null;
+		
 		if(categoria != null) {
 			
 			EntityManager em = emf.createEntityManager();
 			
 			try {
 				
-				Categoria entity = new Categoria(categoria.getNombre());
+				em.getTransaction().begin();
+				
+				entity = new Categoria(categoria.getNombre());
 				
 				em.persist(entity);
 				
+				em.getTransaction().commit();
+
 			} catch (Exception e) {
-				
+				em.getTransaction().rollback();
 			}
 			
 			em.close();
 			
 		}
+		
+		return entity;
 	}
 
 	@Override
-	public List<DataCategoria> listarCategorias() {
+	public List<Categoria> listarCategorias() {
 		EntityManager em = emf.createEntityManager();
-		List<DataCategoria> categorias = new ArrayList<DataCategoria>();
+		List<Categoria> categorias = null;
 		
 		try {
 			
@@ -63,9 +70,7 @@ public class CategoriaDAOImp implements CategoriaDAO {
 			@SuppressWarnings("unchecked")
 			List<Categoria> cats = query.getResultList();
 			
-			for(Categoria aux : cats) {
-				categorias.add(aux.darDatos());
-			}
+			categorias = cats;
 			
 		} catch (Exception e) {
 			
@@ -76,18 +81,15 @@ public class CategoriaDAOImp implements CategoriaDAO {
 	}
 
 	@Override
-	public DataCategoria buscarCategoriaId(Integer id) {
-		DataCategoria categoria = new DataCategoria(null, "");
+	public Categoria buscarCategoriaId(Integer id) {
+		Categoria categoria = null;
 		
 		if(id != null) {
 			EntityManager em = emf.createEntityManager();
 			
 			try {
 				
-				Categoria aux = em.find(Categoria.class, id);
-				if(aux != null) {
-					categoria = aux.darDatos();
-				}
+				categoria = em.find(Categoria.class, id);
 				
 			} catch (Exception e) {
 				
@@ -100,8 +102,8 @@ public class CategoriaDAOImp implements CategoriaDAO {
 	}
 
 	@Override
-	public DataCategoria buscarCategoriaNombre(String nombre) {
-		DataCategoria categoria = new DataCategoria(null, "");
+	public Categoria buscarCategoriaNombre(String nombre) {
+		Categoria categoria = null;
 		
 		if(nombre != null) {
 			EntityManager em = emf.createEntityManager();
@@ -111,12 +113,7 @@ public class CategoriaDAOImp implements CategoriaDAO {
 				Query query = em.createQuery("SELECT c FROM Categoria c WHERE c.nombre = :nombre_categoria");
 				query.setParameter("nombre_categoria", nombre);
 				
-				Categoria aux = (Categoria) query.getSingleResult();
-				
-				if(aux != null) {
-					categoria = aux.darDatos();
-				}
-				
+				categoria = (Categoria) query.getSingleResult();
 				
 			} catch (Exception e) {
 				

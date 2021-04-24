@@ -12,6 +12,8 @@ public class DataMedia {
 	
 	private Integer id;
 	
+	private String logo;
+	
 	private List<String> videos;
 	
 	private List<String> imagenes;
@@ -26,9 +28,10 @@ public class DataMedia {
 	 * @param videos
 	 * @param imagenes
 	 */
-	public DataMedia(Integer id, List<String> videos, List<String> imagenes) {
+	public DataMedia(Integer id, String logo, List<String> videos, List<String> imagenes) {
 		super();
 		this.id = id;
+		this.logo = logo;
 		this.videos = videos;
 		this.imagenes = imagenes;
 	}
@@ -40,6 +43,13 @@ public class DataMedia {
 	 */
 	public Integer getId() {
 		return id;
+	}
+	
+	/**
+	 * @return the logo
+	 */
+	public String getLogo() {
+		return logo;
 	}
 	
 	/**

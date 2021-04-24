@@ -1,25 +1,27 @@
 package persistence;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.ejb.Local;
 
 import data_types.DataJuego;
-import data_types.DataMedia;
 import model.Categoria;
-import model.Media;
+import model.Creador;
+import model.Juego;
+import model.Publicacion;
 
 @Local
 public interface JuegoDAO {
 
-	public void insertarJuego(DataJuego juego, List<Categoria> categorias);
+	public Juego insertarJuego(DataJuego juego, List<Categoria> categorias);
 	
-	public List<DataJuego> listarJuegos();
+	public List<Juego> listarJuegos();
 	
-	public DataJuego buscarJuegoId(Integer id);
+	public Juego buscarJuegoId(Integer id);
 	
-	public DataJuego buscarJuegosNombre(String nombre);
+	public Juego buscarJuegoNombre(String nombre);
 	
-	public Media insertarMedia(DataMedia media);
+	public Publicacion crearPublicacion(Creador creador, Juego juego, Date fechaPublicacion);
 	
 }

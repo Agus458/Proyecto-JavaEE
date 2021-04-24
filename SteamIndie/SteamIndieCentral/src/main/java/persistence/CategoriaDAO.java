@@ -5,16 +5,17 @@ import java.util.List;
 import javax.ejb.Local;
 
 import data_types.DataCategoria;
+import model.Categoria;
 
 @Local
 public interface CategoriaDAO {
 
-	public void insertarCategoria(DataCategoria categoria);
+	public Categoria insertarCategoria(DataCategoria categoria);
 	
-	public List<DataCategoria> listarCategorias();
+	public List<Categoria> listarCategorias();
 	
-	public DataCategoria buscarCategoriaId(Integer id);
+	public Categoria buscarCategoriaId(Integer id);
 	
-	public DataCategoria buscarCategoriaNombre(String nombre);
+	public Categoria buscarCategoriaNombre(String nombre);
 	
 }

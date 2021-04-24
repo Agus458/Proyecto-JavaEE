@@ -31,7 +31,7 @@ public class DataPublicacion {
 	 * Default constructor
 	 */
 	public DataPublicacion() {
-		// TODO Auto-generated constructor stub
+		
 	}
 
 	/**

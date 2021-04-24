@@ -1,7 +1,6 @@
 package persistence;
 
 import java.util.List;
-import java.util.ArrayList;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -28,13 +27,15 @@ public class UsuarioDAOImp implements UsuarioDAO {
 	}
 
 	@Override
-	public void insertarJugador(DataJugador jugador) {
+	public Jugador insertarJugador(DataJugador jugador) {
+		Jugador entity = null;
+
 		EntityManager em = emf.createEntityManager();
 		try {
 			em.getTransaction().begin();
 
-			Jugador entity = new Jugador(jugador.getNombre(), jugador.getApellido(), jugador.getEmail(),
-					jugador.getPassword(), jugador.getNickname());
+			entity = new Jugador(jugador.getNombre(), jugador.getApellido(), jugador.getEmail(), jugador.getPassword(),
+					jugador.getNickname());
 			em.persist(entity);
 
 			em.getTransaction().commit();
@@ -43,16 +44,20 @@ public class UsuarioDAOImp implements UsuarioDAO {
 			em.getTransaction().rollback();
 		}
 		em.close();
+
+		return entity;
 	}
 
 	@Override
-	public void insertarCreador(DataCreador creador) {
+	public Creador insertarCreador(DataCreador creador) {
+		Creador entity = null;
+
 		EntityManager em = emf.createEntityManager();
 		try {
 			em.getTransaction().begin();
 
-			Creador entity = new Creador(creador.getNombre(), creador.getApellido(), creador.getEmail(),
-					creador.getPassword(), creador.getNickname());
+			entity = new Creador(creador.getNombre(), creador.getApellido(), creador.getEmail(), creador.getPassword(),
+					creador.getNickname());
 			em.persist(entity);
 
 			em.getTransaction().commit();
@@ -61,164 +66,179 @@ public class UsuarioDAOImp implements UsuarioDAO {
 			em.getTransaction().rollback();
 		}
 		em.close();
+
+		return entity;
 	}
 
 	@Override
-	public List<DataUsuario> listarUsuarios() {
+	public List<Jugador> listarJugadores() {
 		EntityManager em = emf.createEntityManager();
-		List<DataUsuario> usuarios = new ArrayList<DataUsuario>();
+		List<Jugador> jugadores = null;
 
 		try {
 
 			// Extrae todos los jugadores de la base de datos
 			Query query = em.createQuery("SELECT j FROM Jugador j");
 			@SuppressWarnings("unchecked")
-			List<Jugador> jugadores = query.getResultList();
+			List<Jugador> aux = query.getResultList();
 
-			for (Jugador aux : jugadores) {
-				usuarios.add(aux.darDatos());
-			}
-
-			// Extrae todos los creadores de la base de datos
-			query = em.createQuery("SELECT c FROM Creador c");
-			@SuppressWarnings("unchecked")
-			List<Creador> creadores = query.getResultList();
-
-			for (Creador aux : creadores) {
-				usuarios.add(aux.darDatos());
-			}
+			jugadores = aux;
 
 		} catch (Exception e) {
 
 		}
 
 		em.close();
-		return usuarios;
+		return jugadores;
 	}
 
 	@Override
-	public DataUsuario buscarUsuarioEmail(String email) {
+	public List<Creador> listarCreadores() {
 		EntityManager em = emf.createEntityManager();
-		DataUsuario usuario = new DataUsuario(null, "", "", "", "", "");
-
-		Jugador aux = null;
-		Creador aux2 = null;
+		List<Creador> creadores = null;
 
 		try {
 
-			Query query = em.createQuery("SELECT j FROM Jugador j WHERE j.email = :user_email")
-					.setParameter("user_email", email);
+			// Extrae todos los creadores de la base de datos
+			Query query = em.createQuery("SELECT c FROM Creador c");
+			@SuppressWarnings("unchecked")
+			List<Creador> aux = query.getResultList();
 
-			aux = (Jugador) query.getSingleResult();
+			creadores = aux;
 
 		} catch (Exception e) {
 
 		}
 
-		if (aux != null) {
-			usuario = aux.darDatos();
-		} else {
+		em.close();
 
-			// En caso de ser Creador
-			try {
-
-				Query query = em.createQuery("SELECT c FROM Creador c WHERE c.email = :user_email")
-						.setParameter("user_email", email);
-
-				aux2 = (Creador) query.getSingleResult();
-
-			} catch (Exception e) {
-
-			}
-
-			if (aux2 != null) {
-				usuario = aux2.darDatos();
-			}
-
-		}
-
-		return usuario;
+		return creadores;
 	}
 
 	@Override
-	public DataUsuario buscarUsuarioNick(String nick) {
+	public Jugador buscarJugadorEmail(String email) {
+		Jugador jugador = null;
+
 		EntityManager em = emf.createEntityManager();
-		DataUsuario usuario = new DataUsuario(null, "", "", "", "", "");
-		
-		Jugador aux = null;
-		Creador aux2 = null;
 
 		try {
 
-			Query query = em.createQuery("SELECT j FROM Jugador j WHERE j.nickname = :user_nick")
-					.setParameter("user_nick", nick);
+			Query query = em.createQuery("SELECT j FROM Jugador j WHERE j.email = :email");
+			query.setParameter("email", email);
 
-			aux = (Jugador) query.getSingleResult();
+			jugador = (Jugador) query.getSingleResult();
 
 		} catch (Exception e) {
 
 		}
 
-		if (aux != null) {
-			usuario = aux.darDatos();
-		} else {
+		em.close();
 
-			// En caso de ser Creador
-			try {
-
-				Query query = em.createQuery("SELECT c FROM Creador c WHERE c.nickname = :user_nick")
-						.setParameter("user_nick", nick);
-
-				aux2 = (Creador) query.getSingleResult();
-
-			} catch (Exception e) {
-
-			}
-
-			if (aux2 != null) {
-				usuario = aux2.darDatos();
-			}
-
-		}
-
-		return usuario;
+		return jugador;
 	}
 
 	@Override
-	public DataUsuario buscarUsuarioId(Integer id) {
-		DataUsuario usuario = new DataUsuario(null, "", "", "", "", "");
+	public Jugador buscarJugadorNick(String nick) {
+		Jugador jugador = null;
 
-		if (id != null) {
+		EntityManager em = emf.createEntityManager();
 
-			EntityManager em = emf.createEntityManager();
+		try {
 
-			try {
+			Query query = em.createQuery("SELECT j FROM Jugador j WHERE j.nickname = :nick");
+			query.setParameter("nick", nick);
 
-				Jugador aux = em.find(Jugador.class, id);
+			jugador = (Jugador) query.getSingleResult();
 
-				if (aux != null) {
-
-					usuario = aux.darDatos();
-
-				} else {
-
-					// En caso de ser Creador
-					Creador aux2 = em.find(Creador.class, id);
-					if (aux2 != null) {
-						usuario = aux2.darDatos();
-					}
-
-				}
-
-			} catch (Exception e) {
-
-			}
-
-			em.close();
+		} catch (Exception e) {
 
 		}
 
-		return usuario;
+		em.close();
+
+		return jugador;
+	}
+
+	@Override
+	public Jugador buscarJugadorId(Integer id) {
+		Jugador jugador = null;
+
+		EntityManager em = emf.createEntityManager();
+
+		try {
+
+			jugador = em.find(Jugador.class, id);
+
+		} catch (Exception e) {
+
+		}
+
+		em.close();
+
+		return jugador;
+	}
+
+	@Override
+	public Creador buscarCreadorEmail(String email) {
+		Creador creador = null;
+
+		EntityManager em = emf.createEntityManager();
+
+		try {
+
+			Query query = em.createQuery("SELECT c FROM Creador c WHERE c.email = :email");
+			query.setParameter("email", email);
+
+			creador = (Creador) query.getSingleResult();
+
+		} catch (Exception e) {
+
+		}
+
+		em.close();
+
+		return creador;
+	}
+
+	@Override
+	public Creador buscarCreadorNick(String nick) {
+		Creador creador = null;
+
+		EntityManager em = emf.createEntityManager();
+
+		try {
+
+			Query query = em.createQuery("SELECT c FROM Creador c WHERE c.nickname = :nick");
+			query.setParameter("nick", nick);
+
+			creador = (Creador) query.getSingleResult();
+
+		} catch (Exception e) {
+
+		}
+
+		em.close();
+
+		return creador;
+	}
+
+	@Override
+	public Creador buscarCreadorId(Integer id) {
+		Creador creador = null;
+
+		EntityManager em = emf.createEntityManager();
+
+		try {
+
+			creador = em.find(Creador.class, id);
+
+		} catch (Exception e) {
+
+		}
+
+		em.close();
+
+		return creador;
 	}
 
 }
