@@ -8,6 +8,7 @@ import javax.persistence.*;
 
 import data_types.DataCategoria;
 import data_types.DataJuego;
+import data_types.DataMedia;
 
 /**
  * Entity implementation class for Entity: Juego
@@ -171,7 +172,12 @@ public class Juego implements Serializable {
 			cats.add(aux.darDatos());
 		}
 
-		return new DataJuego(this.id, this.nombre, this.descripcion, this.precio, cats, this.media.darDatos(),
+		DataMedia dataMedia = null;
+		if (this.media != null) {
+			dataMedia = this.media.darDatos();
+		}
+
+		return new DataJuego(this.id, this.nombre, this.descripcion, this.precio, cats, dataMedia,
 				this.publicacion.darDatos());
 	}
 

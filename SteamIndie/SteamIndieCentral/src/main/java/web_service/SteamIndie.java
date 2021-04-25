@@ -8,6 +8,8 @@ import java.util.List;
 import javax.jws.WebMethod;
 import javax.jws.WebService;
 
+import data_types.DataCarrito;
+import data_types.DataCategoria;
 import data_types.DataCreador;
 import data_types.DataJuego;
 import data_types.DataJugador;
@@ -48,7 +50,7 @@ public interface SteamIndie {
 	public void publicarJuego(DataJuego juego, Integer id);
 
 	@WebMethod
-	public Boolean nombreEnUso(String nombre);
+	public Boolean nombreJuegoEnUso(String nombreJuego);
 
 	@WebMethod
 	public List<DataJuego> listarJuegos();
@@ -58,5 +60,23 @@ public interface SteamIndie {
 
 	@WebMethod
 	public DataJuego buscarJuegoNombre(String nombre);
+
+	@WebMethod
+	public DataCarrito darDatosCarritoJugador(Integer idJugador);
+
+	@WebMethod
+	public void agregarJuegoAlCarritoJugador(Integer idJugador, Integer idJuego);
+
+	@WebMethod
+	public void eliminarJuegoDelCarritoJugador(Integer idJugador, Integer idJuego);
+
+	@WebMethod
+	public void cargarBilleteraJugador(Integer idJugador, Float monto);
+
+	@WebMethod
+	public Float darSaldoJugador(Integer idJuagdor);
+
+	@WebMethod
+	public List<DataCategoria> listarCategorias();
 
 }

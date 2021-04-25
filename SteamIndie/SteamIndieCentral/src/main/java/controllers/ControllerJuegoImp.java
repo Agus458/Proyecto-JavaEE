@@ -47,7 +47,7 @@ public class ControllerJuegoImp implements ControllerJuego {
 			// Continua si el creador es valido;
 			if (creador != null) {
 
-				if (!this.nombreEnUso(juego.getNombre())) {
+				if (!this.nombreJuegoEnUso(juego.getNombre())) {
 
 					try {
 						List<Categoria> categorias = new ArrayList<Categoria>();
@@ -76,11 +76,11 @@ public class ControllerJuegoImp implements ControllerJuego {
 	}
 
 	@Override
-	public Boolean nombreEnUso(String nombre) {
+	public Boolean nombreJuegoEnUso(String nombreJuego) {
 		Boolean enUso = false;
 
-		if (nombre != null) {
-			Juego aux = juegoPersistence.buscarJuegoNombre(nombre);
+		if (nombreJuego != null) {
+			Juego aux = juegoPersistence.buscarJuegoNombre(nombreJuego);
 			if (aux != null) {
 				enUso = true;
 			}
@@ -135,6 +135,18 @@ public class ControllerJuegoImp implements ControllerJuego {
 			juego = this.juegoPersistence.buscarJuegoId(idJuego);
 		}
 		return juego;
+	}
+
+	@Override
+	public List<DataCategoria> listarCategorias() {
+		List<DataCategoria> categorias = new ArrayList<DataCategoria>();
+		
+		List<Categoria> cats = categoriaPersistence.listarCategorias();
+		for(Categoria aux : cats) {
+			categorias.add(aux.darDatos());
+		}
+		
+		return categorias;
 	}
 
 }

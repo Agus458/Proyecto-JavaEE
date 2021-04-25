@@ -24,7 +24,7 @@ public class DataCarrito {
 	 * Default constructor
 	 */
 	public DataCarrito() {
-		// TODO Auto-generated constructor stub
+		
 	}
 
 	/**

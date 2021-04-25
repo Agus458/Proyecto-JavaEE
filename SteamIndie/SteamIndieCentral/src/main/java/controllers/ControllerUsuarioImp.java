@@ -213,4 +213,20 @@ public class ControllerUsuarioImp implements ControllerUsuario {
 		}
 	}
 
+	@Override
+	public Float darSaldoJugador(Integer idJuagdor) {
+		Float saldo = new Float(0);
+		
+		if(idJuagdor != null) {
+			
+			Jugador jugador = usuarioPersistence.buscarJugadorId(idJuagdor);
+			if(jugador != null) {
+				saldo = jugador.getSaldo();
+			}
+			
+		}
+		
+		return saldo;
+	}
+
 }

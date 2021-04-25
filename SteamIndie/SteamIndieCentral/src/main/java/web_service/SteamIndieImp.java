@@ -10,6 +10,8 @@ import javax.jws.WebService;
 import controllers.ControllerJuego;
 import controllers.ControllerUsuario;
 import controllers.Fabric;
+import data_types.DataCarrito;
+import data_types.DataCategoria;
 import data_types.DataCreador;
 import data_types.DataJuego;
 import data_types.DataJugador;
@@ -84,9 +86,9 @@ public class SteamIndieImp implements SteamIndie{
 	}
 
 	@Override
-	public Boolean nombreEnUso(String nombre) {
+	public Boolean nombreJuegoEnUso(String nombreJuego) {
 		ControllerJuego controller = Fabric.getControllerJuego();
-		return controller.nombreEnUso(nombre);
+		return controller.nombreJuegoEnUso(nombreJuego);
 	}
 
 	@Override
@@ -105,6 +107,42 @@ public class SteamIndieImp implements SteamIndie{
 	public DataJuego buscarJuegoNombre(String nombre) {
 		ControllerJuego controller = Fabric.getControllerJuego();
 		return controller.buscarJuegoNombre(nombre);
+	}
+
+	@Override
+	public DataCarrito darDatosCarritoJugador(Integer idJugador) {
+		ControllerUsuario controller = Fabric.getControllerUsuario();
+		return controller.darDatosCarritoJugador(idJugador);
+	}
+
+	@Override
+	public void agregarJuegoAlCarritoJugador(Integer idJugador, Integer idJuego) {
+		ControllerUsuario controller = Fabric.getControllerUsuario();
+		controller.agregarJuegoAlCarritoJugador(idJugador, idJuego);
+	}
+
+	@Override
+	public void eliminarJuegoDelCarritoJugador(Integer idJugador, Integer idJuego) {
+		ControllerUsuario controller = Fabric.getControllerUsuario();
+		controller.eliminarJuegoDelCarritoJugador(idJugador, idJuego);
+	}
+
+	@Override
+	public void cargarBilleteraJugador(Integer idJugador, Float monto) {
+		ControllerUsuario controller = Fabric.getControllerUsuario();
+		controller.cargarBilleteraJugador(idJugador, monto);
+	}
+
+	@Override
+	public Float darSaldoJugador(Integer idJuagdor) {
+		ControllerUsuario controller = Fabric.getControllerUsuario();
+		return controller.darSaldoJugador(idJuagdor);
+	}
+
+	@Override
+	public List<DataCategoria> listarCategorias() {
+		ControllerJuego controller = Fabric.getControllerJuego();
+		return controller.listarCategorias();
 	}
 
 }

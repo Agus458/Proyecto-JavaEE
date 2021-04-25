@@ -35,5 +35,7 @@ public interface ControllerUsuario {
 	public void eliminarJuegoDelCarritoJugador(Integer idJugador, Integer idJuego);
 	
 	public void cargarBilleteraJugador(Integer idJugador, Float monto);
+	
+	public Float darSaldoJugador(Integer idJuagdor);
 
 }

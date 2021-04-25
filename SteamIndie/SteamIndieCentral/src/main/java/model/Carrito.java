@@ -140,4 +140,8 @@ public class Carrito implements Serializable {
 		
 		return esta;
 	}
+	
+	public Boolean estaVacio() {
+		return this.juegos.isEmpty();
+	}
 }
