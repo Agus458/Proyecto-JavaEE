@@ -6,10 +6,12 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
+import data_types.DataCarrito;
 import data_types.DataCreador;
 import data_types.DataJugador;
 import data_types.DataUsuario;
 import model.Creador;
+import model.Juego;
 import model.Jugador;
 import persistence.UsuarioDAO;
 import persistence.UsuarioDAOImp;
@@ -23,8 +25,7 @@ public class ControllerUsuarioImp implements ControllerUsuario {
 	@EJB
 	private UsuarioDAO usuarioPersistence = new UsuarioDAOImp();
 
-	@EJB
-	private ControllerJuego controllerJuego = Fabric.getControllerJuego();
+	private ControllerJuego juegoController = Fabric.getControllerJuego();
 
 	/**
 	 * Default constructor.
@@ -147,6 +148,69 @@ public class ControllerUsuarioImp implements ControllerUsuario {
 		}
 
 		return usuario;
+	}
+
+	@Override
+	public DataCarrito darDatosCarritoJugador(Integer idJugador) {
+		DataCarrito carrito = new DataCarrito(null, null, null);
+		if (idJugador != null) {
+
+			Jugador jugador = usuarioPersistence.buscarJugadorId(idJugador);
+			if (jugador != null) {
+				DataCarrito aux = jugador.darDatosCarrito();
+				if (aux != null) {
+					carrito = aux;
+				}
+
+			}
+
+		}
+		return carrito;
+	}
+
+	@Override
+	public void agregarJuegoAlCarritoJugador(Integer idJugador, Integer idJuego) {
+		if (idJugador != null && idJuego != null) {
+			Jugador jugador = usuarioPersistence.buscarJugadorId(idJugador);
+			if (jugador != null) {
+
+				Juego juego = juegoController.darJuego(idJuego);
+
+				if (juego != null) {
+					jugador.agregarAlCarrito(juego);
+					usuarioPersistence.actualizarJugador(jugador);
+				}
+			}
+		}
+	}
+
+	@Override
+	public void cargarBilleteraJugador(Integer idJugador, Float monto) {
+		if (idJugador != null && monto != null) {
+
+			Jugador jugador = usuarioPersistence.buscarJugadorId(idJugador);
+			if (jugador != null) {
+				Float saldo = jugador.getSaldo();
+				jugador.setSaldo(saldo += monto);
+				usuarioPersistence.actualizarJugador(jugador);
+			}
+		}
+	}
+
+	@Override
+	public void eliminarJuegoDelCarritoJugador(Integer idJugador, Integer idJuego) {
+		if (idJugador != null && idJuego != null) {
+			Jugador jugador = usuarioPersistence.buscarJugadorId(idJugador);
+			if (jugador != null) {
+
+				Juego juego = juegoController.darJuego(idJuego);
+
+				if (juego != null) {
+					jugador.removerJuegoCarrito(juego);
+					usuarioPersistence.actualizarJugador(jugador);
+				}
+			}
+		}
 	}
 
 }

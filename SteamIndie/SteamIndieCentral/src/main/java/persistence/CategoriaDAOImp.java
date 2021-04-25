@@ -4,7 +4,6 @@ import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 
@@ -17,7 +16,7 @@ import model.Categoria;
 @Stateless
 public class CategoriaDAOImp implements CategoriaDAO {
 
-    private EntityManagerFactory emf = Persistence.createEntityManagerFactory("SteamIndieUnit");
+    private EntityManager em = Persistence.createEntityManagerFactory("SteamIndieUnit").createEntityManager();
 	
     // Constructor
     
@@ -36,8 +35,6 @@ public class CategoriaDAOImp implements CategoriaDAO {
 		
 		if(categoria != null) {
 			
-			EntityManager em = emf.createEntityManager();
-			
 			try {
 				
 				em.getTransaction().begin();
@@ -52,8 +49,6 @@ public class CategoriaDAOImp implements CategoriaDAO {
 				em.getTransaction().rollback();
 			}
 			
-			em.close();
-			
 		}
 		
 		return entity;
@@ -61,7 +56,6 @@ public class CategoriaDAOImp implements CategoriaDAO {
 
 	@Override
 	public List<Categoria> listarCategorias() {
-		EntityManager em = emf.createEntityManager();
 		List<Categoria> categorias = null;
 		
 		try {
@@ -76,7 +70,6 @@ public class CategoriaDAOImp implements CategoriaDAO {
 			
 		}
 		
-		em.close();
 		return categorias;
 	}
 
@@ -85,7 +78,6 @@ public class CategoriaDAOImp implements CategoriaDAO {
 		Categoria categoria = null;
 		
 		if(id != null) {
-			EntityManager em = emf.createEntityManager();
 			
 			try {
 				
@@ -95,7 +87,6 @@ public class CategoriaDAOImp implements CategoriaDAO {
 				
 			}
 			
-			em.close();
 		}
 		
 		return categoria;
@@ -106,7 +97,6 @@ public class CategoriaDAOImp implements CategoriaDAO {
 		Categoria categoria = null;
 		
 		if(nombre != null) {
-			EntityManager em = emf.createEntityManager();
 			
 			try {
 				
@@ -119,7 +109,6 @@ public class CategoriaDAOImp implements CategoriaDAO {
 				
 			}
 			
-			em.close();
 		}
 		
 		return categoria;

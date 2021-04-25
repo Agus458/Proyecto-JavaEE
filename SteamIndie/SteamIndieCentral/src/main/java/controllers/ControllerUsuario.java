@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.ejb.Local;
 
+import data_types.DataCarrito;
 import data_types.DataCreador;
 import data_types.DataJugador;
 import data_types.DataUsuario;
@@ -26,5 +27,13 @@ public interface ControllerUsuario {
 	public DataUsuario buscarUsuarioNick(String nick);
 	
 	public DataUsuario buscarUsuarioId(Integer id);
+	
+	public DataCarrito darDatosCarritoJugador(Integer idJugador);
+	
+	public void agregarJuegoAlCarritoJugador(Integer idJugador, Integer idJuego);
+	
+	public void eliminarJuegoDelCarritoJugador(Integer idJugador, Integer idJuego);
+	
+	public void cargarBilleteraJugador(Integer idJugador, Float monto);
 
 }

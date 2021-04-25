@@ -8,6 +8,7 @@
 		<class>model.Categoria</class>
 		<class>model.Media</class>
 		<class>model.Publicacion</class>
+		<class>model.Carrito</class>
 		<properties>
 			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/steamindiedb"/>
 			<property name="javax.persistence.jdbc.user" value="root"/>

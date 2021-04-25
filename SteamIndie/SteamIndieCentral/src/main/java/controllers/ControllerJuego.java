@@ -5,6 +5,7 @@ import java.util.List;
 import javax.ejb.Local;
 
 import data_types.DataJuego;
+import model.Juego;
 
 @Local
 public interface ControllerJuego {
@@ -18,5 +19,7 @@ public interface ControllerJuego {
 	public DataJuego buscarJuegoId(Integer id);
 	
 	public DataJuego buscarJuegoNombre(String nombre);
+	
+	public Juego darJuego(Integer idJuego);
 	
 }

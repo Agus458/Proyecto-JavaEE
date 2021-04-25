@@ -6,7 +6,6 @@ import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 
@@ -23,7 +22,7 @@ import model.Publicacion;
 @Stateless
 public class JuegoDAOImp implements JuegoDAO {
 
-	private EntityManagerFactory emf = Persistence.createEntityManagerFactory("SteamIndieUnit");
+	private EntityManager em = Persistence.createEntityManagerFactory("SteamIndieUnit").createEntityManager();
 
 	/**
 	 * Default constructor.
@@ -36,8 +35,6 @@ public class JuegoDAOImp implements JuegoDAO {
 	public Juego insertarJuego(DataJuego juego, List<Categoria> categorias) {
 		Juego entity = null;
 		if (juego != null) {
-
-			EntityManager em = emf.createEntityManager();
 
 			try {
 				em.getTransaction().begin();
@@ -55,15 +52,12 @@ public class JuegoDAOImp implements JuegoDAO {
 				em.getTransaction().rollback();
 			}
 
-			em.close();
-
 		}
 		return entity;
 	}
 
 	@Override
 	public List<Juego> listarJuegos() {
-		EntityManager em = emf.createEntityManager();
 		List<Juego> juegos = new ArrayList<Juego>();
 
 		try {
@@ -78,7 +72,6 @@ public class JuegoDAOImp implements JuegoDAO {
 
 		}
 
-		em.close();
 		return juegos;
 	}
 
@@ -88,8 +81,6 @@ public class JuegoDAOImp implements JuegoDAO {
 
 		if (id != null) {
 
-			EntityManager em = emf.createEntityManager();
-
 			try {
 
 				juego = em.find(Juego.class, id);
@@ -97,8 +88,6 @@ public class JuegoDAOImp implements JuegoDAO {
 			} catch (Exception e) {
 
 			}
-
-			em.close();
 
 		}
 
@@ -111,8 +100,6 @@ public class JuegoDAOImp implements JuegoDAO {
 
 		if (nombre != null) {
 
-			EntityManager em = emf.createEntityManager();
-
 			try {
 
 				Query query = em.createQuery("SELECT j FROM Juego j WHERE j.nombre = :nombre");
@@ -124,8 +111,6 @@ public class JuegoDAOImp implements JuegoDAO {
 				
 			}
 
-			em.close();
-
 		}
 
 		return juego;
@@ -136,7 +121,6 @@ public class JuegoDAOImp implements JuegoDAO {
 		Publicacion entity = null;
 
 		if (creador != null && juego != null && fechaPublicacion != null) {
-			EntityManager em = emf.createEntityManager();
 
 			try {
 				em.getTransaction().begin();
@@ -158,7 +142,6 @@ public class JuegoDAOImp implements JuegoDAO {
 				e.printStackTrace();
 			}
 
-			em.close();
 		}
 
 		return entity;

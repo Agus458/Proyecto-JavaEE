@@ -31,5 +31,7 @@ public interface UsuarioDAO {
 	public Creador buscarCreadorNick(String nick);
 
 	public Creador buscarCreadorId(Integer id);
+	
+	public void actualizarJugador(Jugador jugador);
 
 }

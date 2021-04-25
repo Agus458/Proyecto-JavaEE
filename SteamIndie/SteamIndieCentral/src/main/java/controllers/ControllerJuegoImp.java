@@ -128,4 +128,13 @@ public class ControllerJuegoImp implements ControllerJuego {
 		return juego;
 	}
 
+	@Override
+	public Juego darJuego(Integer idJuego) {
+		Juego juego = null;
+		if(idJuego != null) {
+			juego = this.juegoPersistence.buscarJuegoId(idJuego);
+		}
+		return juego;
+	}
+
 }
