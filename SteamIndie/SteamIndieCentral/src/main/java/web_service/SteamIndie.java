@@ -78,5 +78,8 @@ public interface SteamIndie {
 
 	@WebMethod
 	public List<DataCategoria> listarCategorias();
+	
+	@WebMethod
+	public void realizarCheckout(Integer idJugador);
 
 }

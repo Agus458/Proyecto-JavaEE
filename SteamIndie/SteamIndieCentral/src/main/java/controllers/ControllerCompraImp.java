@@ -3,7 +3,10 @@ package controllers;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
+import model.Carrito;
+import model.Compra;
 import model.Jugador;
+import persistence.CompraDAO;
 import persistence.UsuarioDAO;
 
 /**
@@ -14,6 +17,9 @@ public class ControllerCompraImp implements ControllerCompra {
 
 	@EJB
 	private UsuarioDAO usuarioPersistence = Fabric.getUsuarioPersistence();
+	
+	@EJB
+	private CompraDAO compraPersistence = Fabric.getCompraPersistence();
 	
     /**
      * Default constructor. 
@@ -28,8 +34,14 @@ public class ControllerCompraImp implements ControllerCompra {
 			
 			Jugador jugador = usuarioPersistence.buscarJugadorId(idJugador);
 			if(jugador != null) {
-				if(jugador.getCarrito() != null && !jugador.getCarrito().estaVacio()) {
-					System.out.println("entra");
+				Carrito carrito = jugador.getCarrito();
+				if( carrito != null && !carrito.estaVacio() && jugador.getSaldo() >= carrito.darSubTotal()) {
+					Compra compra = compraPersistence.insertarCompra(jugador, carrito.getJuegos());
+					jugador.agregarCompra(compra);
+					jugador.setCarrito(null);
+					carrito.vaciar();
+					usuarioPersistence.removerCarrito(carrito);
+					usuarioPersistence.actualizarJugador(jugador);
 				}
 			}
 		}

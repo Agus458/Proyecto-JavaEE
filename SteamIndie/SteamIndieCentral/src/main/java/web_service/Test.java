@@ -32,7 +32,7 @@ public class Test {
 //		cats.add(new DataCategoria(null,"Building"));
 //		cats.add(new DataCategoria(null,"F2P"));
 //		DataMedia media = new DataMedia(null, "https://cdn2.unrealengine.com/16br-agentjonesy-egs-s2-1200x1600-1200x1600-2531e05bb04f.jpg", null, null);
-//		controllerJuego.publicarJuego(new DataJuego(null, "Among us","bla bla bla",new Float(0),null,null,null), 2);
+//		controllerJuego.publicarJuego(new DataJuego(null, "Among us","bla bla bla",new Float(0),cats,null,null), 2);
 //		
 //		List<DataJuego> juegos = controllerJuego.listarJuegos();
 //		for(DataJuego aux : juegos) {
@@ -47,7 +47,7 @@ public class Test {
 //		}
 //		
 		ControllerCompra controllerCompra = Fabric.getControllerCompra();
-		controllerCompra.realizarCheckout(1);
+//		controllerCompra.realizarCheckout(1);
 	}
 
 }

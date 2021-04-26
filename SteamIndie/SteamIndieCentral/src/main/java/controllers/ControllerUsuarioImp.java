@@ -10,6 +10,7 @@ import data_types.DataCarrito;
 import data_types.DataCreador;
 import data_types.DataJugador;
 import data_types.DataUsuario;
+import model.Carrito;
 import model.Creador;
 import model.Juego;
 import model.Jugador;
@@ -177,8 +178,10 @@ public class ControllerUsuarioImp implements ControllerUsuario {
 				Juego juego = juegoController.darJuego(idJuego);
 
 				if (juego != null) {
-					jugador.agregarAlCarrito(juego);
-					usuarioPersistence.actualizarJugador(jugador);
+					if (!jugador.estaEnBiblioteca(juego)) {
+						jugador.agregarAlCarrito(juego);
+						usuarioPersistence.actualizarJugador(jugador);
+					}
 				}
 			}
 		}
@@ -206,7 +209,12 @@ public class ControllerUsuarioImp implements ControllerUsuario {
 				Juego juego = juegoController.darJuego(idJuego);
 
 				if (juego != null) {
-					jugador.removerJuegoCarrito(juego);
+					Carrito carrito = jugador.removerJuegoCarrito(juego);
+					if (carrito.estaVacio()) {
+						jugador.setCarrito(null);
+						carrito.setJugador(null);
+						usuarioPersistence.removerCarrito(carrito);
+					}
 					usuarioPersistence.actualizarJugador(jugador);
 				}
 			}
@@ -216,16 +224,16 @@ public class ControllerUsuarioImp implements ControllerUsuario {
 	@Override
 	public Float darSaldoJugador(Integer idJuagdor) {
 		Float saldo = new Float(0);
-		
-		if(idJuagdor != null) {
-			
+
+		if (idJuagdor != null) {
+
 			Jugador jugador = usuarioPersistence.buscarJugadorId(idJuagdor);
-			if(jugador != null) {
+			if (jugador != null) {
 				saldo = jugador.getSaldo();
 			}
-			
+
 		}
-		
+
 		return saldo;
 	}
 

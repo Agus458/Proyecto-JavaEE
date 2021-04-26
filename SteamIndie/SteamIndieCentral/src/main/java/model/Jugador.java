@@ -1,6 +1,9 @@
 package model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.*;
 
 import data_types.DataCarrito;
@@ -22,6 +25,12 @@ public class Jugador extends Usuario implements Serializable {
 
 	@OneToOne(cascade = CascadeType.PERSIST)
 	private Carrito carrito;
+	
+	@OneToMany
+	private List<Compra> compras;
+	
+	@OneToMany
+	private List<Juego> biblioteca;
 
 	// Constructors
 
@@ -45,6 +54,7 @@ public class Jugador extends Usuario implements Serializable {
 		super(nombre, apellido, email, password, nickname);
 		this.saldo = new Float(0);
 		this.carrito = null;
+		this.compras = new ArrayList<Compra>();
 	}
 
 	// Getters
@@ -104,11 +114,36 @@ public class Jugador extends Usuario implements Serializable {
 		}
 	}
 	
-	public void removerJuegoCarrito(Juego juego) {
+	public Carrito removerJuegoCarrito(Juego juego) {
 		if(this.carrito != null) {
 			if(this.carrito.estaElJuego(juego)) {
 				this.carrito.removerJuego(juego);
 			}
+			return this.carrito;
+		}
+		return null;
+	}
+	
+	public Boolean estaEnBiblioteca(Juego juego) {
+		Boolean esta = false;
+		
+		if(juego != null) {
+			for(Juego aux : biblioteca) {
+				if(aux.getId() == juego.getId()) {
+					esta = true;
+				}
+			}
+		}
+		
+		return esta;
+	}
+	
+	public void agregarCompra(Compra compra) {
+		if(compra != null) {
+			for(Detalle aux : compra.getDeatlles()) {
+				this.biblioteca.add(aux.getJuego());
+			}
+			this.compras.add(compra);
 		}
 	}
 }

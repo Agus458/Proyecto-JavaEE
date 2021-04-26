@@ -8,6 +8,7 @@ import javax.persistence.Persistence;
 import javax.persistence.Query;
 
 import data_types.*;
+import model.Carrito;
 import model.Creador;
 import model.Jugador;
 
@@ -220,6 +221,21 @@ public class UsuarioDAOImp implements UsuarioDAO {
 				em.getTransaction().rollback();
 			}
 
+		}
+	}
+
+	@Override
+	public void removerCarrito(Carrito carrito) {
+		if(carrito != null) {
+			try {
+				em.getTransaction().begin();
+				
+				em.remove(carrito);
+				
+				em.getTransaction().commit();
+			}catch (Exception e) {
+				em.getTransaction().rollback();
+			}
 		}
 	}
 

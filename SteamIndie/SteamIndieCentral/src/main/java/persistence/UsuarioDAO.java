@@ -6,6 +6,7 @@ import javax.ejb.Local;
 
 import data_types.DataCreador;
 import data_types.DataJugador;
+import model.Carrito;
 import model.Creador;
 import model.Jugador;
 
@@ -33,5 +34,7 @@ public interface UsuarioDAO {
 	public Creador buscarCreadorId(Integer id);
 	
 	public void actualizarJugador(Jugador jugador);
-
+	
+	public void removerCarrito(Carrito carrito);
+	
 }

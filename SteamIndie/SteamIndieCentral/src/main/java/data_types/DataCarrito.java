@@ -5,9 +5,13 @@ package data_types;
 
 import java.util.List;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+
 /*
  * DataType implementation for Carrito
  */
+@XmlAccessorType(XmlAccessType.FIELD)
 public class DataCarrito {
 
 	// Atributos

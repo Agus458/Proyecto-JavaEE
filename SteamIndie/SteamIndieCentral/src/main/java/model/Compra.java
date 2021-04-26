@@ -1,11 +1,14 @@
 package model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.*;
 
 import data_types.DataCompra;
+import data_types.DataDetalle;
 
 /**
  * Entity implementation class for Entity: Compra
@@ -22,12 +25,14 @@ public class Compra implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	
+
+	@ManyToOne
 	private Jugador jugador;
 	
-	private Juego juego;
+	@OneToMany(cascade = CascadeType.PERSIST)
+	private List<Detalle> detalles;
 	
-	private Float precio;
+	private Float total;
 	
 	@Temporal(TemporalType.DATE)
 	private Date fechaCompra;
@@ -44,11 +49,15 @@ public class Compra implements Serializable {
 	/*
 	 * Constructor for entity class Compra
 	 */
-	public Compra(Jugador jugador, Juego juego) {
+	public Compra(Jugador jugador, List<Juego> juegos) {
 		super();
 		this.jugador = jugador;
-		this.juego = juego;
-		this.precio = juego.getPrecio();
+		this.detalles = new ArrayList<Detalle>();
+		this.total = new Float(0);
+		for(Juego aux : juegos) {
+			detalles.add(new Detalle(aux));
+			this.total += aux.getPrecio();
+		}
 		this.fechaCompra = new Date();
 	}
 
@@ -67,17 +76,17 @@ public class Compra implements Serializable {
 	}
 
 	/**
-	 * @return the juego
+	 * @return the detalles
 	 */
-	public Juego getJuego() {
-		return juego;
+	public List<Detalle> getDeatlles() {
+		return this.detalles;
 	}
 
 	/**
 	 * @return the precio
 	 */
-	public Float getPrecio() {
-		return precio;
+	public Float getTotal() {
+		return total;
 	}
 
 	/**
@@ -95,17 +104,17 @@ public class Compra implements Serializable {
 	}
 
 	/**
-	 * @param juego the juego to set
+	 * @param detalle the detalle to set
 	 */
-	public void setJuego(Juego juego) {
-		this.juego = juego;
+	public void setDetalles(List<Detalle> detalles) {
+		this.detalles = detalles;
 	}
 
 	/**
 	 * @param precio the precio to set
 	 */
-	public void setPrecio(Float precio) {
-		this.precio = precio;
+	public void setTotal(Float total) {
+		this.total = total;
 	}
 
 	/**
@@ -121,6 +130,11 @@ public class Compra implements Serializable {
 	 * Retorna un DataType Compra with the data
 	 */
 	public DataCompra darDatos() {
-		return new DataCompra(this.id, this.jugador.getId(), this.juego.getId(), this.precio, this.fechaCompra);
+		List<DataDetalle> det = new ArrayList<DataDetalle>();
+		for(Detalle aux : this.detalles) {
+			det.add(aux.darDatos());
+		}
+		
+		return new DataCompra(this.id, this.jugador.getId(), det, this.total, this.fechaCompra);
 	}
 }

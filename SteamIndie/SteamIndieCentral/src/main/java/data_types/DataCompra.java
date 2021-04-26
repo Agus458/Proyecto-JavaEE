@@ -4,10 +4,15 @@
 package data_types;
 
 import java.util.Date;
+import java.util.List;
+
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 
 /*
  * DataType implementation for entity Compra
  */
+@XmlAccessorType(XmlAccessType.FIELD)
 public class DataCompra {
 
 	// Attributes
@@ -16,9 +21,9 @@ public class DataCompra {
 
 	private Integer jugador;
 
-	private Integer juego;
+	private List<DataDetalle> detalles;
 
-	private Float precio;
+	private Float total;
 
 	private Date fechaCompra;
 
@@ -27,12 +32,12 @@ public class DataCompra {
 	/*
 	 * Constructor for DataType Compra
 	 */
-	public DataCompra(Integer id, Integer jugador, Integer juego, Float precio, Date fechaCompra) {
+	public DataCompra(Integer id, Integer jugador, List<DataDetalle> detalles, Float total, Date fechaCompra) {
 		super();
 		this.id = id;
 		this.jugador = jugador;
-		this.juego = juego;
-		this.precio = precio;
+		this.detalles = detalles;
+		this.total = total;
 		this.fechaCompra = fechaCompra;
 	}
 	
@@ -55,15 +60,15 @@ public class DataCompra {
 	/**
 	 * @return the juego
 	 */
-	public Integer getJuego() {
-		return juego;
+	public List<DataDetalle> getDetalles() {
+		return detalles;
 	}
 
 	/**
 	 * @return the precio
 	 */
-	public Float getPrecio() {
-		return precio;
+	public Float getTotal() {
+		return total;
 	}
 
 	/**

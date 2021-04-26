@@ -1,5 +1,7 @@
 package persistence;
 
+import java.util.List;
+
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
@@ -25,21 +27,23 @@ public class CompraDAOImp implements CompraDAO {
     }
 
 	@Override
-	public void insertarComra(Jugador jugador, Juego juego) {
-		if(jugador != null && juego != null) {
-			
+	public Compra insertarCompra(Jugador jugador, List<Juego> juegos) {
+		Compra entity = null;
+		if(jugador != null && juegos != null) {
 			try {
 				em.getTransaction().begin();
 				
-				Compra entity = new Compra(jugador, juego);
+				entity = new Compra(jugador, juegos);
 				em.persist(entity);
 				
 				em.getTransaction().commit();
 			}catch (Exception e) {
 				em.getTransaction().rollback();
+				e.printStackTrace();
 			}
 			
 		}
+		return entity;
 	}
 
 	@Override

@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.jws.WebService;
 
+import controllers.ControllerCompra;
 import controllers.ControllerJuego;
 import controllers.ControllerUsuario;
 import controllers.Fabric;
@@ -143,6 +144,12 @@ public class SteamIndieImp implements SteamIndie{
 	public List<DataCategoria> listarCategorias() {
 		ControllerJuego controller = Fabric.getControllerJuego();
 		return controller.listarCategorias();
+	}
+
+	@Override
+	public void realizarCheckout(Integer idJugador) {
+		ControllerCompra controller = Fabric.getControllerCompra();
+		controller.realizarCheckout(idJugador);
 	}
 
 }
