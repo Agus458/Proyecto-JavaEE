@@ -144,6 +144,7 @@ public class Jugador extends Usuario implements Serializable {
 				this.biblioteca.add(aux.getJuego());
 			}
 			this.compras.add(compra);
+			this.saldo -= compra.getTotal();
 		}
 	}
 }
