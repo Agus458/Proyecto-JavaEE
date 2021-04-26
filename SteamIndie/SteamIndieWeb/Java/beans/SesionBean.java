@@ -20,7 +20,7 @@ import web_service.SteamIndieImpService;
 import web_service.SteamIndieImpServiceLocator;
 
 
-@ManagedBean(name="sesionBean")
+@ManagedBean
 @SessionScoped
 public class SesionBean implements Serializable {
 	
@@ -40,9 +40,11 @@ public class SesionBean implements Serializable {
 
 		try {
 			DataUsuario usuario = ws.buscarUsuarioEmail(this.email);
-			if(usuario!=null&&this.email.equals(usuario.getEmail())){
+			if(usuario!=null&&this.email.equals(usuario.getEmail())&&this.pwd.equals(usuario.getPassword())){
 				this.usuario=usuario;
 				this.activo=true;
+				HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
+				session.setAttribute("usuario", this.usuario);
 			}
 			else {
 				 FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
@@ -61,7 +63,7 @@ public class SesionBean implements Serializable {
 	public String logout() {
 		FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
 		this.activo=false;
-		return "index.xhtml?faces-redirect=true";
+		return "/index.xhtml?faces-redirect=true";
 	}
 	
 	public DataUsuario getUsuario() {

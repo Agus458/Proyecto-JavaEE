@@ -1,6 +1,10 @@
 eclipse.preferences.version=1
+encoding//Java/web_service/DataCarrito.java=UTF-8
+encoding//Java/web_service/DataCategoria.java=UTF-8
 encoding//Java/web_service/DataCreador.java=UTF-8
+encoding//Java/web_service/DataJuego.java=UTF-8
 encoding//Java/web_service/DataJugador.java=UTF-8
+encoding//Java/web_service/DataMedia.java=UTF-8
 encoding//Java/web_service/DataPublicacion.java=UTF-8
 encoding//Java/web_service/DataUsuario.java=UTF-8
 encoding//Java/web_service/SteamIndie.java=UTF-8

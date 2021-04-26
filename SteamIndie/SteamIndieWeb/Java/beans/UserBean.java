@@ -3,20 +3,16 @@ package beans;
 import java.io.Serializable;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.rmi.RemoteException;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
-import javax.servlet.http.HttpSession;
 
 import org.apache.axis.AxisFault;
 
 import web_service.DataCreador;
 import web_service.DataJugador;
-import web_service.DataUsuario;
 import web_service.SteamIndie;
 import web_service.SteamIndieImpPortBindingStub;
 import web_service.SteamIndieImpService;
@@ -47,7 +43,7 @@ public class UserBean implements Serializable {
 				if(!this.creador)
 					ws.registrarJugador(new DataJugador(null, nombre, apellido, email, pwd, nick));			
 				else {
-					ws.registrarCreador(new DataCreador(null, nombre, apellido, email, apellido, nick, null));
+					ws.registrarCreador(new DataCreador(null, nombre, apellido, email, pwd, nick, null));
 				}
 			}else {
 				FacesContext facesContext = FacesContext.getCurrentInstance();
@@ -95,8 +91,6 @@ public class UserBean implements Serializable {
 		this.apellido = apellido;
 	}
 	
-
-
 	public Boolean getCreador() {
 		return creador;
 	}

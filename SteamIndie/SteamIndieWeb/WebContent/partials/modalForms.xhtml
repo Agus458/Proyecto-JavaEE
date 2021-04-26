@@ -5,12 +5,6 @@
      xmlns:f="http://java.sun.com/jsf/core"
      xmlns:h="http://java.sun.com/jsf/html">
 <style>
-      
-
-        .container {
-            margin: 200px auto
-        }
-
         fieldset {
             display: none
         }
@@ -83,16 +77,16 @@
                         <div class="modal-content">
                             <div
                                 class="modal-header row d-flex justify-content-between mx-1 mx-sm-3 mb-0 pb-0 border-0">
-                                <div class="tabs" id="tab01">
-                                    <h6 class="text-muted">Registrarse</h6>
+                                <div class="tabs active" id="tab01">
+                                    <h6 class="font-weight-bold">Registrarse</h6>
                                 </div>
-                                <div class="tabs active" id="tab02">
-                                    <h6 class="font-weight-bold">Iniciar Sesion</h6>
+                                <div class="tabs" id="tab02">
+                                    <h6 class="text-muted">Iniciar Sesion</h6>
                                 </div>
                             </div>
                             <div class="line-modal"></div>
                             <div class="modal-body p-0">
-                              <fieldset id="tab011">
+                              <fieldset class="show" id="tab011">
 
                                     <h:form>
                                     <div class="modal-body">
@@ -144,14 +138,14 @@
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary"
                                             data-dismiss="modal">Cerrar</button>
-                                        <h:commandButton value="Iniciar Sesion" action="#{userBean.Registro}"
+                                        <h:commandButton value="Registrarse" action="#{userBean.Registro}"
 										class="btn btn-primary"></h:commandButton>
 
                                     </div>
                                     </h:form>
 
                                 </fieldset>
-                                <fieldset class="show" id="tab021">
+                                <fieldset  id="tab021">
 
                                     <h:form>
                                     <div class="modal-body">

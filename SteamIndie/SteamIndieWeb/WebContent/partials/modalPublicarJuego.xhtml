@@ -9,7 +9,7 @@
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLabel">Iniciar</h5>
+					<h5 class="modal-title" id="exampleModalLabel">Publicar Juego</h5>
 					<button type="button" class="close" data-dismiss="modal"
 						aria-label="Close">
 						<span aria-hidden="true"></span>
@@ -30,27 +30,34 @@
 						</div>
 						<div class="form-group">
 							<label for="categorias">Categorias</label>
-							<h:selectManyListbox styleClass="custom-select" value="" id="categorias">
+							<h:selectManyListbox styleClass="custom-select" value="#{gameBean.categoriasElegidas}" id="categorias">
+								<f:selectItem itemLabel="Selecione una categoria" itemDisabled="true"/>
+								<f:selectItems value="#{gameBean.categoriasDisponibles}" var="c" itemLabel="#{c.nombre}" itemValue="#{c.nombre}" />
 							</h:selectManyListbox>
 						</div>
 						<div class="form-group">
 							<label for="precio">Precio</label>
 							<h:inputText id="precio" class="form-control"
 								value="#{gameBean.precio}" converterMessage="Please enter digits only." ></h:inputText>
+						</div>				
+						<div class="form-group">
+							<label for="Logo">Logo</label>
+							<h:inputText id="Logo" class="form-control"
+								value="#{gameBean.logo}"></h:inputText>
 						</div>
+						
 						<div class="form-group">
 							<label for="video">Video</label>
 							<h:inputText id="video" class="form-control"
 								value="#{gameBean.video}"></h:inputText>
-						</div>
-						
+						</div>	
 
 
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-secondary"
 							data-dismiss="modal">Cerrar</button>
-						<h:commandButton value="Publicar Juego" action="#"
+						<h:commandButton value="Publicar Juego" action="#{gameBean.publicarJuego}"
 							class="btn btn-primary"></h:commandButton>
 
 					</div>
@@ -58,4 +65,10 @@
 			</div>
 		</div>
 	</div>
+	
+	<script>
+	$(document).ready(function(){
+	 	console.log("oisjdgoij");
+	});
+	</script>
 </ui:composition>

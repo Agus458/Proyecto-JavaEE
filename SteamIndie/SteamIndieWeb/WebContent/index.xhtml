@@ -17,80 +17,114 @@
 
 <h:body class="bg-dark">
 
-    <div class="wrapper">
 		<!-- Sidebar  -->
-		<ui:include src="partials/sidebar.xhtml"> </ui:include>
+		
 
         <!-- Page Content  -->
-        <div id="content">
+        
 
             <ui:include src="/partials/nav.xhtml" />
             
-            <div class="container">
-                <div class="row">
-                    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-                        <ol class="carousel-indicators">
-                            <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-                            <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-                            <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-                        </ol>
-                        <div class="carousel-inner">
-                            <div class="carousel-item active">
-                            	<h:graphicImage value="https://www.gamerfocus.co/wp-content/uploads/2020/08/dead_by_daylight_juego_cruzado.jpg" 
+            <div class="container-fluid mt-2">
+    
+    <div class="row">
+        <div class="col col-md col-sm">
+            <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                <ol class="carousel-indicators">
+                    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                    <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                    <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                </ol>
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <div class="row">
+                            <div class="col-11 col-md-9 col-sm">
+                                <h:graphicImage value="https://www.gamerfocus.co/wp-content/uploads/2020/08/dead_by_daylight_juego_cruzado.jpg" 
                                     styleClass="d-block w-100" />
-                            </div>
-                            <div class="carousel-item">
-								<h:graphicImage value="https://areajugones.sport.es/wp-content/uploads/2021/02/stardew-valley.jpg"
-                                    class="d-block w-100" />
-                            </div>
-                            <div class="carousel-item">
-								<h:graphicImage value="https://elintransigente.com/wp-content/uploads/2021/03/Terraria.jpg"
-                                    class="d-block w-100" />
-                            </div>
-                        </div>
-                        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button"
-                            data-slide="prev">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span class="sr-only">Previous</span>
-                        </a>
-                        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button"
-                            data-slide="next">
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="sr-only">Next</span>
-                        </a>
-                    </div>
-                </div>
 
-                <div class="line"></div>
-                <div class="row justify-content-center">
-                    <div class="card-group">
-                        <div class="card mr-5">
-							<h:graphicImage value="https://www.androidfreeware.net/img2/among-us.jpg" class="card-img-top" />
-                            <div class="card-body">
-                                <h5 class="card-title">Among Us</h5>                           
                             </div>
-                        </div>
-                        <div class="card ml-5 mr-5">
-                            <h:graphicImage value="https://files.gamebanana.com/img/ico/sprays/50f021fa7ba55.jpg" class="card-img-top"  />
-                            <div class="card-body">
-                                <h5 class="card-title">GTA V</h5>
-                               
-                            </div>
-                        </div>
-                        <div class="card ml-5">
-							<h:graphicImage value="https://storage.gra.cloud.ovh.net/v1/AUTH_296c7803aa594af69d39b970927c8fb9/media/game_avatars/DF/DF1K22vDMkbNfeom.png" class="card-img-top" />
-                            <div class="card-body">
-                                <h5 class="card-title">Left 4 Dead</h5>
-                                
+                            <div class="col">
+                                <div class="detail">
+                                    <h2>Dead By Daylight </h2>
+                                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo eveniet veniam
+                                        tempora fuga
+                                        tenetur placeat
+                                        sapiente architecto illum soluta consequuntur, aspernatur quidem at sequi ipsa!
+                                    </p>
+                                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur, perferendis
+                                        eius.
+                                        Dignissimos,
+                                        labore suscipit. Unde.
+                                    </p>
+                                    <p class="new-price">Precio: <span>$249.00 </span></p>
+                                </div>
                             </div>
                         </div>
                     </div>
+					<ui:repeat var="juego" value="#{indexBean.displayJuegos}">
+	                    <div class="carousel-item">
+	                        <div class="row">
+	                            <div class="col-11 col-md-9 col-sm">
+	                            	<h:form>
+		                            	<h:outputLink value="game-detail.xhtml">
+		                            		<f:param name="id" value="#{juego.id}"></f:param>
+			                                <h:graphicImage value="#{juego.media.logo}"
+			                                    class="d-block w-100" />
+		                                </h:outputLink>
+	                                </h:form>
+	                            </div>
+	                            <div class="col">
+	                                <div class="detail">
+	                                    <h2>#{juego.nombre}</h2>
+	                                    <p>#{juego.descripcion}</p>
+	                                    <p class="new-price">Precio: <span>$#{juego.precio}</span></p>
+	                                </div>
+	
+	                            </div>
+	                        </div>
+	                    </div>
+					</ui:repeat>
+                    
                 </div>
+                <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
             </div>
         </div>
-    </div>
-<ui:include src="/partials/footer.xhtml" />    
+        </div>
+        <div class="row mt-5">
+            <div class="col">
+                <div class="img-select">
+                    <div class="img-item">
+                      <a><h:graphicImage value="https://www.comunidadxbox.com/wp-content/uploads/2020/08/fouaoczfiru.jpg" alt=""></h:graphicImage></a>
+                    </div>
+                    <div class="img-item">
+                      <a >
+                        <h:graphicImage value="https://i.blogs.es/dfbccc/trucosgtavps4/1366_2000.jpg" alt=""></h:graphicImage>
+                      </a>
+                    </div>
+                    <div class="img-item">
+                      <a >
+                        <h:graphicImage value="https://as.com/meristation/imagenes/2020/05/14/noticias/1589454136_132592_1590065418_noticia_normal.jpg" alt=""></h:graphicImage>
+                      </a>
+                    </div>
+                    <div class="img-item">
+                      <a>
+                        <h:graphicImage value="https://i.blogs.es/6a071d/gtav/1366_2000.jpg" alt=""></h:graphicImage>
+                      </a>
+                    </div>
+                    
+           		 </div>
+        	</div>
 
+<ui:include src="/partials/footer.xhtml" />    
+</div>
+</div>
 </h:body>
 
 </html>

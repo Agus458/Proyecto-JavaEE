@@ -1,0 +1,131 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+<h:head>
+    <meta charset="utf-8"></meta>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"></meta>
+
+    <title>Steam Indie</title>
+    <ui:include src="/partials/head.xhtml"/>
+    
+    
+</h:head>
+
+<h:body class="bg-dark">
+
+
+            <ui:include src="/partials/nav.xhtml" />
+            
+                <div class="container-fluid mt-3">
+
+					<c:set var="j" value="#{gameBean.dataJuego}" scope="request" />
+				    <div class="row">
+				      <div class="col col-md-9 col-sm">
+				        <div class="img-display">
+				          <div class="img-showcase">
+				          	<h:graphicImage value="#{j.media.logo}" />
+				            <img src="https://www.comunidadxbox.com/wp-content/uploads/2020/08/fouaoczfiru.jpg" alt=""></img>
+				            <img src="https://i.blogs.es/dfbccc/trucosgtavps4/1366_2000.jpg" alt=""></img>
+				            <img src="https://as.com/meristation/imagenes/2020/05/14/noticias/1589454136_132592_1590065418_noticia_normal.jpg" alt=""></img>
+				            <img src="https://i.blogs.es/6a071d/gtav/1366_2000.jpg" alt=""></img>
+				          </div>
+				          
+				        </div>
+				
+				        <div class="img-select">
+				          <div class="img-item">
+				            <a href="#" data-id="1">
+				          		<h:graphicImage value="#{j.media.logo}" />
+				            </a>
+				          </div>
+				          <div class="img-item">
+				            <a href="#" data-id="2">
+				              <img src="https://i.blogs.es/dfbccc/trucosgtavps4/1366_2000.jpg" alt=""></img>
+				            </a>
+				          </div>
+				          <div class="img-item">
+				            <a href="#" data-id="3">
+				              <img src="https://as.com/meristation/imagenes/2020/05/14/noticias/1589454136_132592_1590065418_noticia_normal.jpg" alt=""></img>
+				            </a>
+				          </div>
+				          <div class="img-item">
+				            <a href="#" data-id="4">
+				              <img src="https://i.blogs.es/6a071d/gtav/1366_2000.jpg" alt=""></img>
+				            </a>
+				          </div>
+				          
+				          
+				          
+				        </div>
+				      </div>
+				    
+				
+				
+				
+				    
+				      <div class="col">
+				        <div class="product-content">
+				          <h2 class="product-title">#{j.nombre}</h2>
+				          <a href="#" class="product-link">||Creador||</a>
+				
+				
+				          <div class="product-price">
+				            <p class="new-price">Precio: <span>$#{j.precio} </span></p>
+				          </div>
+				
+				          <div class="product-detail">
+				            <h2>Descripción: </h2>
+				            <p>#{j.descripcion}</p>
+				           
+				
+				          </div>
+				
+				          <div class="purchase-info">
+							<h:form>
+								<h:commandButton actionListener="#{carritoBean.addCarrito()}" value="Agregar al carrito" styleClass="btn btn-primary" >
+					            	<f:ajax execute="@form" render="@none" />
+					            	<f:param name="id" value="#{gameBean.dataJuego.id}"></f:param>
+					            </h:commandButton>
+					            <!--<button type="button" class="btn">
+					              Añadir al carrito <i class="fas fa-shopping-cart"></i>
+					            </button><!-->
+							</h:form>
+				          </div>
+				        </div>
+				      </div>
+				    </div>
+				
+				  </div>
+				
+				  <script type="text/javascript">
+				    const imgs = document.querySelectorAll('.img-select a');
+				    const imgBtns = [...imgs];
+				    let imgId = 1;
+				
+				    imgBtns.forEach((imgItem) => {
+				      imgItem.addEventListener('click', (event) => {
+				        event.preventDefault();
+				        imgId = imgItem.dataset.id;
+				        slideImage();
+				      });
+				    });
+				
+				    function slideImage() {
+				      const displayWidth = document.querySelector('.img-showcase img:first-child').clientWidth;
+				
+				      document.querySelector('.img-showcase').style.transform = `translateX(${- (imgId - 1) * displayWidth}px)`;
+				    }
+				
+				    window.addEventListener('resize', slideImage);
+				  </script>
+
+<ui:include src="/partials/footer.xhtml" />    
+
+</h:body>
+
+</html>

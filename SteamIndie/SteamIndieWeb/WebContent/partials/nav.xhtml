@@ -7,88 +7,98 @@
 
 	<!-- Navbar -->
 	<h:panelGroup rendered='#{sesionBean.activo!=true}'>
-		<nav class="navbar navbar-expand-lg navbar-light bg-secondary">
-                <div class="container-fluid">
+		<nav class="navbar sticky-top navbar-expand-md navbar-dark bg-dark">
+			<div
+				class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
+				<ul class="navbar-nav mr-auto">
+					<li class="nav-item active"><a class="nav-link"
+						href="/SteamIndieWeb/index.xhtml">Home</a></li>
+					<li class="nav-item"><a class="nav-link" href="#">Tienda</a></li>
 
-                    <button type="button" id="sidebarCollapse" class="btn btn-dark">
-                        <i class="fas fa-align-left"></i>
-                    </button>
-                    <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse"
-                        data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                        <i class="fas fa-align-justify"></i>
-                    </button>
+					<li class="nav-item mr-2"><a class="nav-link" href="#">Soporte</a>
+					</li>
+					<form class="form-inline">
+						<input class="form-control mr-sm-2" type="search"
+							placeholder="Search" aria-label="Search"></input>
+					</form>
+					<button class="btn btn-outline-info my-2 my-sm-0" type="submit">Search</button>
+				</ul>
 
-                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul class="nav navbar-nav ml-auto">
-                            <li class="nav-item">
-                                <a class="navbar-brand" data-toggle="modal" data-target="#myModal">
-                                	<i class="fas fa-user-circle d-inline-block align-center" style="height=30px; width=30px;"></i>                           
-                                   	Usuario
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </nav>
-            <ui:include src="/partials/modalForms.xhtml" />
+			</div>
+			<div class="mx-auto order-0 d-flex">
+				<div class="logo">
+					<img src="https://i.ibb.co/nCnQ4VP/Steam-Logo.png" alt=""></img>
+				</div>
+				<a class="navbar-brand mx-auto" href="/SteamIndieWeb/index.xhtml">SteamIndie</a>
+				<button class="navbar-toggler" type="button" data-toggle="collapse"
+					data-target=".dual-collapse2">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+			</div>
+			<div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+				<ul class="navbar-nav ml-auto">
+					<li class="nav-item"><a class="nav-link" data-toggle="modal"
+						data-target="#myModal"><i class="fas fa-user mr-2"></i>Iniciar
+							Sesión</a></li>
+
+				</ul>
+			</div>
+		</nav>
+		<ui:include src="/partials/modalForms.xhtml" />
 	</h:panelGroup>
+
 	<h:panelGroup rendered='#{sesionBean.activo}'>
-		<nav class="navbar navbar-expand-lg navbar-light bg-secondary">
-                <div class="container-fluid">
+		<nav class="navbar sticky-top navbar-expand-md navbar-dark bg-dark">
+			<div
+				class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
+				<ul class="navbar-nav mr-auto">
+					<li class="nav-item active"><a class="nav-link"
+						href="/SteamIndieWeb/index.xhtml">Home</a></li>
+					<li class="nav-item"><a class="nav-link" href="#">Tienda</a></li>
+					<li class="nav-item"><a class="nav-link"
+						href="/SteamIndieWeb/views/billetera.xhtml">Mi saldo</a></li>
+					<li class="nav-item"><a class="nav-link"
+						href="/SteamIndieWeb/views/cart.xhtml">Carrito</a></li>
+					<h:panelGroup rendered="#{sesionBean.creador!=null}">
+						<li class="nav-item mr-2"><a class="nav-link"
+							data-toggle="modal" data-target="#publicarJuegoModal">Publicar
+								Juego</a></li>
+						<ui:include src="/partials/modalPublicarJuego.xhtml"></ui:include>
+					</h:panelGroup>
 
-                    <button type="button" id="sidebarCollapse" class="btn btn-dark">
-                        <i class="fas fa-align-left"></i>
-                    </button>
-                    <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse"
-                        data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                        <i class="fas fa-align-justify"></i>
-                    </button>
 
-                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul class="nav navbar-nav ml-auto">
-                          	<li class="nav-item">
-                                <a class="navbar-brand" href="/SteamIndieWeb/views/billetera.xhtml">	
-                                	<i class="fas fa-money-bill d-inline-block align-center" style="height=30px; width=30px;" />                               
-									Mi saldo
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="navbar-brand" href="/SteamIndieWeb/views/cart.xhtml">
-                                	<i class="fas fa-shopping-cart d-inline-block align-center" style="height=30px; width=30px;" />                               
-									Carrito
-                                </a>
-                            </li>
-                            <h:panelGroup rendered="#{sesionBean.creador!=null}">
-                            <li class="nav-item">                   	
-                            	<a class="navbar-brand" data-toggle="modal" data-target="#publicarJuegoModal">
-                                	<i class="fas fa-upload d-inline-block align-center" style="height=30px; width=30px;" />                               
-									Carrito
-                                </a>
-                            </li>
-                            <ui:include src="/partials/modalPublicarJuego.xhtml"></ui:include>
-                            </h:panelGroup>
-                            <li class="nav-item">
-                                <a class="navbar-brand">
-                                	<i class="fas fa-user-circle d-inline-block align-center" style="height=30px; width=30px;"></i>                           
-                                    #{sesionBean.usuario.nickname}
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                       			<h:form>
-                                 <h:commandLink styleClass="navbar-brand" action="#{sesionBean.logout()}" >
-									<i class="fas fa-sign-out-alt d-inline-block align-center" style="height=30px; width=30px;"></i>                           
-                                	LogOut
-                                  </h:commandLink>
-								</h:form>
-                            </li>
-                        </ul>
-                    </div>
-                    
-                    
-                </div>
-            </nav>
+					<form class="form-inline">
+						<input class="form-control mr-sm-2" type="search"
+							placeholder="Search" aria-label="Search"></input>
+					</form>
+					<button class="btn btn-outline-info my-2 my-sm-0" type="submit">Search</button>
+				</ul>
+
+			</div>
+			<div class="mx-auto order-0 d-flex">
+				<div class="logo">
+					<img src="https://i.ibb.co/nCnQ4VP/Steam-Logo.png" alt=""></img>
+				</div>
+				<a class="navbar-brand mx-auto" href="/SteamIndieWeb/index.xhtml">SteamIndie</a>
+				<button class="navbar-toggler" type="button" data-toggle="collapse"
+					data-target=".dual-collapse2">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+			</div>
+			<div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+				<ul class="navbar-nav ml-auto">
+					<li class="nav-item"><a class="nav-link" href="#"><i
+							class="fas fa-user mr-2"></i>#{sesionBean.usuario.nickname}</a></li>
+					<li class="nav-item"><h:form>
+							<h:commandLink styleClass="nav-link"
+								action="#{sesionBean.logout()}">
+                             Cerrar Sesión   <i class="fas fa-sign-out-alt"></i>
+                        </h:commandLink>
+						</h:form></li>
+				</ul>
+			</div>
+		</nav>
+
 	</h:panelGroup>
 	<!-- Modal Login-->
 	<!-- Registro Modal -->
