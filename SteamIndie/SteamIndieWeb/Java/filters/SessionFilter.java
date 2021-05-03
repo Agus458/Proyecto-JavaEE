@@ -12,8 +12,7 @@ import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import beans.SesionBean;
+import javax.servlet.http.HttpSession;
 
 /**
  * Servlet Filter implementation class SessionFilter
@@ -21,9 +20,6 @@ import beans.SesionBean;
 @WebFilter("/SessionFilter")
 public class SessionFilter implements Filter {
 
-	
-	@ManagedProperty(value="#{sesionBean}")
-		private SesionBean session; 
 
 	
     /**
@@ -46,8 +42,8 @@ public class SessionFilter implements Filter {
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 		HttpServletRequest req = (HttpServletRequest) request;
         HttpServletResponse res = (HttpServletResponse) response;
-        
-        if (session!=null&&session.isActivo()) {     
+        HttpSession session = req.getSession(false);
+        if (session!=null&&session.getAttribute("usuario")!=null) {     
             chain.doFilter(request, response);
         }
        
