@@ -29,13 +29,14 @@
 								<div class="col-lg-4 mt-5">
 									<div class="card-body">
 										<label>Agregar fondos a billetera virtual</label>
-											<h:form styleClass="form-inline">	
+											<h:form id="form" styleClass="form-inline">	
 												<div class="form-group">
-													<h:inputText value="#{billetera.carga}" styleClass="form-control" />
+													<h:inputText id="cant" value="#{billetera.carga}" styleClass="form-control" />
 												</div>
-												<div class="form-group">
-													<h:commandButton styleClass="btn bg-white" action="#{billetera.agregarSaldo()}" value="Agregar Saldo" />
+												<div id="paypal-payment-button" class="form-group" >
 												</div>
+												<h:commandButton style="display: none;" id="button" action="#{billetera.agregarSaldo()}">
+												</h:commandButton>
 											</h:form>
 									</div>
 								</div>
@@ -58,6 +59,34 @@
 
 	<ui:include src="../partials/footer.xhtml" />    
 
+	<script src="https://www.paypal.com/sdk/js?client-id=ATqJoT8uledW83BN2RvdA4o9tptMnGw4EUVlV1na6YHhKgqXEHcJXE8t0EZLGsDr4mybfMJ5nXxL10vQ"></script>
+    <script>
+    paypal.Buttons({
+        style : {
+            color: 'blue',
+            shape: 'pill'
+        },
+        createOrder: function (data, actions) {
+        	var input = window.document.getElementById("form:cant");
+            return actions.order.create({
+                purchase_units : [{
+                    amount: {
+                        value: input.value
+                    }
+                }]
+            });
+        },
+        onApprove: function (data, actions) {
+            return actions.order.capture().then(function (details) {
+                console.log(details)
+                window.document.getElementById("form:button").click();
+            })
+        },
+        onCancel: function (data) {
+            window.location.replace("http://localhost:81/paypal/Oncancel.php")
+        }
+    }).render('#paypal-payment-button');
+    </script>
 </h:body>
 
 </html>

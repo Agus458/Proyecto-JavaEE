@@ -11,7 +11,6 @@ import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.axis.AxisFault;
 
 import web_service.DataCarrito;
 import web_service.SteamIndie;
