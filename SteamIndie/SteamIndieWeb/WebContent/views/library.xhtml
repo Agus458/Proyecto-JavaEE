@@ -1,0 +1,71 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+<h:head>
+    <meta charset="utf-8"></meta>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"></meta>
+    <title>Steam Indie</title>
+    <ui:include src="/partials/head.xhtml"/> 
+</h:head>
+<h:body class="bg-dark">
+    <ui:include src="/partials/nav.xhtml" />
+    <h:form>
+    <div class="container-fluid mt-2">
+    	<div class="row">
+			<div class="col">
+				  <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+				  	<i class="fas fa-bars"></i>
+				  </button>
+				<div class="collapse" id="collapseExample">
+					
+					  <ul class="list-unstyled">
+						  <ui:repeat value="#{indexBean.displayJuegos}" var="juego">
+								  <li class="media border border-secondary">
+								    <img class="align-self-center mr-3 ml-3" src="#{juego.media.logo}" alt="Logo" style="height: 52px; width: 52px;"></img>
+								    <div class="media-body">
+								      <h5 class="mt-3 mb-1 text-light">#{juego.nombre}</h5>
+								      
+							            <p>Precio: #{juego.precio}</p>
+								    </div>
+								    <h:commandButton value="Mostrar juego" styleClass="align-self-center btn btn-primary">
+									<f:ajax listener="#{libraryBean.viewJuego(juego)}"
+								                execute="@form"
+								                render="@form"/>
+									</h:commandButton>
+								  </li>
+							
+						</ui:repeat>
+						</ul>
+				</div>
+			</div>
+				<div class="col-9">
+					<h:panelGroup id="juego" layout="block" rendered="#{libraryBean.juego!=null}">
+					<c:set var="j" value="#{libraryBean.juego}" scope="request" />
+					<div class="col">
+						<h:graphicImage value="#{j.media.logo}" styleClass="img-fluid" />
+					</div>	    
+					<div class="col">
+				        <div class="product-content">
+				          <h2 class="product-title">#{j.nombre}</h2>							
+				        <div class="product-detail">
+				            <h2>Descripción: </h2>
+				            <p>#{j.descripcion}</p>
+						</div>
+			        </div>
+			      </div>
+			      </h:panelGroup>     
+			</div>
+		</div>
+	</div>
+	</h:form>
+	
+	<ui:include src="/partials/footer.xhtml" />    
+
+</h:body>
+
+</html>

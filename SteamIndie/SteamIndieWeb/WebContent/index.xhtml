@@ -17,15 +17,9 @@
 
 <h:body class="bg-dark">
 
-		<!-- Sidebar  -->
-		
-
-        <!-- Page Content  -->
-        
-
-            <ui:include src="/partials/nav.xhtml" />
+	<ui:include src="/partials/nav.xhtml" />
             
-            <div class="container-fluid mt-2">
+    <div class="container-fluid mt-2">
     
     <div class="row">
         <div class="col col-md col-sm">
@@ -38,30 +32,26 @@
                 <div class="carousel-inner">
                     <div class="carousel-item active">
                         <div class="row">
-                            <div class="col-11 col-md-9 col-sm">
-                                <h:graphicImage value="https://www.gamerfocus.co/wp-content/uploads/2020/08/dead_by_daylight_juego_cruzado.jpg" 
-                                    styleClass="d-block w-100" />
-
-                            </div>
-                            <div class="col">
-                                <div class="detail">
-                                    <h2>Dead By Daylight </h2>
-                                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo eveniet veniam
-                                        tempora fuga
-                                        tenetur placeat
-                                        sapiente architecto illum soluta consequuntur, aspernatur quidem at sequi ipsa!
-                                    </p>
-                                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur, perferendis
-                                        eius.
-                                        Dignissimos,
-                                        labore suscipit. Unde.
-                                    </p>
-                                    <p class="new-price">Precio: <span>$249.00 </span></p>
-                                </div>
-                            </div>
+                           <div class="col-11 col-md-9 col-sm">
+	                            	<h:form>
+		                            	<h:outputLink value="game-detail.xhtml">
+		                            		<f:param name="id" value="#{indexBean.activo.id}"></f:param>
+			                                <h:graphicImage value="#{indexBean.activo.media.logo}"
+			                                    class="d-block w-100" />
+		                                </h:outputLink>
+	                                </h:form>
+	                            </div>
+	                            <div class="col">
+	                                <div class="detail">
+	                                    <h2>#{indexBean.activo.nombre}</h2>
+	                                    <p>#{indexBean.activo.descripcion}</p>
+	                                    <p class="new-price">Precio: <span>$#{indexBean.activo.precio}</span></p>
+	                                </div>
+	
+	                            </div>
                         </div>
                     </div>
-					<ui:repeat var="juego" value="#{indexBean.displayJuegos}">
+					<ui:repeat var="juego" value="#{indexBean.carrouselJuegos}">
 	                    <div class="carousel-item">
 	                        <div class="row">
 	                            <div class="col-11 col-md-9 col-sm">
@@ -100,24 +90,15 @@
         <div class="row mt-5">
             <div class="col">
                 <div class="img-select">
+                	<ui:repeat var="juego" value="#{indexBean.restoJuegos}">
                     <div class="img-item">
-                      <a><h:graphicImage value="https://www.comunidadxbox.com/wp-content/uploads/2020/08/fouaoczfiru.jpg" alt=""></h:graphicImage></a>
+                    	<h:outputLink value="game-detail.xhtml">
+	                   		<f:param name="id" value="#{juego.id}"></f:param>
+	                        <h:graphicImage value="#{juego.media.logo}"
+	                            />
+                        </h:outputLink>
                     </div>
-                    <div class="img-item">
-                      <a >
-                        <h:graphicImage value="https://i.blogs.es/dfbccc/trucosgtavps4/1366_2000.jpg" alt=""></h:graphicImage>
-                      </a>
-                    </div>
-                    <div class="img-item">
-                      <a >
-                        <h:graphicImage value="https://as.com/meristation/imagenes/2020/05/14/noticias/1589454136_132592_1590065418_noticia_normal.jpg" alt=""></h:graphicImage>
-                      </a>
-                    </div>
-                    <div class="img-item">
-                      <a>
-                        <h:graphicImage value="https://i.blogs.es/6a071d/gtav/1366_2000.jpg" alt=""></h:graphicImage>
-                      </a>
-                    </div>
+                    </ui:repeat>
                     
            		 </div>
         	</div>

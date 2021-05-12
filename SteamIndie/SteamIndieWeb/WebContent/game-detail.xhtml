@@ -28,36 +28,22 @@
 				      <div class="col col-md-9 col-sm">
 				        <div class="img-display">
 				          <div class="img-showcase">
-				          	<h:graphicImage value="#{j.media.logo}" />
-				            <img src="https://www.comunidadxbox.com/wp-content/uploads/2020/08/fouaoczfiru.jpg" alt=""></img>
-				            <img src="https://i.blogs.es/dfbccc/trucosgtavps4/1366_2000.jpg" alt=""></img>
-				            <img src="https://as.com/meristation/imagenes/2020/05/14/noticias/1589454136_132592_1590065418_noticia_normal.jpg" alt=""></img>
-				            <img src="https://i.blogs.es/6a071d/gtav/1366_2000.jpg" alt=""></img>
+				          	<ui:repeat value="#{j.media.imagenes}" var="imagen">
+				          		<h:graphicImage value="#{imagen}" />
+				            </ui:repeat>
 				          </div>
 				          
 				        </div>
-				
+						
+						
 				        <div class="img-select">
-				          <div class="img-item">
-				            <a href="#" data-id="1">
-				          		<h:graphicImage value="#{j.media.logo}" />
-				            </a>
-				          </div>
-				          <div class="img-item">
-				            <a href="#" data-id="2">
-				              <img src="https://i.blogs.es/dfbccc/trucosgtavps4/1366_2000.jpg" alt=""></img>
-				            </a>
-				          </div>
-				          <div class="img-item">
-				            <a href="#" data-id="3">
-				              <img src="https://as.com/meristation/imagenes/2020/05/14/noticias/1589454136_132592_1590065418_noticia_normal.jpg" alt=""></img>
-				            </a>
-				          </div>
-				          <div class="img-item">
-				            <a href="#" data-id="4">
-				              <img src="https://i.blogs.es/6a071d/gtav/1366_2000.jpg" alt=""></img>
-				            </a>
-				          </div>
+				        	<ui:repeat value="#{j.media.imagenes}" var="imagen">
+					          <div class="img-item">
+					            <a href="#" data-id="1">
+					          		<h:graphicImage value="#{imagen}" />
+					            </a>
+					          </div>
+				          </ui:repeat>
 				          
 				          
 				          
@@ -84,24 +70,72 @@
 				           
 				
 				          </div>
-				
-				          <div class="purchase-info">
-							<h:form>
-								<h:commandButton actionListener="#{carritoBean.addCarrito()}" value="Agregar al carrito" styleClass="btn btn-primary" >
-					            	<f:ajax execute="@form" render="@none" />
-					            	<f:param name="id" value="#{gameBean.dataJuego.id}"></f:param>
-					            </h:commandButton>
-					            <!--<button type="button" class="btn">
-					              Añadir al carrito <i class="fas fa-shopping-cart"></i>
-					            </button><!-->
-							</h:form>
-				          </div>
+							<h:panelGroup rendered="#{sesionBean.creador==null}">
+					          <div class="purchase-info">
+								<h:form>
+									<h:commandButton actionListener="#{carritoBean.addCarrito()}" value="Agregar al carrito" styleClass="btn btn-primary" >
+						            	<f:ajax execute="@form" render="@none" />
+						            	<f:param name="id" value="#{gameBean.dataJuego.id}"></f:param>
+						            </h:commandButton>
+						            <!--<button type="button" class="btn">
+						              Añadir al carrito <i class="fas fa-shopping-cart"></i>
+						            </button><!-->
+								</h:form>
+								
+					          </div>
+				          </h:panelGroup>
 				        </div>
 				      </div>
 				    </div>
 				
 				  </div>
+				  
+				  <div class="container">
+					<div class="row">
+					<!-- Contenedor Principal -->
+				    <div class="comments-container">
 				
+						<ul id="comments-list" class="comments-list">
+							<li>
+								<div class="comment-main-level">
+									<!-- Avatar -->
+									<div class="comment-avatar"><img src="http://i9.photobucket.com/albums/a88/creaticode/avatar_1_zps8e1c80cd.jpg" alt=""></img></div>
+									<!-- Contenedor del Comentario -->
+									<div class="comment-box">
+										<div class="comment-head">
+											<h6 class="comment-name"><a href="">Agustin Ortiz</a></h6>
+											<i class="fa fa-reply"></i>
+										</div>
+										<div class="comment-content">
+											Lorem ipsum dolor sit amet, consectetur adipisicing elit. Velit omnis animi et iure laudantium vitae, praesentium optio, sapiente distinctio illo?
+										</div>
+									</div>
+								</div>
+								<!-- Respuestas de los comentarios -->
+								<ul class="comments-list reply-list">
+									<li>
+										<!-- Avatar -->
+										<div class="comment-avatar"><img src="http://i9.photobucket.com/albums/a88/creaticode/avatar_2_zps7de12f8b.jpg" alt=""></img></div>
+										<!-- Contenedor del Comentario -->
+										<div class="comment-box">
+											<div class="comment-head">
+												<h6 class="comment-name"><a href="http://creaticode.com/blog">Lorena Rojero</a></h6>
+												<i class="fa fa-reply"></i>
+											</div>
+											<div class="comment-content">
+												Lorem ipsum dolor sit amet, consectetur adipisicing elit. Velit omnis animi et iure laudantium vitae, praesentium optio, sapiente distinctio illo?
+											</div>
+										</div>
+									</li>
+				
+									
+								</ul>
+							</li>
+						</ul>
+					</div>
+					</div>
+				</div>
+	
 				  <script type="text/javascript">
 				    const imgs = document.querySelectorAll('.img-select a');
 				    const imgBtns = [...imgs];

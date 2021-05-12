@@ -1,0 +1,54 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+<h:head>
+    <meta charset="utf-8"></meta>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"></meta>
+
+    <title>Steam Indie</title>
+    <ui:include src="/partials/head.xhtml"/>
+    
+    
+</h:head>
+
+<h:body class="bg-dark">
+    <ui:include src="/partials/nav.xhtml" />
+    
+    <div class="container mt-2 border-right border-left">
+    	<div class="row">
+    		<div class="col">
+		    	<h1>Titulo</h1>
+		    	<p>
+			    	Lorem ipsum dolor, sit amet consectetur adipisicing elit. Doloribus nobis nam animi similique numquam reprehenderit. Recusandae, quasi rem cum, minus deleniti amet cupiditate numquam error, accusantium delectus optio saepe explicabo!
+					Lorem ipsum dolor, sit amet consectetur adipisicing elit. Doloribus nobis nam animi similique numquam reprehenderit. Recusandae, quasi rem cum, minus deleniti amet cupiditate numquam error, accusantium delectus optio saepe explicabo!
+					Lorem ipsum dolor, sit amet consectetur adipisicing elit. Doloribus nobis nam animi similique numquam reprehenderit. Recusandae, quasi rem cum, minus deleniti amet cupiditate numquam error, accusantium delectus optio saepe explicabo!
+					Lorem ipsum dolor, sit amet consectetur adipisicing elit. Doloribus nobis nam animi similique numquam reprehenderit. Recusandae, quasi rem cum, minus deleniti amet cupiditate numquam error, accusantium delectus optio saepe explicabo!
+					Lorem ipsum dolor, sit amet consectetur adipisicing elit. Doloribus nobis nam animi similique numquam reprehenderit. Recusandae, quasi rem cum, minus deleniti amet cupiditate numquam error, accusantium delectus optio saepe explicabo!
+					Lorem ipsum dolor, sit amet consectetur adipisicing elit. Doloribus nobis nam animi similique numquam reprehenderit. Recusandae, quasi rem cum, minus deleniti amet cupiditate numquam error, accusantium delectus optio saepe explicabo!
+					Lorem ipsum dolor, sit amet consectetur adipisicing elit. Doloribus nobis nam animi similique numquam reprehenderit. Recusandae, quasi rem cum, minus deleniti amet cupiditate numquam error, accusantium delectus optio saepe explicabo!
+					Lorem ipsum dolor, sit amet consectetur adipisicing elit. Doloribus nobis nam animi similique numquam reprehenderit. Recusandae, quasi rem cum, minus deleniti amet cupiditate numquam error, accusantium delectus optio saepe explicabo!
+					    	
+		    	</p>
+		    </div>
+    	</div>
+    	<div class="row justify-content-end p-3">
+    		<div class="col">
+	    		<form class="form-group">
+	    			<h:selectManyListbox styleClass="custom-select" value="">
+	    				<f:selectItem itemLabel="Seleccione Juegos" itemValue="0" itemDisabled="true"/>
+	    				<f:selectItems value="#{indexBean.displayJuegos}" itemLabel="#{juego.nombre}" var="juego"  itemValue="#{juego.nombre}"/>
+	    			</h:selectManyListbox>
+	    		</form>
+    		</div>
+    	</div>
+    
+    </div>
+	<ui:include src="/partials/footer.xhtml" />    
+
+</h:body>
+
+</html>

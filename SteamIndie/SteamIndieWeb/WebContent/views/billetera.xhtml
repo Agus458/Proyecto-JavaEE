@@ -29,13 +29,13 @@
 								<div class="col-lg-4 mt-5">
 									<div class="card-body">
 										<label>Agregar fondos a billetera virtual</label>
-											<h:form id="form" styleClass="form-inline">	
+											<h:form id="formBilletera" styleClass="form-inline">	
 												<div class="form-group">
 													<h:inputText id="cant" value="#{billetera.carga}" styleClass="form-control" />
 												</div>
 												<div id="paypal-payment-button" class="form-group" >
 												</div>
-												<h:commandButton style="display: none;" id="button" action="#{billetera.agregarSaldo()}">
+												<h:commandButton style="display: none;" id="button" action="#{billetera.agregarSaldo()}" disabled="true">
 												</h:commandButton>
 											</h:form>
 									</div>
@@ -67,7 +67,7 @@
             shape: 'pill'
         },
         createOrder: function (data, actions) {
-        	var input = window.document.getElementById("form:cant");
+        	var input = window.document.getElementById("formBilletera:cant");
             return actions.order.create({
                 purchase_units : [{
                     amount: {
@@ -79,7 +79,7 @@
         onApprove: function (data, actions) {
             return actions.order.capture().then(function (details) {
                 console.log(details)
-                window.document.getElementById("form:button").click();
+                window.document.getElementById("formBilletera:button").click();
             })
         },
         onCancel: function (data) {

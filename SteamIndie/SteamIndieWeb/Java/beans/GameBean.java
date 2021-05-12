@@ -9,7 +9,7 @@ import java.util.List;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.RequestScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 
@@ -22,7 +22,7 @@ import web_service.SteamIndieImpService;
 import web_service.SteamIndieImpServiceLocator;
 
 @ManagedBean
-@RequestScoped
+@ViewScoped
 public class GameBean implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
@@ -30,7 +30,6 @@ public class GameBean implements Serializable {
 	private Integer id=1;
 	private String nombre="";
 	private String desc="";
-	private String imagen="";
 	private String logo="";
 	private String video="";
 	private float precio=0;
@@ -39,9 +38,16 @@ public class GameBean implements Serializable {
 	
 	private List<String> categoriasElegidas = new ArrayList<String>();
 	private List<DataCategoria> categoriasDisponibles = new ArrayList<DataCategoria>();
+	private String categoria="";
+	
 	
 	@ManagedProperty(value="#{sesionBean}")
-		private SesionBean session; 
+		private SesionBean session;
+
+	private String imagen="";
+	private List<String> imagenes = new ArrayList<String>();
+	private List<String> imagenesAlojadas = new ArrayList<String>();
+	
 	
 	public GameBean() throws MalformedURLException, NumberFormatException, RemoteException{
 		HttpServletRequest origRequest = (HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest();	
@@ -64,12 +70,19 @@ public class GameBean implements Serializable {
 		SteamIndie ws = new SteamIndieImpPortBindingStub(new URL(servicio.getSteamIndieImpPortAddress()), servicio);
 		
 		DataCategoria[] arregloCategoria = new DataCategoria[categoriasElegidas.size()];
+		String[] arregloImagenes = new String[imagenes.size()];
 		Integer i = 0;
 		for(String c: categoriasElegidas) {
 			arregloCategoria[i] = new DataCategoria(null,c);
 			i++;
 		}
-		DataMedia media = new DataMedia(null, logo , null, null);
+		i=0;
+		for(String c: imagenes) {
+			System.out.println(i);
+			arregloImagenes[i] = c;
+			i++;
+		}
+		DataMedia media = new DataMedia(null, logo , null, arregloImagenes);
 		
 		DataJuego juego = new DataJuego(null, nombre, desc, precio, arregloCategoria ,media, null);
 		
@@ -81,6 +94,15 @@ public class GameBean implements Serializable {
 		return "index";
 	}
 		
+	public void agregarCategoria(){
+		categoriasDisponibles.add(new DataCategoria(null, categoria));
+		categoria="";
+	}
+	
+	public void agregarImagen(){
+		imagenes.add(imagen);
+		imagen="";
+	}
 	
 	public DataJuego getDataJuego(){
 
@@ -168,6 +190,31 @@ public class GameBean implements Serializable {
 	public void setLogo(String logo) {
 		this.logo = logo;
 	}
+
+	public String getCategoria() {
+		return categoria;
+	}
+
+	public void setCategoria(String categoria) {
+		this.categoria = categoria;
+	}
+
+	public List<String> getImagenes() {
+		return imagenes;
+	}
+
+	public void setImagenes(List<String> imagenes) {
+		this.imagenes = imagenes;
+	}
+	
+	public List<String> getImagenesAlojadas() {
+		return imagenesAlojadas;
+	}
+
+	public void setImagenesAlojadas(List<String> imagenesAlojadas) {
+		this.imagenesAlojadas = imagenesAlojadas;
+	}
+	
 
 	
 	

@@ -1,0 +1,63 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+<h:head>
+    <meta charset="utf-8"></meta>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"></meta>
+
+    <title>Steam Indie</title>
+    <ui:include src="/partials/head.xhtml"/>
+    
+    
+</h:head>
+
+<h:body class="bg-dark">
+    <ui:include src="/partials/nav.xhtml" />
+    <h:form>
+    <div class="container mt-2">
+    	<div class="row justify-content-center">
+			<div class="col">
+				<ul class="list-unstyled">
+					<ui:repeat value="#{indexBean.displayJuegos}" var="juego">
+						<h:outputLink value="game-detail.xhtml">
+		                	<f:param name="id" value="#{juego.id}"></f:param>               
+							  <li class="media border border-secondary">
+							    <img class="align-self-center mr-3 ml-3" src="#{juego.media.logo}" alt="Logo" style="height: 52px; width: 52px;"></img>
+							    <div class="media-body">
+							      <h5 class="mt-3 mb-1 text-light">#{juego.nombre}</h5>
+							      
+						            <p>Precio: #{juego.precio}</p>
+							    </div>
+							  </li>
+						</h:outputLink>
+					</ui:repeat>
+				</ul>
+			</div>
+			<div class="col">
+				<div class="card text-white bg-dark mb-3 border border-secondary" style="max-width: 18rem;">
+				  <div class="card-header"><h5 class="card-title">Filtros</h5></div>
+				  <div class="card-body">
+					<h:selectOneMenu styleClass="custom-select" value="#{indexBean.categoria}" id="categoriaFiltro">
+						<f:selectItem itemLabel="Selecione una categoria" noSelectionOption="true"/>
+						<f:selectItems value="#{indexBean.categoriasDisponibles}" var="c" itemLabel="#{c.nombre}" itemValue="#{c.nombre}"/>
+					</h:selectOneMenu>
+					<h:commandButton value="Aplicar Filtros" styleClass="btn btn-primary">
+						        <f:ajax listener="#{indexBean.aplicarFiltros()}"
+						                execute="@form"
+						                render="@form" />
+				    </h:commandButton>
+				  </div>
+				</div>
+			</div>
+		</div>
+	</div>
+	</h:form>
+	<ui:include src="/partials/footer.xhtml" />    
+
+</h:body>
+
+</html>
