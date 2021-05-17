@@ -30,8 +30,11 @@ public class Jugador extends Usuario implements Serializable {
 	private List<Compra> compras;
 	
 	@OneToMany
-	private List<Juego> biblioteca;
+	private List<Juego> juegos;
 
+	@OneToMany(mappedBy = "jugador")
+	private List<Valoracion> valoraciones;
+	
 	// Constructors
 
 	/*
@@ -55,9 +58,25 @@ public class Jugador extends Usuario implements Serializable {
 		this.saldo = new Float(0);
 		this.carrito = null;
 		this.compras = new ArrayList<Compra>();
+		this.juegos = new ArrayList<Juego>();
+		this.valoraciones = new ArrayList<Valoracion>();
 	}
 
 	// Getters
+	
+	/**
+	 * @return the compras
+	 */
+	public List<Compra> getCompras() {
+		return compras;
+	}
+
+	/**
+	 * @return the juegos
+	 */
+	public List<Juego> getJuegos() {
+		return juegos;
+	}
 
 	/**
 	 * @return the saldo
@@ -74,6 +93,20 @@ public class Jugador extends Usuario implements Serializable {
 	}
 
 	// Setters
+
+	/**
+	 * @param compras the compras to set
+	 */
+	public void setCompras(List<Compra> compras) {
+		this.compras = compras;
+	}
+
+	/**
+	 * @param juegos the juegos to set
+	 */
+	public void setJuegos(List<Juego> juegos) {
+		this.juegos = juegos;
+	}
 
 	/**
 	 * @param saldo the saldo to set
@@ -128,7 +161,7 @@ public class Jugador extends Usuario implements Serializable {
 		Boolean esta = false;
 		
 		if(juego != null) {
-			for(Juego aux : biblioteca) {
+			for(Juego aux : juegos) {
 				if(aux.getId() == juego.getId()) {
 					esta = true;
 				}
@@ -141,10 +174,30 @@ public class Jugador extends Usuario implements Serializable {
 	public void agregarCompra(Compra compra) {
 		if(compra != null) {
 			for(Detalle aux : compra.getDeatlles()) {
-				this.biblioteca.add(aux.getJuego());
+				this.juegos.add(aux.getJuego());
 			}
 			this.compras.add(compra);
 			this.saldo -= compra.getTotal();
+		}
+	}
+	
+	public Valoracion darValoracionJuego(Juego juego) {
+		Valoracion valoracion = null;
+		
+		if(juego != null) {
+			for(Valoracion aux : this.valoraciones) {
+				if(aux.getJuego().getId() == juego.getId()) {
+					valoracion = aux;
+				}
+			}
+		}
+		
+		return valoracion;
+	}
+	
+	public void agregarValoracion(Valoracion valoracion) {
+		if(valoracion != null) {
+			this.valoraciones.add(valoracion);
 		}
 	}
 }

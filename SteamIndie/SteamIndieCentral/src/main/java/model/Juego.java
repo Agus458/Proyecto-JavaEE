@@ -7,8 +7,10 @@ import java.util.List;
 import javax.persistence.*;
 
 import data_types.DataCategoria;
+import data_types.DataCreador;
 import data_types.DataJuego;
 import data_types.DataMedia;
+import data_types.DataValoracion;
 
 /**
  * Entity implementation class for Entity: Juego
@@ -40,6 +42,9 @@ public class Juego implements Serializable {
 
 	@OneToOne
 	private Publicacion publicacion;
+	
+	@OneToMany(mappedBy = "juego")
+	private List<Valoracion> valoraciones;
 
 	// Constructors
 
@@ -67,6 +72,7 @@ public class Juego implements Serializable {
 		this.media = media;
 		this.publicacion = null;
 		this.categorias = categorias;
+		this.valoraciones = new ArrayList<Valoracion>();
 	}
 
 	// Getters
@@ -176,9 +182,14 @@ public class Juego implements Serializable {
 		if (this.media != null) {
 			dataMedia = this.media.darDatos();
 		}
+		
+		List<DataValoracion> vals = new ArrayList<DataValoracion>();
+		for(Valoracion aux : this.valoraciones) {
+			vals.add(aux.darDatos());
+		}
 
 		return new DataJuego(this.id, this.nombre, this.descripcion, this.precio, cats, dataMedia,
-				this.publicacion.darDatos());
+				this.publicacion.darDatos(), vals);
 	}
 
 	public void agregarCategoria(Categoria categoria) {
@@ -186,4 +197,15 @@ public class Juego implements Serializable {
 			this.categorias.add(categoria);
 		}
 	}
+	
+	public DataCreador darCreador() {
+		return this.publicacion.getCreador().darDatos();
+	}
+	
+	public void agregarValoracion(Valoracion valoracion) {
+		if(valoracion != null) {
+			this.valoraciones.add(valoracion);
+		}
+	}
+
 }

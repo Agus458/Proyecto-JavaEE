@@ -24,6 +24,8 @@ public class DataJuego {
 	
 	private DataPublicacion publicacion;
 	
+	private List<DataValoracion> valoraciones;
+	
 	// Constructors
 	
 	/*
@@ -44,7 +46,7 @@ public class DataJuego {
 	 * @param creador
 	 */
 	public DataJuego(Integer id, String nombre, String descripcion, Float precio, List<DataCategoria> categorias,
-			DataMedia media, DataPublicacion publicacion) {
+			DataMedia media, DataPublicacion publicacion, List<DataValoracion> valoraciones) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
@@ -53,6 +55,7 @@ public class DataJuego {
 		this.categorias = categorias;
 		this.media = media;
 		this.publicacion = publicacion;
+		this.valoraciones = valoraciones;
 	}
 
 	// Getters
@@ -104,6 +107,13 @@ public class DataJuego {
 	 */
 	public DataPublicacion getCreador() {
 		return publicacion;
+	}
+
+	/**
+	 * @return the valoraciones
+	 */
+	public List<DataValoracion> getValoraciones() {
+		return valoraciones;
 	}
 
 }

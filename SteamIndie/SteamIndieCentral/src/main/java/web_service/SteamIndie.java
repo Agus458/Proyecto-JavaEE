@@ -81,5 +81,14 @@ public interface SteamIndie {
 	
 	@WebMethod
 	public void realizarCheckout(Integer idJugador);
+	
+	@WebMethod
+	public DataCreador darDatosCreadorJuego(Integer idJuego);
+	
+	@WebMethod
+	public List<DataJuego> darBibliotecaJugador(Integer idJugador);
+	
+	@WebMethod
+	public void valorarJuego(Integer valoracion, Integer idJuego, Integer idJugador);
 
 }

@@ -8,13 +8,18 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
 import data_types.DataCategoria;
+import data_types.DataCreador;
 import data_types.DataJuego;
+import data_types.DataValoracion;
 import model.Categoria;
 import model.Creador;
 import model.Juego;
+import model.Jugador;
+import model.Valoracion;
 import persistence.CategoriaDAO;
 import persistence.JuegoDAO;
 import persistence.JuegoDAOImp;
+import persistence.ReseniaDAO;
 import persistence.UsuarioDAO;
 
 /**
@@ -31,7 +36,7 @@ public class ControllerJuegoImp implements ControllerJuego {
 	
 	@EJB
 	private CategoriaDAO categoriaPersistence = Fabric.getCategoriaPersistence();
-
+	
 	/**
 	 * Default constructor.
 	 */
@@ -104,7 +109,7 @@ public class ControllerJuegoImp implements ControllerJuego {
 
 	@Override
 	public DataJuego buscarJuegoId(Integer id) {
-		DataJuego juego = new DataJuego(null, "", "", null, null, null, null);
+		DataJuego juego = new DataJuego(null, "", "", null, null, null, null, null);
 
 		Juego aux = juegoPersistence.buscarJuegoId(id);
 
@@ -117,7 +122,7 @@ public class ControllerJuegoImp implements ControllerJuego {
 
 	@Override
 	public DataJuego buscarJuegoNombre(String nombre) {
-		DataJuego juego = new DataJuego(null, "", "", null, null, null, null);
+		DataJuego juego = new DataJuego(null, "", "", null, null, null, null, null);
 
 		Juego aux = juegoPersistence.buscarJuegoNombre(nombre);
 
@@ -147,6 +152,52 @@ public class ControllerJuegoImp implements ControllerJuego {
 		}
 		
 		return categorias;
+	}
+
+	@Override
+	public DataCreador darDatosCreadorJuego(Integer idJuego) {
+		DataCreador creador = new DataCreador(null, "", "", "", "", "", null);
+		
+		Juego juego = this.darJuego(idJuego);
+		if(juego != null) {
+			creador = juego.darCreador();
+		}
+		
+		return creador;
+	}
+
+	@Override
+	public void valorarJuego(Integer valoracion, Integer idJuego, Integer idJugador) {
+		if(valoracion != null && valoracion >= 1 && valoracion <= 5) {
+			if(idJuego != null && idJugador != null) {
+				
+				Jugador jugador = this.persistenceUsuario.buscarJugadorId(idJugador);
+				if(jugador != null) {
+					
+					Juego juego = this.darJuego(idJuego);
+					if(juego != null) {
+						
+						if(jugador.estaEnBiblioteca(juego)) {
+							
+							ReseniaDAO reseniaPersistence = Fabric.getReseniaDAO();
+							Valoracion val = jugador.darValoracionJuego(juego);
+							
+							if(val == null) {
+								val = reseniaPersistence.insertarValoracion(valoracion, juego, jugador);
+								jugador.agregarValoracion(val);
+								juego.agregarValoracion(val);
+							} else {
+								reseniaPersistence.actualizarValoracion(val, valoracion);
+							}
+								
+						}
+						
+					}
+					
+				}
+				
+			}
+		}
 	}
 
 }

@@ -8,6 +8,7 @@ import javax.persistence.Persistence;
 import javax.persistence.Query;
 
 import data_types.*;
+import model.Admin;
 import model.Carrito;
 import model.Creador;
 import model.Jugador;
@@ -237,6 +238,76 @@ public class UsuarioDAOImp implements UsuarioDAO {
 				em.getTransaction().rollback();
 			}
 		}
+	}
+
+	@Override
+	public Admin buscarAdminEmail(String email) {
+		Admin admin = null;
+
+		try {
+
+			Query query = em.createQuery("SELECT a FROM Admin a WHERE a.email = :email");
+			query.setParameter("email", email);
+
+			admin = (Admin) query.getSingleResult();
+
+		} catch (Exception e) {
+
+		}
+
+		return admin;
+	}
+
+	@Override
+	public Admin buscarAdminNick(String nick) {
+		Admin admin = null;
+
+		try {
+
+			Query query = em.createQuery("SELECT a FROM Admin a WHERE a.nickname = :nick");
+			query.setParameter("nick", nick);
+
+			admin = (Admin) query.getSingleResult();
+
+		} catch (Exception e) {
+
+		}
+
+		return admin;
+	}
+
+	@Override
+	public Admin buscarAdminId(Integer id) {
+		Admin admin = null;
+
+		try {
+
+			admin = em.find(Admin.class, id);
+
+		} catch (Exception e) {
+
+		}
+
+		return admin;
+	}
+
+	@Override
+	public Admin insertarAdmin(DataUsuario admin) {
+		Admin entity = null;
+
+		try {
+			em.getTransaction().begin();
+
+			entity = new Admin(admin.getNombre(), admin.getApellido(), admin.getEmail(), admin.getPassword(), admin.getNickname());
+			em.persist(entity);
+
+			em.getTransaction().commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+			em.getTransaction().rollback();
+		}
+
+		return entity;
 	}
 
 }

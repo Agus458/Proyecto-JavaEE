@@ -11,6 +11,8 @@
 		<class>model.Carrito</class>
 		<class>model.Compra</class>
 		<class>model.Detalle</class>
+		<class>model.Admin</class>
+		<class>model.Valoracion</class>
 		<properties>
 			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/steamindiedb"/>
 			<property name="javax.persistence.jdbc.user" value="root"/>

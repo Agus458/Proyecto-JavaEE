@@ -152,4 +152,22 @@ public class SteamIndieImp implements SteamIndie{
 		controller.realizarCheckout(idJugador);
 	}
 
+	@Override
+	public DataCreador darDatosCreadorJuego(Integer idJuego) {
+		ControllerJuego controller = Fabric.getControllerJuego();
+		return controller.darDatosCreadorJuego(idJuego);
+	}
+
+	@Override
+	public List<DataJuego> darBibliotecaJugador(Integer idJugador) {
+		ControllerUsuario controller = Fabric.getControllerUsuario();
+		return controller.darBibliotecaJugador(idJugador);
+	}
+
+	@Override
+	public void valorarJuego(Integer valoracion, Integer idJuego, Integer idJugador) {
+		ControllerJuego controller = Fabric.getControllerJuego();
+		controller.valorarJuego(valoracion, idJuego, idJugador);
+	}
+
 }

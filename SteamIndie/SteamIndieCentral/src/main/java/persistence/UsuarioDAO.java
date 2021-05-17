@@ -6,6 +6,8 @@ import javax.ejb.Local;
 
 import data_types.DataCreador;
 import data_types.DataJugador;
+import data_types.DataUsuario;
+import model.Admin;
 import model.Carrito;
 import model.Creador;
 import model.Jugador;
@@ -16,6 +18,8 @@ public interface UsuarioDAO {
 	public Jugador insertarJugador(DataJugador jugador);
 
 	public Creador insertarCreador(DataCreador creador);
+	
+	public Admin insertarAdmin(DataUsuario admin);
 
 	public List<Jugador> listarJugadores();
 
@@ -32,6 +36,12 @@ public interface UsuarioDAO {
 	public Creador buscarCreadorNick(String nick);
 
 	public Creador buscarCreadorId(Integer id);
+	
+	public Admin buscarAdminEmail(String email);
+
+	public Admin buscarAdminNick(String nick);
+
+	public Admin buscarAdminId(Integer id);
 	
 	public void actualizarJugador(Jugador jugador);
 	

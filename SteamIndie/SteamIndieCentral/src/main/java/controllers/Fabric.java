@@ -4,6 +4,8 @@ import persistence.CategoriaDAO;
 import persistence.CategoriaDAOImp;
 import persistence.CompraDAO;
 import persistence.CompraDAOImp;
+import persistence.ReseniaDAO;
+import persistence.ReseniaDAOImp;
 import persistence.UsuarioDAO;
 import persistence.UsuarioDAOImp;
 
@@ -31,5 +33,9 @@ public class Fabric {
 	
 	public static CompraDAO getCompraPersistence() {
 		return new CompraDAOImp();
+	}
+	
+	public static ReseniaDAO getReseniaDAO() {
+		return new ReseniaDAOImp();
 	}
 }

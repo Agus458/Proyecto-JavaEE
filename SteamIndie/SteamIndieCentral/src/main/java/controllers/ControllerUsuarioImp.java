@@ -8,8 +8,10 @@ import javax.ejb.Stateless;
 
 import data_types.DataCarrito;
 import data_types.DataCreador;
+import data_types.DataJuego;
 import data_types.DataJugador;
 import data_types.DataUsuario;
+import model.Admin;
 import model.Carrito;
 import model.Creador;
 import model.Juego;
@@ -48,6 +50,13 @@ public class ControllerUsuarioImp implements ControllerUsuario {
 			usuarioPersistence.insertarCreador(creador);
 		}
 	}
+	
+	@Override
+	public void registrarAdmin(DataUsuario admin) {
+		if (!emailEnUso(admin.getEmail()) && !nickEnUso(admin.getNickname())) {
+			usuarioPersistence.insertarAdmin(admin);
+		}
+	}
 
 	@Override
 	public Boolean emailEnUso(String email) {
@@ -60,6 +69,11 @@ public class ControllerUsuarioImp implements ControllerUsuario {
 			Creador aux2 = usuarioPersistence.buscarCreadorEmail(email);
 			if (aux2 != null) {
 				enUso = true;
+			} else {
+				Admin aux3 = usuarioPersistence.buscarAdminEmail(email);
+				if(aux3 != null) {
+					enUso = true;
+				}
 			}
 		}
 
@@ -77,6 +91,11 @@ public class ControllerUsuarioImp implements ControllerUsuario {
 			Creador aux2 = usuarioPersistence.buscarCreadorNick(nick);
 			if (aux2 != null) {
 				enUso = true;
+			} else {
+				Admin aux3 = usuarioPersistence.buscarAdminNick(nick);
+				if(aux3 != null) {
+					enUso = true;
+				}
 			}
 		}
 
@@ -102,7 +121,7 @@ public class ControllerUsuarioImp implements ControllerUsuario {
 
 	@Override
 	public DataUsuario buscarUsuarioEmail(String email) {
-		DataUsuario usuario = null;
+		DataUsuario usuario = new DataUsuario(null, "", "", "", "", "");
 
 		Jugador aux = usuarioPersistence.buscarJugadorEmail(email);
 		if (aux != null) {
@@ -111,6 +130,11 @@ public class ControllerUsuarioImp implements ControllerUsuario {
 			Creador aux2 = usuarioPersistence.buscarCreadorEmail(email);
 			if (aux2 != null) {
 				usuario = aux2.darDatos();
+			} else {
+				Admin aux3 = usuarioPersistence.buscarAdminEmail(email);
+				if(aux3 != null) {
+					usuario = aux3.darDatos();
+				}
 			}
 		}
 
@@ -119,7 +143,7 @@ public class ControllerUsuarioImp implements ControllerUsuario {
 
 	@Override
 	public DataUsuario buscarUsuarioNick(String nick) {
-		DataUsuario usuario = null;
+		DataUsuario usuario = new DataUsuario(null, "", "", "", "", "");
 
 		Jugador aux = usuarioPersistence.buscarJugadorNick(nick);
 		if (aux != null) {
@@ -128,6 +152,11 @@ public class ControllerUsuarioImp implements ControllerUsuario {
 			Creador aux2 = usuarioPersistence.buscarCreadorNick(nick);
 			if (aux2 != null) {
 				usuario = aux2.darDatos();
+			} else {
+				Admin aux3 = usuarioPersistence.buscarAdminNick(nick);
+				if(aux3 != null) {
+					usuario = aux3.darDatos();
+				}
 			}
 		}
 
@@ -136,7 +165,7 @@ public class ControllerUsuarioImp implements ControllerUsuario {
 
 	@Override
 	public DataUsuario buscarUsuarioId(Integer id) {
-		DataUsuario usuario = null;
+		DataUsuario usuario = new DataUsuario(null, "", "", "", "", "");
 
 		Jugador aux = usuarioPersistence.buscarJugadorId(id);
 		if (aux != null) {
@@ -145,6 +174,11 @@ public class ControllerUsuarioImp implements ControllerUsuario {
 			Creador aux2 = usuarioPersistence.buscarCreadorId(id);
 			if (aux2 != null) {
 				usuario = aux2.darDatos();
+			} else {
+				Admin aux3 = usuarioPersistence.buscarAdminId(id);
+				if(aux3 != null) {
+					usuario = aux3.darDatos();
+				}
 			}
 		}
 
@@ -235,6 +269,22 @@ public class ControllerUsuarioImp implements ControllerUsuario {
 		}
 
 		return saldo;
+	}
+
+	@Override
+	public List<DataJuego> darBibliotecaJugador(Integer idJugador) {
+		List<DataJuego> biblioteca = new ArrayList<DataJuego>();
+		
+		if(idJugador != null) {
+			Jugador jugador = usuarioPersistence.buscarJugadorId(idJugador);
+			if(jugador != null) {
+				for(Juego aux : jugador.getJuegos()) {
+					biblioteca.add(aux.darDatos());
+				}
+			}
+		}
+		
+		return biblioteca;
 	}
 
 }

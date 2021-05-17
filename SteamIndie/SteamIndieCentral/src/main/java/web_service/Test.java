@@ -15,8 +15,10 @@ public class Test {
 		ControllerUsuario controller = Fabric.getControllerUsuario();
 //		DataJugador jugador = new DataJugador(null, "Mauricio", "Camacho", "oci@gmail.com", "123", "Oci");
 //		controller.registrarJugador(jugador);
-//		DataCreador creador = new DataCreador(null, "Agustin", "Peraza", "jglhadkdjfhdsa", "123", "Agu", null);
+//		DataCreador creador = new DataCreador(null, "Agustin", "Peraza", "agu@gmail.com", "123", "Agu458", null);
 //		controller.registrarCreador(creador);
+//		DataUsuario admin = new DataUsuario(null, "Admin", "Admin", "admin@admin.com", "123456789", "admin");
+//		controller.registrarAdmin(admin);
 //		System.out.println(controller.buscarUsuarioEmail(jugador.getEmail()).getApellido());
 //		System.out.println(controller.buscarUsuarioNick(creador.getNickname()).getApellido());
 //		System.out.println(controller.buscarUsuarioId(2).getApellido());
@@ -27,18 +29,19 @@ public class Test {
 //		}
 //		
 		ControllerJuego controllerJuego = Fabric.getControllerJuego();
+//		controllerJuego.valorarJuego(10, 1, 1);
 //		List<DataCategoria> cats = new ArrayList<DataCategoria>();
 //		cats.add(new DataCategoria(null,"Shooter"));
 //		cats.add(new DataCategoria(null,"Building"));
 //		cats.add(new DataCategoria(null,"F2P"));
 //		DataMedia media = new DataMedia(null, "https://cdn2.unrealengine.com/16br-agentjonesy-egs-s2-1200x1600-1200x1600-2531e05bb04f.jpg", null, null);
-//		controllerJuego.publicarJuego(new DataJuego(null, "Fortnite","bla bla bla",new Float(0),cats,media,null), 2);
+//		controllerJuego.publicarJuego(new DataJuego(null, "Fortnite","bla bla bla",new Float(0),cats,media,null, null), 2);
 //		
 //		List<DataJuego> juegos = controllerJuego.listarJuegos();
 //		for(DataJuego aux : juegos) {
 //			System.out.println(aux.getNombre());
-//			if(aux.getMedia() != null){
-//				System.out.println(aux.getMedia().getLogo());
+//			for(DataValoracion val : aux.getValoraciones()) {
+//				System.out.println(val.getValoracion());
 //			}
 //		}
 //		
