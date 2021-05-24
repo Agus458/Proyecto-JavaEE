@@ -5,7 +5,6 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
-import javax.persistence.Query;
 
 import model.Compra;
 import model.Juego;
@@ -52,7 +51,7 @@ public class CompraDAOImp implements CompraDAO {
 		
 		try {
 			
-			Query query = em.createQuery("SELECT c FROM Compra c");
+//			Query query = em.createQuery("SELECT c FROM Compra c");
 			// TODO arreglar
 		} catch (Exception e) {
 			

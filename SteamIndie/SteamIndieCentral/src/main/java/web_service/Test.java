@@ -13,15 +13,15 @@ public class Test {
 
 	public static void main(String[] args) {
 		ControllerUsuario controller = Fabric.getControllerUsuario();
-//		DataJugador jugador = new DataJugador(null, "Mauricio", "Camacho", "oci@gmail.com", "123", "Oci");
+//		DataJugador jugador = new DataJugador(null, "Santiago", "Sellanes", "santi@gmail.com", "123", "Santi");
 //		controller.registrarJugador(jugador);
 //		DataCreador creador = new DataCreador(null, "Agustin", "Peraza", "agu@gmail.com", "123", "Agu458", null);
 //		controller.registrarCreador(creador);
 //		DataUsuario admin = new DataUsuario(null, "Admin", "Admin", "admin@admin.com", "123456789", "admin");
 //		controller.registrarAdmin(admin);
-//		System.out.println(controller.buscarUsuarioEmail(jugador.getEmail()).getApellido());
-//		System.out.println(controller.buscarUsuarioNick(creador.getNickname()).getApellido());
-//		System.out.println(controller.buscarUsuarioId(2).getApellido());
+//		System.out.println(controller.buscarUsuarioEmail(admin.getEmail()).getApellido());
+//		System.out.println(controller.buscarUsuarioNick(admin.getNickname()).getApellido());
+//		System.out.println(controller.buscarUsuarioId(3).getApellido());
 //		
 //		List<DataUsuario> usu = controller.listarUsuarios();
 //		for(DataUsuario aux : usu) {
@@ -29,13 +29,12 @@ public class Test {
 //		}
 //		
 		ControllerJuego controllerJuego = Fabric.getControllerJuego();
-//		controllerJuego.valorarJuego(10, 1, 1);
+//		controllerJuego.valorarJuego(5, 1, 1);
 //		List<DataCategoria> cats = new ArrayList<DataCategoria>();
-//		cats.add(new DataCategoria(null,"Shooter"));
 //		cats.add(new DataCategoria(null,"Building"));
-//		cats.add(new DataCategoria(null,"F2P"));
+//		cats.add(new DataCategoria(null,"Rolplay"));
 //		DataMedia media = new DataMedia(null, "https://cdn2.unrealengine.com/16br-agentjonesy-egs-s2-1200x1600-1200x1600-2531e05bb04f.jpg", null, null);
-//		controllerJuego.publicarJuego(new DataJuego(null, "Fortnite","bla bla bla",new Float(0),cats,media,null, null), 2);
+//		controllerJuego.publicarJuego(new DataJuego(null, "Minecraft","Make your own world",new Float(0),cats,media,null, null), 2);
 //		
 //		List<DataJuego> juegos = controllerJuego.listarJuegos();
 //		for(DataJuego aux : juegos) {
@@ -53,7 +52,7 @@ public class Test {
 //			System.out.println(c.getNombre());
 //		}
 //		
-//		ControllerCompra controllerCompra = Fabric.getControllerCompra();
+		ControllerCompra controllerCompra = Fabric.getControllerCompra();
 //		controllerCompra.realizarCheckout(1);
 	}
 

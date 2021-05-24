@@ -31,9 +31,6 @@ public class Jugador extends Usuario implements Serializable {
 	
 	@OneToMany
 	private List<Juego> juegos;
-
-	@OneToMany(mappedBy = "jugador")
-	private List<Valoracion> valoraciones;
 	
 	// Constructors
 
@@ -59,7 +56,6 @@ public class Jugador extends Usuario implements Serializable {
 		this.carrito = null;
 		this.compras = new ArrayList<Compra>();
 		this.juegos = new ArrayList<Juego>();
-		this.valoraciones = new ArrayList<Valoracion>();
 	}
 
 	// Getters
@@ -146,7 +142,7 @@ public class Jugador extends Usuario implements Serializable {
 			this.carrito.agregarJuego(juego);
 		}
 	}
-	
+
 	public Carrito removerJuegoCarrito(Juego juego) {
 		if(this.carrito != null) {
 			if(this.carrito.estaElJuego(juego)) {
@@ -181,23 +177,4 @@ public class Jugador extends Usuario implements Serializable {
 		}
 	}
 	
-	public Valoracion darValoracionJuego(Juego juego) {
-		Valoracion valoracion = null;
-		
-		if(juego != null) {
-			for(Valoracion aux : this.valoraciones) {
-				if(aux.getJuego().getId() == juego.getId()) {
-					valoracion = aux;
-				}
-			}
-		}
-		
-		return valoracion;
-	}
-	
-	public void agregarValoracion(Valoracion valoracion) {
-		if(valoracion != null) {
-			this.valoraciones.add(valoracion);
-		}
-	}
 }

@@ -13,6 +13,8 @@
 		<class>model.Detalle</class>
 		<class>model.Admin</class>
 		<class>model.Valoracion</class>
+		<class>model.Comentario</class>
+		<class>model.Respuesta</class>
 		<properties>
 			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/steamindiedb"/>
 			<property name="javax.persistence.jdbc.user" value="root"/>

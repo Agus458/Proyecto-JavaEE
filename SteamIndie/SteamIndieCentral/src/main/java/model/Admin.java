@@ -3,6 +3,7 @@ package model;
 import java.io.Serializable;
 import javax.persistence.*;
 
+import data_types.DataAdmin;
 import data_types.DataUsuario;
 
 /**
@@ -27,6 +28,6 @@ public class Admin extends Usuario implements Serializable {
 	}
 
 	public DataUsuario darDatos() {
-		return new DataUsuario(this.getId(), this.getNombre(), this.getApellido(), this.getEmail(), this.getPassword(), this.getNickname());
+		return new DataAdmin(this.getId(), this.getNombre(), this.getApellido(), this.getEmail(), this.getPassword(), this.getNickname());
 	}
 }

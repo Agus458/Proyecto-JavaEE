@@ -13,6 +13,7 @@ import controllers.ControllerUsuario;
 import controllers.Fabric;
 import data_types.DataCarrito;
 import data_types.DataCategoria;
+import data_types.DataComentario;
 import data_types.DataCreador;
 import data_types.DataJuego;
 import data_types.DataJugador;
@@ -168,6 +169,30 @@ public class SteamIndieImp implements SteamIndie{
 	public void valorarJuego(Integer valoracion, Integer idJuego, Integer idJugador) {
 		ControllerJuego controller = Fabric.getControllerJuego();
 		controller.valorarJuego(valoracion, idJuego, idJugador);
+	}
+
+	@Override
+	public void comentarJuego(String contenido, Integer idJuego, Integer idJugador) {
+		ControllerJuego controller = Fabric.getControllerJuego();
+		controller.comentarJuego(contenido, idJuego, idJugador);
+	}
+
+	@Override
+	public void responderComentario(Integer idComentario, String contenido, Integer idJugador) {
+		ControllerJuego controller = Fabric.getControllerJuego();
+		controller.responderComentario(idComentario, contenido, idJugador);
+	}
+
+	@Override
+	public void reportarComentario(Integer idComentario) {
+		ControllerJuego controller = Fabric.getControllerJuego();
+		controller.reportarComentario(idComentario);
+	}
+
+	@Override
+	public List<DataComentario> darUltimosComentariosJuego(Integer idJuego) {
+		ControllerJuego controller = Fabric.getControllerJuego();
+		return controller.darUltimosComentariosJuego(idJuego);
 	}
 
 }

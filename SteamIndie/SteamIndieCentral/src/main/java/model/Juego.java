@@ -45,6 +45,9 @@ public class Juego implements Serializable {
 	
 	@OneToMany(mappedBy = "juego")
 	private List<Valoracion> valoraciones;
+	
+	@OneToMany(mappedBy = "juego")
+	private List<Comentario> comentarios;
 
 	// Constructors
 
@@ -125,6 +128,13 @@ public class Juego implements Serializable {
 	public Publicacion getPublicacion() {
 		return publicacion;
 	}
+	
+	/**
+	 * @return the valoraciones
+	 */
+	public List<Valoracion> getValoraciones() {
+		return valoraciones;
+	}
 
 	// Setters
 
@@ -169,6 +179,14 @@ public class Juego implements Serializable {
 	public void setPublicacion(Publicacion publicacion) {
 		this.publicacion = publicacion;
 	}
+	
+	/**
+	 * @param valoraciones the valoraciones to set
+	 */
+	public void setValoraciones(List<Valoracion> valoraciones) {
+		this.valoraciones = valoraciones;
+	}
+
 
 	// Methods
 
@@ -202,10 +220,38 @@ public class Juego implements Serializable {
 		return this.publicacion.getCreador().darDatos();
 	}
 	
+	public Valoracion darValoracionJugador(Jugador jugador) {
+		if(jugador != null) {
+			for(Valoracion aux : this.valoraciones) {
+				if(aux.getJugador().getId() == jugador.getId()) {
+					return aux;
+				}
+			}
+		}
+		
+		return null;
+	}
+	
 	public void agregarValoracion(Valoracion valoracion) {
 		if(valoracion != null) {
 			this.valoraciones.add(valoracion);
 		}
 	}
 
+	public void agregarComentario(Comentario comentario) {
+		if(comentario != null) {
+			this.comentarios.add(comentario);
+		}
+	}
+	
+	public Boolean tieneComentario(Integer idComentario) {
+		for(Comentario aux : this.comentarios) {
+			if(aux.getId() == idComentario) {
+				return true;
+			}
+		}
+		
+		return false;
+	}
+	
 }

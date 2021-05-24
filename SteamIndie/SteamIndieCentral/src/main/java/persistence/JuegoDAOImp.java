@@ -147,4 +147,20 @@ public class JuegoDAOImp implements JuegoDAO {
 		return entity;
 	}
 
+	@Override
+	public void update(Juego juego) {
+		
+		try {
+			em.getTransaction().begin();
+			
+			em.merge(juego);
+			
+			em.getTransaction().commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+			em.getTransaction().rollback();
+		}
+		
+	}
+
 }

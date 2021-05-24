@@ -10,6 +10,7 @@ import javax.jws.WebService;
 
 import data_types.DataCarrito;
 import data_types.DataCategoria;
+import data_types.DataComentario;
 import data_types.DataCreador;
 import data_types.DataJuego;
 import data_types.DataJugador;
@@ -91,4 +92,16 @@ public interface SteamIndie {
 	@WebMethod
 	public void valorarJuego(Integer valoracion, Integer idJuego, Integer idJugador);
 
+	@WebMethod
+	public void comentarJuego(String contenido, Integer idJuego, Integer idJugador);
+	
+	@WebMethod
+	public void responderComentario(Integer idComentario, String contenido, Integer idJugador);
+	
+	@WebMethod
+	public void reportarComentario(Integer idComentario);
+	
+	@WebMethod
+	public List<DataComentario> darUltimosComentariosJuego(Integer idJuego);
+	
 }

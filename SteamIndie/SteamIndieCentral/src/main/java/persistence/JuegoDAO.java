@@ -24,4 +24,6 @@ public interface JuegoDAO {
 	
 	public Publicacion crearPublicacion(Creador creador, Juego juego, Date fechaPublicacion);
 	
+	public void update(Juego juego);
+	
 }
