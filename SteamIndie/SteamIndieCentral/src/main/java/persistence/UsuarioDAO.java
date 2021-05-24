@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.ejb.Local;
 
+import data_types.DataAdmin;
 import data_types.DataCreador;
 import data_types.DataJugador;
 import data_types.DataUsuario;
@@ -19,7 +20,7 @@ public interface UsuarioDAO {
 
 	public Creador insertarCreador(DataCreador creador);
 	
-	public Admin insertarAdmin(DataUsuario admin);
+	public Admin insertarAdmin(DataAdmin admin);
 
 	public List<Jugador> listarJugadores();
 

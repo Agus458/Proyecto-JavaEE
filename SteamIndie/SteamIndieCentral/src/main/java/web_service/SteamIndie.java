@@ -8,6 +8,7 @@ import java.util.List;
 import javax.jws.WebMethod;
 import javax.jws.WebService;
 
+import data_types.DataAdmin;
 import data_types.DataCarrito;
 import data_types.DataCategoria;
 import data_types.DataComentario;
@@ -28,6 +29,9 @@ public interface SteamIndie {
 
 	@WebMethod
 	public void registrarCreador(DataCreador creador);
+	
+	@WebMethod
+	public void registrarAdmin(DataAdmin admin);
 
 	@WebMethod
 	public List<DataUsuario> listarUsuarios();

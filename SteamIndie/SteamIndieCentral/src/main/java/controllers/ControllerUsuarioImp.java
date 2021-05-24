@@ -6,6 +6,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
+import data_types.DataAdmin;
 import data_types.DataCarrito;
 import data_types.DataCreador;
 import data_types.DataJuego;
@@ -52,7 +53,7 @@ public class ControllerUsuarioImp implements ControllerUsuario {
 	}
 	
 	@Override
-	public void registrarAdmin(DataUsuario admin) {
+	public void registrarAdmin(DataAdmin admin) {
 		if (!emailEnUso(admin.getEmail()) && !nickEnUso(admin.getNickname())) {
 			usuarioPersistence.insertarAdmin(admin);
 		}

@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.ejb.Local;
 
+import data_types.DataAdmin;
 import data_types.DataCarrito;
 import data_types.DataCreador;
 import data_types.DataJuego;
@@ -21,7 +22,7 @@ public interface ControllerUsuario {
 	
 	public void registrarCreador(DataCreador creador);
 	
-	public void registrarAdmin(DataUsuario admin);
+	public void registrarAdmin(DataAdmin admin);
 
 	public List<DataUsuario> listarUsuarios();
 

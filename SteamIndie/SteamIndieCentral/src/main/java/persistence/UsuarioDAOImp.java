@@ -292,7 +292,7 @@ public class UsuarioDAOImp implements UsuarioDAO {
 	}
 
 	@Override
-	public Admin insertarAdmin(DataUsuario admin) {
+	public Admin insertarAdmin(DataAdmin admin) {
 		Admin entity = null;
 
 		try {

@@ -11,6 +11,7 @@ import controllers.ControllerCompra;
 import controllers.ControllerJuego;
 import controllers.ControllerUsuario;
 import controllers.Fabric;
+import data_types.DataAdmin;
 import data_types.DataCarrito;
 import data_types.DataCategoria;
 import data_types.DataComentario;
@@ -193,6 +194,12 @@ public class SteamIndieImp implements SteamIndie{
 	public List<DataComentario> darUltimosComentariosJuego(Integer idJuego) {
 		ControllerJuego controller = Fabric.getControllerJuego();
 		return controller.darUltimosComentariosJuego(idJuego);
+	}
+
+	@Override
+	public void registrarAdmin(DataAdmin admin) {
+		ControllerUsuario controller = Fabric.getControllerUsuario();
+		controller.registrarAdmin(admin);
 	}
 
 }
