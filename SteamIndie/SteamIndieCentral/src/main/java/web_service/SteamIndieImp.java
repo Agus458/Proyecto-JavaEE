@@ -202,4 +202,39 @@ public class SteamIndieImp implements SteamIndie{
 		controller.registrarAdmin(admin);
 	}
 
+	@Override
+	public float darVentasTotal() {
+		ControllerCompra controller = Fabric.getControllerCompra();
+		return controller.darVentasTotales();
+	}
+	
+	@Override
+	public float darVentasCreador(Integer idCreador) {
+		ControllerCompra controller = Fabric.getControllerCompra();
+		return controller.darVentasTotalCreador(idCreador);
+	}
+	
+	@Override
+	public List<DataJuego> juegoMasVendidos() {
+		ControllerCompra controller = Fabric.getControllerCompra();
+		return controller.juegosMasVendidos();
+	}
+	
+	@Override
+	public List<DataJuego> juegoMasVendidosCreador(Integer idCreador) {
+		ControllerCompra controller = Fabric.getControllerCompra();
+		return controller.juegosMasVendidos(idCreador);
+	}
+
+	@Override
+	public Integer darCantVentasCreador(Integer idCreador) {
+		ControllerCompra controller = Fabric.getControllerCompra();
+		return controller.darCantVentasCreador(idCreador);
+	}
+
+	@Override
+	public Integer darCantVentasJuego(Integer idJuego) {
+		ControllerCompra controller = Fabric.getControllerCompra();
+		return controller.darCantVentasJuego(idJuego);
+	}
 }

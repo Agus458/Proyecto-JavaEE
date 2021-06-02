@@ -17,7 +17,7 @@ public class Test {
 //		controller.registrarJugador(jugador);
 //		DataCreador creador = new DataCreador(null, "Agustin", "Peraza", "agu@gmail.com", "123", "Agu458", null);
 //		controller.registrarCreador(creador);
-//		DataUsuario admin = new DataUsuario(null, "Admin", "Admin", "admin@admin.com", "123456789", "admin");
+//		DataAdmin admin = new DataAdmin(null, "Admin", "Admin", "admin@admin.com", "123456789", "admin");
 //		controller.registrarAdmin(admin);
 //		System.out.println(controller.buscarUsuarioEmail(admin.getEmail()).getApellido());
 //		System.out.println(controller.buscarUsuarioNick(admin.getNickname()).getApellido());
@@ -54,6 +54,14 @@ public class Test {
 //		
 		ControllerCompra controllerCompra = Fabric.getControllerCompra();
 //		controllerCompra.realizarCheckout(1);
+		System.out.println(controllerCompra.darVentasTotalCreador(1));
+		System.out.println(controllerCompra.darVentasTotales());
+		for(DataJuego j:controllerCompra.juegosMasVendidos(1)) {
+			System.out.println(j.getNombre());
+		}
+		System.out.println(controllerCompra.darCantVentasCreador(1));
+		System.out.println(controllerCompra.darCantVentasJuego(1));
+
 	}
 
 }

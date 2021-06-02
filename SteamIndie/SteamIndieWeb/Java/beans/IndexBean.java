@@ -1,5 +1,6 @@
 package beans;
 
+import java.io.Serializable;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.rmi.RemoteException;
@@ -18,8 +19,9 @@ import web_service.SteamIndieImpServiceLocator;
 
 @ManagedBean
 @ViewScoped
-public class IndexBean {
+public class IndexBean implements Serializable{
 	
+	private static final long serialVersionUID = 1L;
 	//Display
 	private List<DataJuego> displayJuegos = new ArrayList<DataJuego>();
 	private List<DataJuego> carrouselJuegos = new ArrayList<DataJuego>();
@@ -39,6 +41,7 @@ public class IndexBean {
 		SteamIndieImpService servicio = new SteamIndieImpServiceLocator();
 		SteamIndie ws = new SteamIndieImpPortBindingStub(new URL(servicio.getSteamIndieImpPortAddress()), servicio);		
 		
+		if(ws.listarCategorias()!=null&&ws.listarJuegos()!=null) {//TODO No devolver listas nulas
 		for(DataCategoria c : ws.listarCategorias()) {
 			categoriasDisponibles.add(c);
 			
@@ -64,7 +67,7 @@ public class IndexBean {
 			juegos.add(j);
 			displayJuegos.add(j);
 		}
-		
+		}
 	}
 	
 	public String buscar() throws RemoteException, MalformedURLException {

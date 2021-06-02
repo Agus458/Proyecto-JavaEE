@@ -88,12 +88,12 @@
                             <div class="modal-body p-0">
                               <fieldset class="show" id="tab011">
 
-                                    <h:form>
+                                    <h:form id="registro">
                                     <div class="modal-body">
                                         <div class="form-group">
                                             <label for="nick">Nickname</label>
                                             <h:inputText id="nick" class="form-control" value="#{userBean.nick}"
-                                                required="true"></h:inputText>
+                                                required="true" validator="#{userBean.validarNick}"></h:inputText>
 
                                         </div>
                                         <div class="form-group">
@@ -111,7 +111,7 @@
                                         <div class="form-group">
                                             <label for="registroEmail">Email</label>
                                             <h:inputText id="registroEmail" class="form-control"
-                                                value="#{userBean.email}" required="true"></h:inputText>
+                                                value="#{userBean.email}" required="true" validator="#{userBean.validarEmail}"></h:inputText>
 
                                         </div>
                                         <div class="form-group">
@@ -125,8 +125,8 @@
 											  <h:outputLabel value="Creador de videojuegos?" styleClass="custom-control-label" for="customSwitch1"/>
 											</div>
 										</div>
-                                        <div class="form-group alert alert-danger">
-                                            <h:messages globalOnly="true" />
+                                        <div class="form-group">
+                                            <h:messages styleClass="alert alert-danger" />
                                         </div>
 
 											
@@ -167,7 +167,7 @@
                                             <div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
                                         </div>
 
-
+										<h:messages globalOnly="true"/>
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary"
@@ -184,6 +184,23 @@
                 </div>
             </div>
         </div>
+        
+        <script>
+	      function onSignIn(googleUser) {
+	        // Useful data for your client-side scripts:
+	        var profile = googleUser.getBasicProfile();
+	        console.log("ID: " + profile.getId()); // Don't send this directly to your server!
+	        console.log('Full Name: ' + profile.getName());
+	        console.log('Given Name: ' + profile.getGivenName());
+	        console.log('Family Name: ' + profile.getFamilyName());
+	        console.log("Image URL: " + profile.getImageUrl());
+	        console.log("Email: " + profile.getEmail());
+	
+	        // The ID token you need to pass to your backend:
+	        var id_token = googleUser.getAuthResponse().id_token;
+	        console.log("ID Token: " + id_token);
+	      }
+	    </script>
         <script type="text/javascript">$(document).ready(function () {
 
                 $(".tabs").click(function () {

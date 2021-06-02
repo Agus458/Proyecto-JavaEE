@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.axis.AxisFault;
 
+import web_service.DataAdmin;
 import web_service.DataCreador;
 import web_service.DataUsuario;
 import web_service.SteamIndie;
@@ -24,20 +25,19 @@ import web_service.SteamIndieImpServiceLocator;
 @SessionScoped
 public class SesionBean implements Serializable {
 	
-
+	//Atributos Sesion
 	private static final long serialVersionUID = 1L;
 	private String email;
 	private String pwd;
 	private boolean activo = false;
 	private DataUsuario usuario;
 
-
+	//Login & Logout
 	public String Login() throws AxisFault, MalformedURLException {
 		String res ="index.xhtml?faces-redirect=true";
 		SteamIndieImpService servicio = new SteamIndieImpServiceLocator();
 		SteamIndie ws = new SteamIndieImpPortBindingStub(new URL(servicio.getSteamIndieImpPortAddress()), servicio);
 		
-
 		try {
 			DataUsuario usuario = ws.buscarUsuarioEmail(this.email);
 			if(usuario!=null&&this.email.equals(usuario.getEmail())&&this.pwd.equals(usuario.getPassword())){
@@ -48,6 +48,7 @@ public class SesionBean implements Serializable {
 			}
 			else {
 				 FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+				 
 			}
 		} catch (RemoteException e) {
 			// TODO Auto-generated catch block
@@ -59,12 +60,39 @@ public class SesionBean implements Serializable {
 		
 	}
 	
-	
+
 	public String logout() {
 		FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
 		this.activo=false;
 		return "/index.xhtml?faces-redirect=true";
 	}
+	
+	
+	//Diferentes Usuarios
+	public DataCreador getCreador() {
+		DataCreador res = null;
+		try {
+			res = (DataCreador) this.usuario;
+		}
+		catch (Exception e) {
+		}
+		return res;
+	}
+
+	public DataAdmin getAdmin() {
+		DataAdmin res = null;
+		try {
+			res = (DataAdmin) this.usuario;
+		}
+		catch (Exception e) {
+		}
+		
+		return res;
+	}
+	
+
+
+	
 	
 	public DataUsuario getUsuario() {
 		return usuario;
@@ -82,17 +110,6 @@ public class SesionBean implements Serializable {
 		this.activo = activo;
 	}
 		
-	public DataCreador getCreador() {
-		DataCreador res = null;
-		try {
-			res = (DataCreador) this.usuario;
-		}
-		catch (Exception e) {
-			// TODO: handle exception
-		}
-		return res;
-	}
-
 
 	public String getPwd() {
 		return pwd;

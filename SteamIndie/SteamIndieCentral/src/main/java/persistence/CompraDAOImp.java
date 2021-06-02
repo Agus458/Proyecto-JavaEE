@@ -5,8 +5,10 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
+import javax.persistence.Query;
 
 import model.Compra;
+import model.Detalle;
 import model.Juego;
 import model.Jugador;
 
@@ -60,4 +62,51 @@ public class CompraDAOImp implements CompraDAO {
 		return compra;
 	}
 
+	@Override
+	public List<Compra> darTodasCompras() {
+		List<Compra> compras = null;
+		
+		try {
+			Query query = em.createQuery("SELECT c FROM Compra c");
+			@SuppressWarnings("unchecked")
+			List<Compra> aux = query.getResultList();
+			compras = aux;
+		} catch (Exception e) {
+			
+		}
+		
+		return compras;
+	}
+	
+	@Override
+	public List<Detalle> darTodosDetalles() {
+		List<Detalle> compras = null;
+		
+		try {
+			Query query = em.createQuery("SELECT c FROM Detalle c");
+			@SuppressWarnings("unchecked")
+			List<Detalle> aux = query.getResultList();
+			compras = aux;
+		} catch (Exception e) {
+			
+		}
+		
+		return compras;
+	}
+	
+	@Override
+	public List<Juego> masVendidos() {
+		List<Juego> res = null;
+		
+		try {
+			Query query = em.createQuery("SELECT j FROM Detalle d JOIN d.juego j GROUP BY d.juego ORDER BY COUNT(d.juego) DESC");
+			@SuppressWarnings("unchecked")
+			List<Juego> aux = query.getResultList();
+			res = aux;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return res;
+	}
 }

@@ -1,6 +1,9 @@
 package beans;
 
 import java.io.Serializable;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -9,6 +12,12 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
 import web_service.DataCategoria;
+import web_service.DataComentario;
+import web_service.DataJuego;
+import web_service.SteamIndie;
+import web_service.SteamIndieImpPortBindingStub;
+import web_service.SteamIndieImpService;
+import web_service.SteamIndieImpServiceLocator;
 
 @ManagedBean
 @ViewScoped
@@ -25,8 +34,19 @@ public class BackOfficeBean implements Serializable{
 	private Date fechaInicio;
 	private Date fechaFin;
 	
-	public BackOfficeBean() {
-		// TODO Auto-generated constructor stub
+	private List<DataComentario> comentariosReportados = new ArrayList<DataComentario>();
+	
+	public BackOfficeBean() throws MalformedURLException, RemoteException {
+		SteamIndieImpService servicio = new SteamIndieImpServiceLocator();
+		SteamIndie ws = new SteamIndieImpPortBindingStub(new URL(servicio.getSteamIndieImpPortAddress()), servicio);		
+		
+		for(DataJuego j: ws.listarJuegos() ) {
+			for(DataComentario c: ws.darUltimosComentariosJuego(j.getId())) {
+				if(c.getReportado()) {
+					comentariosReportados.add(c);
+				}
+			}
+		}
 	}
 
 	public void agregarCategoria(){
@@ -110,6 +130,14 @@ public class BackOfficeBean implements Serializable{
 
 	public void setDescuentoOferta(Integer descuentoOferta) {
 		this.descuentoOferta = descuentoOferta;
+	}
+
+	public List<DataComentario> getComentariosReportados() {
+		return comentariosReportados;
+	}
+
+	public void setComentariosReportados(List<DataComentario> comentariosReportados) {
+		this.comentariosReportados = comentariosReportados;
 	}
 
 }

@@ -1,5 +1,6 @@
 package beans;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -27,28 +28,49 @@ public class GameBean implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	
+	//Juego
 	private Integer id=1;
 	private String nombre="";
 	private String desc="";
 	private String logo="";
-	private String video="";
 	private float precio=0;
 	
-	DataJuego dataJuego = new DataJuego(null,null,null,null,null,null,null);
+	
+	//Creador
+	DataJuego dataJuego = new DataJuego(null,null,null,null,null,null,null, null);
 	
 	private List<String> categoriasElegidas = new ArrayList<String>();
 	private List<DataCategoria> categoriasDisponibles = new ArrayList<DataCategoria>();
 	private String categoria="";
 	
-	
-	@ManagedProperty(value="#{sesionBean}")
-		private SesionBean session;
-
 	private String imagen="";
 	private List<String> imagenes = new ArrayList<String>();
 	private List<String> imagenesAlojadas = new ArrayList<String>();
 	
+
+	private String video="";
+	private List<String> videos = new ArrayList<String>();
+	private List<String> videosAlojadas = new ArrayList<String>();
 	
+	//Sesion
+	@ManagedProperty(value="#{sesionBean}")
+		private SesionBean session;
+	
+	//Comentario
+	@ManagedProperty(value="#{commentsBean}")
+		private CommentsBean comentarios;
+		
+	//Valoracion
+	private String valoracion="0";
+	
+	//Imagenes Select
+	private String imagenSelect ="";
+	private ArrayList<String> imagenesSelect = new ArrayList<String>();
+
+	private String videoSelect ="";
+	private ArrayList<String> videosSelect = new ArrayList<String>();
+	
+	//Constructor
 	public GameBean() throws MalformedURLException, NumberFormatException, RemoteException{
 		HttpServletRequest origRequest = (HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest();	
 		String idRequest = origRequest.getParameter("id");
@@ -56,41 +78,69 @@ public class GameBean implements Serializable {
 
 		SteamIndieImpService servicio = new SteamIndieImpServiceLocator();
 		SteamIndie ws = new SteamIndieImpPortBindingStub(new URL(servicio.getSteamIndieImpPortAddress()), servicio);
-		
+		if(ws.listarCategorias()!=null) {//TODO No devolver listas nulas
 		for(DataCategoria c :  ws.listarCategorias()) {
 			categoriasDisponibles.add(c);
 		}
+		}
 		if(idRequest!=null) {
 			dataJuego = ws.buscarJuegoId(Integer.parseInt(idRequest));
+			imagenSelect = dataJuego.getMedia().getImagenes(0);
+			if(dataJuego.getMedia().getImagenes()!=null) {
+				for(String s : dataJuego.getMedia().getImagenes()) {
+					imagenesSelect.add(s);
+				}
+			}
+			if(dataJuego.getMedia().getVideos()!=null) {
+
+				for(String s : dataJuego.getMedia().getVideos()) {
+					videosSelect.add(s);
+				}
+			}
 		}
 	}
 	
+	//Creador
 	public String publicarJuego() throws MalformedURLException, RemoteException{	
+		//Definicion Web SEervice
 		SteamIndieImpService servicio = new SteamIndieImpServiceLocator();
 		SteamIndie ws = new SteamIndieImpPortBindingStub(new URL(servicio.getSteamIndieImpPortAddress()), servicio);
 		
+		//Obteniendo Daots
 		DataCategoria[] arregloCategoria = new DataCategoria[categoriasElegidas.size()];
-		String[] arregloImagenes = new String[imagenes.size()];
+		String[] arregloImagenes = new String[imagenes.size()];		
+		String[] arregloVideos = new String[videos.size()];
+
 		Integer i = 0;
+		
+		//Interprentado los datos
 		for(String c: categoriasElegidas) {
 			arregloCategoria[i] = new DataCategoria(null,c);
 			i++;
 		}
 		i=0;
 		for(String c: imagenes) {
-			System.out.println(i);
 			arregloImagenes[i] = c;
 			i++;
 		}
-		DataMedia media = new DataMedia(null, logo , null, arregloImagenes);
+
+		i=0;
+		for(String c: videos) {
+			arregloVideos[i] = c;
+			i++;
+		}
 		
-		DataJuego juego = new DataJuego(null, nombre, desc, precio, arregloCategoria ,media, null);
+		//Creacion de los objetos
+		DataMedia media = new DataMedia(null, logo , arregloVideos, arregloImagenes);
+		
+		DataJuego juego = new DataJuego(null, nombre, desc, precio, arregloCategoria ,media, null, null);
 		
 		
-		
+		//Llamada final a persistencia WebService
 		ws.publicarJuego(juego,session.getUsuario().getId());
 		
 		
+		//Retorno a Index
 		return "index";
 	}
 		
@@ -103,6 +153,37 @@ public class GameBean implements Serializable {
 		imagenes.add(imagen);
 		imagen="";
 	}
+	
+
+	public void agregarVideo(){
+		videos.add(video);
+		video="";
+	}
+	
+	//Jugador
+	public void valorarJuego() throws RemoteException, MalformedURLException {
+		SteamIndieImpService servicio = new SteamIndieImpServiceLocator();
+		SteamIndie ws = new SteamIndieImpPortBindingStub(new URL(servicio.getSteamIndieImpPortAddress()), servicio);
+		
+		ws.valorarJuego(Integer.parseInt(valoracion), dataJuego.getId(), session.getUsuario().getId());
+	}
+	
+	//Imagenes Seleccion
+
+	public void cambiarImagen(String img) {
+		this.imagenSelect = img;
+	}
+	
+	
+	//Reportar Juego
+	public void enviarReporte() {
+		//TODO Reportar juego
+	}
+	
+	//===================//
+	// GETTERS & SETTERS //
+	//===================//
+	
 	
 	public DataJuego getDataJuego(){
 
@@ -214,8 +295,72 @@ public class GameBean implements Serializable {
 	public void setImagenesAlojadas(List<String> imagenesAlojadas) {
 		this.imagenesAlojadas = imagenesAlojadas;
 	}
-	
 
+	public String getValoracion() {
+		return valoracion;
+	}
+
+	public void setValoracion(String valoracion) {
+		this.valoracion = valoracion;
+	}
+
+	public String getImagenSelect() {
+		return imagenSelect;
+	}
+
+	public void setImagenSelect(String imagenSelect) {
+		this.imagenSelect = imagenSelect;
+	}
+
+	public ArrayList<String> getImagenesSelect() {
+		return imagenesSelect;
+	}
+
+	public void setImagenesSelect(ArrayList<String> imagenesSelect) {
+		this.imagenesSelect = imagenesSelect;
+	}
+
+	public CommentsBean getComentarios() {
+		return comentarios;
+	}
+
+	public void setComentarios(CommentsBean comentarios) {
+		this.comentarios = comentarios;
+	}
+
+	public List<String> getVideos() {
+		return videos;
+	}
+
+	public void setVideos(List<String> videos) {
+		this.videos = videos;
+	}
+
+	public List<String> getVideosAlojadas() {
+		return videosAlojadas;
+	}
+
+	public void setVideosAlojadas(List<String> videosAlojadas) {
+		this.videosAlojadas = videosAlojadas;
+	}
+
+	public String getVideoSelect() {
+		return videoSelect;
+	}
+
+	public void setVideoSelect(String videoSelect) {
+		this.videoSelect = videoSelect;
+	}
+
+	public ArrayList<String> getVideosSelect() {
+		return videosSelect;
+	}
+
+	public void setVideosSelect(ArrayList<String> videosSelect) {
+		this.videosSelect = videosSelect;
+	}
+	
+	
 	
 	
 	

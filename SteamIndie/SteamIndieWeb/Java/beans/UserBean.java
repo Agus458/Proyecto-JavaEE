@@ -3,10 +3,13 @@ package beans;
 import java.io.Serializable;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.rmi.RemoteException;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.component.UIComponent;
+import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
 
 import org.apache.axis.AxisFault;
@@ -58,6 +61,38 @@ public class UserBean implements Serializable {
 		
 	}
 	
+	//Validaciones Input
+	public void validarNick(FacesContext context, UIComponent toValidate, Object value) throws RemoteException, MalformedURLException {
+		//WebService
+		SteamIndieImpService servicio = new SteamIndieImpServiceLocator();
+		SteamIndie ws = new SteamIndieImpPortBindingStub(new URL(servicio.getSteamIndieImpPortAddress()), servicio);
+		
+		
+		context =  FacesContext.getCurrentInstance();
+		String texto = (String) value;
+		
+		if(ws.nickEnUso(texto)) {
+			((UIInput) toValidate).setValid(false);
+			context.addMessage(toValidate.getClientId(context), new FacesMessage("Nick no disponible"));
+		}
+		
+	}
+	
+	public void validarEmail(FacesContext context, UIComponent toValidate, Object value) throws RemoteException, MalformedURLException {
+		//WebService
+		SteamIndieImpService servicio = new SteamIndieImpServiceLocator();
+		SteamIndie ws = new SteamIndieImpPortBindingStub(new URL(servicio.getSteamIndieImpPortAddress()), servicio);
+		
+		
+		context =  FacesContext.getCurrentInstance();
+		String texto = (String) value;
+		
+		if(ws.emailEnUso(texto)) {
+			((UIInput) toValidate).setValid(false);
+			context.addMessage(toValidate.getClientId(context), new FacesMessage("Email ya registrado"));
+		}
+		
+	}
 	
 	
 	public String getEmail() {

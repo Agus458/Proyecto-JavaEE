@@ -5,6 +5,7 @@ import java.util.List;
 import javax.ejb.Local;
 
 import model.Compra;
+import model.Detalle;
 import model.Juego;
 import model.Jugador;
 
@@ -15,4 +16,9 @@ public interface CompraDAO {
 	
 	public Compra darCompraJugador(Integer idJugador, Integer idJuego);
 	
+	public List<Compra> darTodasCompras();
+	
+	public List<Juego> masVendidos();
+
+	public List<Detalle> darTodosDetalles();
 }

@@ -12,7 +12,33 @@
 
     <title>Steam Indie</title>
     <ui:include src="/partials/head.xhtml"/>
-    
+
+	<script type="text/javascript">
+        function myFunction(id) {
+            document.getElementById("formValoracion:valoracion").value=id;
+            for (i = 1; i &lt;= 5; i++) {
+                let x = document.getElementById(i);
+                if (x.getAttribute("class") == "fas fa-star fa-lg text-warning" &amp;&amp; i &gt;= id) {
+                    x.setAttribute("class", "far fa-star fa-lg text-warning");
+                }
+                if (x.getAttribute("class") == "far fa-star fa-lg text-warning" &amp;&amp; i &lt;= id) {
+                    x.setAttribute("class", "fas fa-star fa-lg text-warning");
+                }
+            }
+        }
+
+        function reply(id){
+			console.log(id);
+			let x = document.getElementById("replyTo"+id);
+			console.log(x);
+			if (x.style.display === "none") {
+			    x.style.display = "block";
+			  } else {
+			    x.style.display = "none";
+			  }
+        }
+        
+    </script>    
     
 </h:head>
 
@@ -22,44 +48,51 @@
             <ui:include src="/partials/nav.xhtml" />
             
                 <div class="container-fluid mt-3">
-
 					<c:set var="j" value="#{gameBean.dataJuego}" scope="request" />
 				    <div class="row">
 				      <div class="col col-md-9 col-sm">
-				        <div class="img-display">
-				          <div class="img-showcase">
-				          	<ui:repeat value="#{j.media.imagenes}" var="imagen">
-				          		<h:graphicImage value="#{imagen}" />
-				            </ui:repeat>
-				          </div>
-				          
-				        </div>
-						
-						
-				        <div class="img-select">
-				        	<ui:repeat value="#{j.media.imagenes}" var="imagen">
-					          <div class="img-item">
-					            <a href="#" data-id="1">
-					          		<h:graphicImage value="#{imagen}" />
-					            </a>
+				      	<h:form>
+					        <div class="img-display">
+					          <div class="img-showcase">
+					          	<h:graphicImage value="#{gameBean.imagenSelect}" styleClass="animate__animated animate__fadeInLeft"/>
 					          </div>
-				          </ui:repeat>
-				          
-				          
-				          
-				        </div>
+					        </div>
+						
+				        	<div class="img-select">
+				        	<ui:repeat value="#{gameBean.imagenesSelect}" var="imagen">
+					          <div class="img-item">
+					           	<f:ajax render="@form">
+			        				<h:commandLink action="#{gameBean.cambiarImagen(imagen)}">
+					          			<h:graphicImage value="#{imagen}" />
+					          		</h:commandLink>
+					           	</f:ajax>
+					          </div>
+				          	</ui:repeat>
+				          	<ui:repeat value="#{gameBean.videosSelect}" var="imagen">
+					          <div class="img-item">
+					           	<f:ajax render="@form">
+			        				<h:commandLink action="#{gameBean.cambiarImagen(imagen)}">
+					          			<iframe src="#{imagen}"/>
+					          		</h:commandLink>
+					           	</f:ajax>
+					          </div>
+				          	</ui:repeat>
+				          	</div>
+				        </h:form>
 				      </div>
-				    
-				
-				
-				
-				    
 				      <div class="col">
 				        <div class="product-content">
-				          <h2 class="product-title">#{j.nombre}</h2>
-				          <a href="#" class="product-link">||Creador||</a>
-				
-				
+				        	
+			        		<h2 class="product-title">#{j.nombre}</h2>				          
+				        	<a href="#" class="product-link">||Creador||</a>
+							<button class="btn btn-sm btn-danger">
+								<i class="fas fa-exclamation fa-lg"></i>
+							</button>
+							<h:panelGroup rendered="#{sesionBean.admin!=null}">
+								<h:outputLink styleClass="btn btn-sm btn-danger">
+									<i class="far fa-trash-alt"></i> 
+								</h:outputLink>
+							</h:panelGroup>
 				          <div class="product-price">
 				            <p class="new-price">Precio: <span>$#{j.precio} </span></p>
 				          </div>
@@ -67,10 +100,17 @@
 				          <div class="product-detail">
 				            <h2>Descripción: </h2>
 				            <p>#{j.descripcion}</p>
-				           
-				
+				            <h:form id="formValoracion" styleClass="form-inline" rendered="#{(sesionBean.activo and sesionBean.creador==null and libraryBean.tieneJuego(j.id))}">
+				            	<h:inputText style="display: none;" value="#{gameBean.valoracion}" id="valoracion"/>
+				          		<i id="1" class="far fa-star fa-lg text-warning"  onmouseover="myFunction(1)" ></i>
+							    <i id="2" class="far fa-star fa-lg text-warning"  onmouseover="myFunction(2)"></i>
+							    <i id="3" class="far fa-star fa-lg text-warning"  onmouseover="myFunction(3)"></i>
+							    <i id="4" class="far fa-star fa-lg text-warning"  onmouseover="myFunction(4)"></i>
+							    <i id="5" class="far fa-star fa-lg text-warning"  onmouseover="myFunction(5)"></i>
+							    <h:commandButton action="#{gameBean.valorarJuego()}" value="Valorar" styleClass="btn btn-primary"/>
+							</h:form>
 				          </div>
-							<h:panelGroup rendered="#{sesionBean.creador==null}">
+							<h:panelGroup rendered="#{sesionBean.creador==null}" >
 					          <div class="purchase-info">
 								<h:form>
 									<h:commandButton actionListener="#{carritoBean.addCarrito()}" value="Agregar al carrito" styleClass="btn btn-primary" >
@@ -92,72 +132,108 @@
 				  
 				  <div class="container">
 					<div class="row">
-					<!-- Contenedor Principal -->
-				    <div class="comments-container">
-				
-						<ul id="comments-list" class="comments-list">
-							<li>
-								<div class="comment-main-level">
-									<!-- Avatar -->
-									<div class="comment-avatar"><img src="http://i9.photobucket.com/albums/a88/creaticode/avatar_1_zps8e1c80cd.jpg" alt=""></img></div>
-									<!-- Contenedor del Comentario -->
-									<div class="comment-box">
-										<div class="comment-head">
-											<h6 class="comment-name"><a href="">Agustin Ortiz</a></h6>
-											<i class="fa fa-reply"></i>
-										</div>
-										<div class="comment-content">
-											Lorem ipsum dolor sit amet, consectetur adipisicing elit. Velit omnis animi et iure laudantium vitae, praesentium optio, sapiente distinctio illo?
-										</div>
-									</div>
-								</div>
-								<!-- Respuestas de los comentarios -->
-								<ul class="comments-list reply-list">
+						<div class="col-12">
+							<!-- Contenedor Principal -->
+						    <div class="comments-container">
+								<h:form id="formComentarios">
+								<ul id="comments-list" class="comments-list">
 									<li>
-										<!-- Avatar -->
-										<div class="comment-avatar"><img src="http://i9.photobucket.com/albums/a88/creaticode/avatar_2_zps7de12f8b.jpg" alt=""></img></div>
-										<!-- Contenedor del Comentario -->
-										<div class="comment-box">
-											<div class="comment-head">
-												<h6 class="comment-name"><a href="http://creaticode.com/blog">Lorena Rojero</a></h6>
-												<i class="fa fa-reply"></i>
-											</div>
-											<div class="comment-content">
-												Lorem ipsum dolor sit amet, consectetur adipisicing elit. Velit omnis animi et iure laudantium vitae, praesentium optio, sapiente distinctio illo?
+										<div class="comment-main-level mb-1">
+											<!-- Avatar -->
+											<div class="comment-avatar"><img src="http://i9.photobucket.com/albums/a88/creaticode/avatar_1_zps8e1c80cd.jpg" alt=""></img></div>
+											<!-- Contenedor del Comentario -->
+											<div class="comment-box">
+												<div class="comment-head">
+													<h6 class="comment-name">Nuevo comentario</h6>
+												</div>
+												<div class="comment-content">
+													<h:inputTextarea value="#{commentsBean.comentario}" styleClass="form-control"></h:inputTextarea>
+													<h:commandButton value="Comentar" styleClass="btn btn-primary">
+														<f:ajax listener="#{commentsBean.agregarComentario(j.id)}"
+															execute="@form"
+															render="@form">
+														</f:ajax>
+													</h:commandButton>
+												</div>
 											</div>
 										</div>
 									</li>
-				
+										<ui:repeat var="comentario" value="#{commentsBean.comments}">
+										<li>
+										<div class="comment-main-level">
+											<!-- Avatar -->
+											<div class="comment-avatar"><img src="http://i9.photobucket.com/albums/a88/creaticode/avatar_1_zps8e1c80cd.jpg" alt=""></img></div>
+											<!-- Contenedor del Comentario -->
+											<div class="comment-box">
+												<div class="comment-head">
+													<h6 class="comment-name"><a href="">#{comentario.idJugador}</a></h6>
+													<i class="fas fa-reply" onclick="reply(#{comentario.id})"></i>
+													<h:commandLink action="#{commentsBean.reportarComentario(comentario.id)}">
+					                            			<i class="ml-1 fas fa-exclamation fa-lg text-danger"></i>
+		                                			</h:commandLink>
+												</div>
+												<div class="comment-content">
+													#{comentario.contenido}
+												</div>
+											</div>
+										</div>
+										<!-- Respuestas de los comentarios -->
+										<h:form id="formRespuestas">
+										<ul class="comments-list reply-list">
+											<li id="replyTo#{comentario.id}" style="display: none;">
+												<div class="comment-avatar"><img src="http://i9.photobucket.com/albums/a88/creaticode/avatar_1_zps8e1c80cd.jpg" alt=""></img></div>											
+												<!-- Contenedor del Comentario -->
+												
+												<div class="comment-box">
+													<div class="comment-head">												
+														<h6 class="comment-name"><a href="http://creaticode.com/blog">Lorena Rojero</a></h6>
+														<h:commandLink action="#{commentsBean.reportarComentario(comentario.id)}">
+					                            			<i class="ml-1 fas fa-exclamation fa-lg text-danger"></i>
+		                                				</h:commandLink>	
+													</div>
+													<div class="comment-content">
+														<h:inputTextarea value="#{commentsBean.respuesta}" styleClass="form-control"> 
+														</h:inputTextarea>
+														<h:commandButton value="Responder comentario" styleClass="btn btn-primary">
+														<f:ajax listener="#{commentsBean.responderComentario(comentario.id)}"
+															execute="@form"
+															render="formRespuestas">
+														</f:ajax>
+														</h:commandButton>
+													</div>
+												</div>
+												
+											</li>
+											<ui:repeat value="#{comentario.respuestas}" var="respuesta">
+											<li>
+												<div class="comment-avatar"><img src="http://i9.photobucket.com/albums/a88/creaticode/avatar_1_zps8e1c80cd.jpg" alt=""></img></div>											
+												<!-- Contenedor del Comentario -->
+												<div class="comment-box">
+													<div class="comment-head">													
+														<h6 class="comment-name"><a href="http://creaticode.com/blog">Lorena Rojero</a></h6>
+														<h:commandLink>
+					                            			<i class="ml-1 fas fa-exclamation fa-lg text-danger"></i>
+		                                				</h:commandLink>
+													</div>
+													<div class="comment-content">
+														#{respuesta.contenido}
+													</div>
+												</div>
+											</li>
+											</ui:repeat>
+											
+										</ul>
+										</h:form>
+										</li>
+										</ui:repeat>
 									
-								</ul>
-							</li>
-						</ul>
-					</div>
+									</ul>
+								</h:form>
+							</div>
+						</div>
+						
 					</div>
 				</div>
-	
-				  <script type="text/javascript">
-				    const imgs = document.querySelectorAll('.img-select a');
-				    const imgBtns = [...imgs];
-				    let imgId = 1;
-				
-				    imgBtns.forEach((imgItem) => {
-				      imgItem.addEventListener('click', (event) => {
-				        event.preventDefault();
-				        imgId = imgItem.dataset.id;
-				        slideImage();
-				      });
-				    });
-				
-				    function slideImage() {
-				      const displayWidth = document.querySelector('.img-showcase img:first-child').clientWidth;
-				
-				      document.querySelector('.img-showcase').style.transform = `translateX(${- (imgId - 1) * displayWidth}px)`;
-				    }
-				
-				    window.addEventListener('resize', slideImage);
-				  </script>
-
 <ui:include src="/partials/footer.xhtml" />    
 
 </h:body>

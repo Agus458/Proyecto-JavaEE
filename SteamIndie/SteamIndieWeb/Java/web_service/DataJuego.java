@@ -22,6 +22,8 @@ public class DataJuego  implements java.io.Serializable {
 
     private web_service.DataPublicacion publicacion;
 
+    private web_service.DataValoracion[] valoraciones;
+
     public DataJuego() {
     }
 
@@ -32,7 +34,8 @@ public class DataJuego  implements java.io.Serializable {
            java.lang.Float precio,
            web_service.DataCategoria[] categorias,
            web_service.DataMedia media,
-           web_service.DataPublicacion publicacion) {
+           web_service.DataPublicacion publicacion,
+           web_service.DataValoracion[] valoraciones) {
            this.id = id;
            this.nombre = nombre;
            this.descripcion = descripcion;
@@ -40,6 +43,7 @@ public class DataJuego  implements java.io.Serializable {
            this.categorias = categorias;
            this.media = media;
            this.publicacion = publicacion;
+           this.valoraciones = valoraciones;
     }
 
 
@@ -190,6 +194,34 @@ public class DataJuego  implements java.io.Serializable {
         this.publicacion = publicacion;
     }
 
+
+    /**
+     * Gets the valoraciones value for this DataJuego.
+     * 
+     * @return valoraciones
+     */
+    public web_service.DataValoracion[] getValoraciones() {
+        return valoraciones;
+    }
+
+
+    /**
+     * Sets the valoraciones value for this DataJuego.
+     * 
+     * @param valoraciones
+     */
+    public void setValoraciones(web_service.DataValoracion[] valoraciones) {
+        this.valoraciones = valoraciones;
+    }
+
+    public web_service.DataValoracion getValoraciones(int i) {
+        return this.valoraciones[i];
+    }
+
+    public void setValoraciones(int i, web_service.DataValoracion _value) {
+        this.valoraciones[i] = _value;
+    }
+
     private java.lang.Object __equalsCalc = null;
     public synchronized boolean equals(java.lang.Object obj) {
         if (!(obj instanceof DataJuego)) return false;
@@ -222,7 +254,10 @@ public class DataJuego  implements java.io.Serializable {
               this.media.equals(other.getMedia()))) &&
             ((this.publicacion==null && other.getPublicacion()==null) || 
              (this.publicacion!=null &&
-              this.publicacion.equals(other.getPublicacion())));
+              this.publicacion.equals(other.getPublicacion()))) &&
+            ((this.valoraciones==null && other.getValoraciones()==null) || 
+             (this.valoraciones!=null &&
+              java.util.Arrays.equals(this.valoraciones, other.getValoraciones())));
         __equalsCalc = null;
         return _equals;
     }
@@ -262,6 +297,17 @@ public class DataJuego  implements java.io.Serializable {
         }
         if (getPublicacion() != null) {
             _hashCode += getPublicacion().hashCode();
+        }
+        if (getValoraciones() != null) {
+            for (int i=0;
+                 i<java.lang.reflect.Array.getLength(getValoraciones());
+                 i++) {
+                java.lang.Object obj = java.lang.reflect.Array.get(getValoraciones(), i);
+                if (obj != null &&
+                    !obj.getClass().isArray()) {
+                    _hashCode += obj.hashCode();
+                }
+            }
         }
         __hashCodeCalc = false;
         return _hashCode;
@@ -322,6 +368,14 @@ public class DataJuego  implements java.io.Serializable {
         elemField.setXmlType(new javax.xml.namespace.QName("http://web_service/", "dataPublicacion"));
         elemField.setMinOccurs(0);
         elemField.setNillable(false);
+        typeDesc.addFieldDesc(elemField);
+        elemField = new org.apache.axis.description.ElementDesc();
+        elemField.setFieldName("valoraciones");
+        elemField.setXmlName(new javax.xml.namespace.QName("", "valoraciones"));
+        elemField.setXmlType(new javax.xml.namespace.QName("http://web_service/", "dataValoracion"));
+        elemField.setMinOccurs(0);
+        elemField.setNillable(true);
+        elemField.setMaxOccursUnbounded(true);
         typeDesc.addFieldDesc(elemField);
     }
 

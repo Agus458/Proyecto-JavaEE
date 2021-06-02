@@ -107,5 +107,24 @@ public interface SteamIndie {
 	
 	@WebMethod
 	public List<DataComentario> darUltimosComentariosJuego(Integer idJuego);
+
+	@WebMethod
+	public float darVentasTotal();
+
+	@WebMethod
+	public List<DataJuego> juegoMasVendidos();
+
+	@WebMethod
+	public List<DataJuego> juegoMasVendidosCreador(Integer idCreador);
+
+	@WebMethod
+	public float darVentasCreador(Integer idCreador);
+	
+	@WebMethod
+	public Integer darCantVentasCreador(Integer idCreador);
+
+	@WebMethod
+	public Integer darCantVentasJuego(Integer idJuego);
+
 	
 }

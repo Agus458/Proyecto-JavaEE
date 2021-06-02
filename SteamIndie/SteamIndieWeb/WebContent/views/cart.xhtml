@@ -54,8 +54,9 @@
 			                            </td>
 			
 			                            <td>
-			                            	<h:commandButton action="#{carritoBean.removeCarrito(juego.id)}" styleClass="btn btn-danger" value="Borrar" />
-											<i class="far fa-trash-alt"></i>
+			                            	<h:commandLink action="#{carritoBean.removeCarrito(juego.id)}" styleClass="btn btn-danger">
+												<i class="far fa-trash-alt"></i>
+											</h:commandLink>
 			                            </td>
 			                        </tr>
 										</h:form>

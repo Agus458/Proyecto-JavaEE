@@ -13,18 +13,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import web_service.DataAdmin;
+
 /**
  * Servlet Filter implementation class SessionFilter
  */
-@WebFilter("/SessionFilter")
-public class SessionFilter implements Filter {
+@WebFilter("/AdminFilter")
+public class AdminFilter implements Filter {
 
 
 	
     /**
      * Default constructor. 
      */
-    public SessionFilter() {
+    public AdminFilter() {
         // TODO Auto-generated constructor stub
     }
 
@@ -38,12 +40,20 @@ public class SessionFilter implements Filter {
 	/**
 	 * @see Filter#doFilter(ServletRequest, ServletResponse, FilterChain)
 	 */
+	@SuppressWarnings("unused")
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 		HttpServletRequest req = (HttpServletRequest) request;
         HttpServletResponse res = (HttpServletResponse) response;
         HttpSession session = req.getSession(false);
         if (session!=null&&session.getAttribute("usuario")!=null) {     
-            chain.doFilter(request, response);
+            try {
+				DataAdmin admin = (DataAdmin) session.getAttribute("usuario");
+	        	chain.doFilter(request, response);
+
+			} catch (Exception e) {
+	            res.sendRedirect(req.getContextPath() + "/index.xhtml");
+			}
+
         }
        
         else {

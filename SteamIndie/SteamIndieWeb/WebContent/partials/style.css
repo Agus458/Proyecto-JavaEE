@@ -1302,7 +1302,6 @@ body {
 }
 
 .comments-list .comment-box:before, .comments-list .comment-box:after {
-	content: '';
 	height: 0;
 	width: 0;
 	position: absolute;

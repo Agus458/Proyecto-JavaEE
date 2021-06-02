@@ -77,9 +77,22 @@
 						</div>
 						
 						<div class="form-group">
-							<label for="video">Video</label>
-							<h:inputText id="video" styleClass="form-control"
-								value="#{gameBean.video}"></h:inputText>
+							<label for="imagenes">Videos</label>
+							<div class="form-inline">
+								<h:inputText value="#{gameBean.video}" styleClass="form-control"/>
+								<h:commandButton value="Agregar Video" styleClass="btn btn-primary">
+							        <f:ajax listener="#{gameBean.agregarVideo()}"
+							                execute="@form"
+							                render="@form"/>
+							    </h:commandButton>	
+							</div>
+							
+						
+						
+							<h:selectManyListbox styleClass="custom-select" value="#{gameBean.videosAlojadas}" id="videos">
+								<f:selectItem itemLabel="Videos:" itemDisabled="true"/>
+								<f:selectItems value="#{gameBean.videos}" var="c" itemLabel="#{c}" itemValue="#{c}" itemDisabled="true"/>
+							</h:selectManyListbox>
 						</div>	
 
 
