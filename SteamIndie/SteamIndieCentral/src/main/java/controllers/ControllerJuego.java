@@ -38,4 +38,6 @@ public interface ControllerJuego {
 	public void reportarComentario(Integer idComentario);
 	
 	public List<DataComentario> darUltimosComentariosJuego(Integer idJuego);
+	
+	public void crearCategoria(String nombre);
 }

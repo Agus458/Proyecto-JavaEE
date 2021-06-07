@@ -15,6 +15,10 @@
 		<class>model.Valoracion</class>
 		<class>model.Comentario</class>
 		<class>model.Respuesta</class>
+		<class>model.Oferta</class>
+		<class>model.Tag</class>
+		<class>model.Muro</class>
+		<class>model.Post</class>
 		<properties>
 			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/steamindiedb"/>
 			<property name="javax.persistence.jdbc.user" value="root"/>

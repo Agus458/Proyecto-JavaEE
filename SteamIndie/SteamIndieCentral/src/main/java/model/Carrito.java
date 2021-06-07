@@ -150,7 +150,7 @@ public class Carrito implements Serializable {
 		Float subTotal = new Float(0);
 
 		for (Juego aux : this.juegos) {
-			subTotal += aux.getPrecio();
+			subTotal += aux.getPrecioFinal();
 		}
 
 		return subTotal;

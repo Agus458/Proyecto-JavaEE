@@ -12,6 +12,7 @@ import data_types.DataCreador;
 import data_types.DataJuego;
 import data_types.DataJugador;
 import data_types.DataUsuario;
+import enums.TipoPost;
 import model.Admin;
 import model.Carrito;
 import model.Creador;
@@ -286,6 +287,17 @@ public class ControllerUsuarioImp implements ControllerUsuario {
 		}
 		
 		return biblioteca;
+	}
+
+	@Override
+	public void publicarPost(TipoPost tipo, String contenido, Integer idJuagdor) {
+		if(tipo != null && contenido != null && idJuagdor != null) {
+			Jugador jugador = this.usuarioPersistence.buscarJugadorId(idJuagdor);
+			if(jugador != null) {
+				jugador.agregarPost(tipo, contenido);
+				this.usuarioPersistence.actualizarJugador(jugador);
+			}
+		}
 	}
 
 }

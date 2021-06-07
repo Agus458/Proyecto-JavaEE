@@ -10,11 +10,12 @@ import model.Categoria;
 import model.Creador;
 import model.Juego;
 import model.Publicacion;
+import model.Tag;
 
 @Local
 public interface JuegoDAO {
 
-	public Juego insertarJuego(DataJuego juego, List<Categoria> categorias);
+	public Juego insertarJuego(DataJuego juego, List<Categoria> categorias, List<Tag> tags);
 	
 	public List<Juego> listarJuegos();
 	

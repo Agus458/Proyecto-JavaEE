@@ -7,7 +7,6 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
 import data_types.DataJuego;
-import data_types.DataPublicacion;
 import model.Carrito;
 import model.Compra;
 import model.Creador;

@@ -8,6 +8,7 @@ import javax.persistence.*;
 
 import data_types.DataCarrito;
 import data_types.DataJugador;
+import enums.TipoPost;
 
 /**
  * Entity implementation class for Entity: Jugador
@@ -25,13 +26,16 @@ public class Jugador extends Usuario implements Serializable {
 
 	@OneToOne(cascade = CascadeType.PERSIST)
 	private Carrito carrito;
-	
+
 	@OneToMany
 	private List<Compra> compras;
-	
+
 	@OneToMany
 	private List<Juego> juegos;
-	
+
+	@OneToOne(cascade = CascadeType.ALL)
+	private Muro muro;
+
 	// Constructors
 
 	/*
@@ -56,10 +60,11 @@ public class Jugador extends Usuario implements Serializable {
 		this.carrito = null;
 		this.compras = new ArrayList<Compra>();
 		this.juegos = new ArrayList<Juego>();
+		this.muro = new Muro();
 	}
 
 	// Getters
-	
+
 	/**
 	 * @return the compras
 	 */
@@ -118,11 +123,25 @@ public class Jugador extends Usuario implements Serializable {
 		this.carrito = carrito;
 	}
 
+	/**
+	 * @return the muro
+	 */
+	public Muro getMuro() {
+		return muro;
+	}
+
+	/**
+	 * @param muro the muro to set
+	 */
+	public void setMuro(Muro muro) {
+		this.muro = muro;
+	}
+
 	// Methods
 
 	public DataJugador darDatos() {
 		return new DataJugador(this.getId(), this.getNombre(), this.getApellido(), this.getEmail(), this.getPassword(),
-				this.getNickname());
+				this.getNickname(), this.muro.darDatos());
 	}
 
 	public DataCarrito darDatosCarrito() {
@@ -144,37 +163,43 @@ public class Jugador extends Usuario implements Serializable {
 	}
 
 	public Carrito removerJuegoCarrito(Juego juego) {
-		if(this.carrito != null) {
-			if(this.carrito.estaElJuego(juego)) {
+		if (this.carrito != null) {
+			if (this.carrito.estaElJuego(juego)) {
 				this.carrito.removerJuego(juego);
 			}
 			return this.carrito;
 		}
 		return null;
 	}
-	
+
 	public Boolean estaEnBiblioteca(Juego juego) {
 		Boolean esta = false;
-		
-		if(juego != null) {
-			for(Juego aux : juegos) {
-				if(aux.getId() == juego.getId()) {
+
+		if (juego != null) {
+			for (Juego aux : juegos) {
+				if (aux.getId() == juego.getId()) {
 					esta = true;
 				}
 			}
 		}
-		
+
 		return esta;
 	}
-	
+
 	public void agregarCompra(Compra compra) {
-		if(compra != null) {
-			for(Detalle aux : compra.getDeatlles()) {
+		if (compra != null) {
+			for (Detalle aux : compra.getDeatlles()) {
 				this.juegos.add(aux.getJuego());
 			}
 			this.compras.add(compra);
 			this.saldo -= compra.getTotal();
 		}
 	}
-	
+
+	public void agregarPost(TipoPost tipo, String contenido) {
+		if (tipo != null && contenido != null) {
+			this.muro.agregarPost(tipo, contenido);
+		}
+	}
+
 }

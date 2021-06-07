@@ -27,7 +27,7 @@ public class DataValoracion {
 	/*
 	 * Default constructor
 	 */
-	private DataValoracion() {	
+	private DataValoracion() {
 	}
 
 	/**

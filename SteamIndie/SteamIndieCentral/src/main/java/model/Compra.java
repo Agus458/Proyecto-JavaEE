@@ -56,7 +56,7 @@ public class Compra implements Serializable {
 		this.total = new Float(0);
 		for(Juego aux : juegos) {
 			detalles.add(new Detalle(aux));
-			this.total += aux.getPrecio();
+			this.total += aux.getPrecioFinal();
 		}
 		this.fechaCompra = new Date();
 	}

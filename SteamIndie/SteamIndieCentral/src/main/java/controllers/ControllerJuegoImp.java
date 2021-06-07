@@ -11,12 +11,14 @@ import data_types.DataCategoria;
 import data_types.DataComentario;
 import data_types.DataCreador;
 import data_types.DataJuego;
+import data_types.DataTag;
 import model.Categoria;
 import model.Comentario;
 import model.Creador;
 import model.Juego;
 import model.Jugador;
 import model.Respuesta;
+import model.Tag;
 import model.Valoracion;
 import persistence.CategoriaDAO;
 import persistence.JuegoDAO;
@@ -66,13 +68,23 @@ public class ControllerJuegoImp implements ControllerJuego {
 								Categoria categoria = categoriaPersistence.buscarCategoriaNombre(aux.getNombre());
 								if (categoria != null) {
 									categorias.add(categoria);
+								}
+							}
+						}
+						
+						List<Tag> tags = new ArrayList<Tag>();
+						if (juego.getTags() != null && !juego.getTags().isEmpty()) {
+							for (DataTag aux : juego.getTags()) {
+								Tag tag = categoriaPersistence.buscarTagNombre(aux.getNombre());
+								if (tag != null) {
+									tags.add(tag);
 								} else {
-									categorias.add(categoriaPersistence.insertarCategoria(aux));
+									tags.add(categoriaPersistence.insertarTag(aux));
 								}
 							}
 						}
 
-						Juego entity = juegoPersistence.insertarJuego(juego, categorias);
+						Juego entity = juegoPersistence.insertarJuego(juego, categorias, tags);
 
 						juegoPersistence.crearPublicacion(creador, entity, new Date());
 
@@ -113,7 +125,7 @@ public class ControllerJuegoImp implements ControllerJuego {
 
 	@Override
 	public DataJuego buscarJuegoId(Integer id) {
-		DataJuego juego = new DataJuego(null, "", "", null, null, null, null, null);
+		DataJuego juego = new DataJuego(null, "", "", null, null, null, null, null, null, null, null);
 
 		Juego aux = juegoPersistence.buscarJuegoId(id);
 
@@ -126,7 +138,7 @@ public class ControllerJuegoImp implements ControllerJuego {
 
 	@Override
 	public DataJuego buscarJuegoNombre(String nombre) {
-		DataJuego juego = new DataJuego(null, "", "", null, null, null, null, null);
+		DataJuego juego = new DataJuego(null, "", "", null, null, null, null, null, null, null, null);
 
 		Juego aux = juegoPersistence.buscarJuegoNombre(nombre);
 
@@ -269,6 +281,16 @@ public class ControllerJuegoImp implements ControllerJuego {
 		}
 		
 		return comentarios;
+	}
+
+	@Override
+	public void crearCategoria(String nombre) {
+		if(nombre != null) {
+			Categoria cat = this.categoriaPersistence.buscarCategoriaNombre(nombre);
+			if(cat == null) {
+				this.categoriaPersistence.insertarCategoria(new DataCategoria(null, nombre));
+			}
+		}
 	}
 
 }

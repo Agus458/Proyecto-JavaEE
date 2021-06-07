@@ -7,7 +7,6 @@ import javax.ejb.Local;
 import data_types.DataAdmin;
 import data_types.DataCreador;
 import data_types.DataJugador;
-import data_types.DataUsuario;
 import model.Admin;
 import model.Carrito;
 import model.Creador;

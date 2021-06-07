@@ -10,6 +10,8 @@ import data_types.DataCategoria;
 import data_types.DataCreador;
 import data_types.DataJuego;
 import data_types.DataMedia;
+import data_types.DataOferta;
+import data_types.DataTag;
 import data_types.DataValoracion;
 
 /**
@@ -33,9 +35,14 @@ public class Juego implements Serializable {
 	private String descripcion;
 
 	private Float precio;
+	
+	private Float precioFinal;
 
 	@ManyToMany
 	private List<Categoria> categorias;
+	
+	@ManyToMany
+	private List<Tag> tags;
 
 	@OneToOne(cascade = CascadeType.PERSIST)
 	private Media media;
@@ -48,6 +55,9 @@ public class Juego implements Serializable {
 	
 	@OneToMany(mappedBy = "juego")
 	private List<Comentario> comentarios;
+	
+	@ManyToOne
+	private Oferta ofertaActual;
 
 	// Constructors
 
@@ -67,15 +77,18 @@ public class Juego implements Serializable {
 	 * @param media
 	 * @param creador
 	 */
-	public Juego(String nombre, String descripcion, Float precio, Media media, List<Categoria> categorias) {
+	public Juego(String nombre, String descripcion, Float precio, Media media, List<Categoria> categorias, List<Tag> tags) {
 		super();
 		this.nombre = nombre;
 		this.descripcion = descripcion;
 		this.precio = precio;
+		this.precioFinal = precio;
 		this.media = media;
 		this.publicacion = null;
 		this.categorias = categorias;
+		this.tags = tags;
 		this.valoraciones = new ArrayList<Valoracion>();
+		this.ofertaActual = null;
 	}
 
 	// Getters
@@ -114,6 +127,13 @@ public class Juego implements Serializable {
 	public List<Categoria> getCategorias() {
 		return categorias;
 	}
+	
+	/**
+	 * @return the tags
+	 */
+	public List<Tag> getTags() {
+		return tags;
+	}
 
 	/**
 	 * @return the media
@@ -134,6 +154,20 @@ public class Juego implements Serializable {
 	 */
 	public List<Valoracion> getValoraciones() {
 		return valoraciones;
+	}
+	
+	/**
+	 * @return the ofertaActual
+	 */
+	public Oferta getOfertaActual() {
+		return ofertaActual;
+	}
+	
+	/**
+	 * @return the precioFinal
+	 */
+	public Float getPrecioFinal() {
+		return precioFinal;
 	}
 
 	// Setters
@@ -165,6 +199,13 @@ public class Juego implements Serializable {
 	public void setCategorias(List<Categoria> categorias) {
 		this.categorias = categorias;
 	}
+	
+	/**
+	 * @param tags the tags to set
+	 */
+	public void setTags(List<Tag> tags) {
+		this.tags = tags;
+	}
 
 	/**
 	 * @param media the media to set
@@ -187,6 +228,20 @@ public class Juego implements Serializable {
 		this.valoraciones = valoraciones;
 	}
 
+	/**
+	 * @param ofertaActual the ofertaActual to set
+	 */
+	public void setOfertaActual(Oferta ofertaActual) {
+		this.ofertaActual = ofertaActual;
+	}
+	
+	/**
+	 * @param precioFinal the precioFinal to set
+	 */
+	public void setPrecioFinal(Float precioFinal) {
+		this.precioFinal = precioFinal;
+	}
+	
 
 	// Methods
 
@@ -194,6 +249,11 @@ public class Juego implements Serializable {
 		List<DataCategoria> cats = new ArrayList<DataCategoria>();
 		for (Categoria aux : this.categorias) {
 			cats.add(aux.darDatos());
+		}
+		
+		List<DataTag> tas = new ArrayList<DataTag>();
+		for (Tag aux : this.tags) {
+			tas.add(aux.darDatos());
 		}
 
 		DataMedia dataMedia = null;
@@ -205,9 +265,14 @@ public class Juego implements Serializable {
 		for(Valoracion aux : this.valoraciones) {
 			vals.add(aux.darDatos());
 		}
-
-		return new DataJuego(this.id, this.nombre, this.descripcion, this.precio, cats, dataMedia,
-				this.publicacion.darDatos(), vals);
+		
+		DataOferta oferta = null;
+		if(ofertaActual != null) {
+			oferta = ofertaActual.darDatos();
+		}
+		
+		return new DataJuego(this.id, this.nombre, this.descripcion, this.precio, this.precioFinal, cats, tas, dataMedia,
+				this.publicacion.darDatos(), vals, oferta);
 	}
 
 	public void agregarCategoria(Categoria categoria) {
@@ -253,5 +318,5 @@ public class Juego implements Serializable {
 		
 		return false;
 	}
-	
+
 }

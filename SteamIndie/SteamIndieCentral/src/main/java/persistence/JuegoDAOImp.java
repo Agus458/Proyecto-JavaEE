@@ -15,6 +15,7 @@ import model.Creador;
 import model.Juego;
 import model.Media;
 import model.Publicacion;
+import model.Tag;
 
 /**
  * Session Bean implementation class JuegoDAOImp
@@ -32,7 +33,7 @@ public class JuegoDAOImp implements JuegoDAO {
 	}
 
 	@Override
-	public Juego insertarJuego(DataJuego juego, List<Categoria> categorias) {
+	public Juego insertarJuego(DataJuego juego, List<Categoria> categorias, List<Tag> tags) {
 		Juego entity = null;
 		if (juego != null) {
 
@@ -44,7 +45,7 @@ public class JuegoDAOImp implements JuegoDAO {
 					media = new Media(juego.getMedia().getLogo(), juego.getMedia().getVideos(), juego.getMedia().getImagenes());
 				}
 				
-				entity = new Juego(juego.getNombre(), juego.getDescripcion(), juego.getPrecio(), media, categorias);
+				entity = new Juego(juego.getNombre(), juego.getDescripcion(), juego.getPrecio(), media, categorias, tags);
 
 				em.persist(entity);
 				em.getTransaction().commit();

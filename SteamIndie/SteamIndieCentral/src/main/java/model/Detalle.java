@@ -38,7 +38,7 @@ public class Detalle implements Serializable {
 	public Detalle(Juego juego) {
 		super();
 		this.juego = juego;
-		this.precio = juego.getPrecio();
+		this.precio = juego.getPrecioFinal();
 	}
 
 	// Getters

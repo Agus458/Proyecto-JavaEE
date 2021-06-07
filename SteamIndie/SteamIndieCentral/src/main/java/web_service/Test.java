@@ -1,6 +1,7 @@
 package web_service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import controllers.*;
@@ -34,7 +35,7 @@ public class Test {
 //		cats.add(new DataCategoria(null,"Building"));
 //		cats.add(new DataCategoria(null,"Rolplay"));
 //		DataMedia media = new DataMedia(null, "https://cdn2.unrealengine.com/16br-agentjonesy-egs-s2-1200x1600-1200x1600-2531e05bb04f.jpg", null, null);
-//		controllerJuego.publicarJuego(new DataJuego(null, "Minecraft","Make your own world",new Float(0),cats,media,null, null), 2);
+//		controllerJuego.publicarJuego(new DataJuego(null, "Minecraft","Make your own world",new Float(30), null,cats,media,null, null,null), 2);
 //		
 //		List<DataJuego> juegos = controllerJuego.listarJuegos();
 //		for(DataJuego aux : juegos) {
@@ -54,14 +55,19 @@ public class Test {
 //		
 		ControllerCompra controllerCompra = Fabric.getControllerCompra();
 //		controllerCompra.realizarCheckout(1);
-		System.out.println(controllerCompra.darVentasTotalCreador(1));
-		System.out.println(controllerCompra.darVentasTotales());
-		for(DataJuego j:controllerCompra.juegosMasVendidos(1)) {
-			System.out.println(j.getNombre());
-		}
-		System.out.println(controllerCompra.darCantVentasCreador(1));
-		System.out.println(controllerCompra.darCantVentasJuego(1));
-
+//		System.out.println(controllerCompra.darVentasTotalCreador(1));
+//		System.out.println(controllerCompra.darVentasTotales());
+//		for(DataJuego j:controllerCompra.juegosMasVendidos(1)) {
+//			System.out.println(j.getNombre());
+//		}
+//		System.out.println(controllerCompra.darCantVentasCreador(1));
+//		System.out.println(controllerCompra.darCantVentasJuego(1));
+		
+		ControllerOferta controllerOferta = Fabric.getControllerOferta();
+		controllerOferta.crearOferta("mundo abierto 6", new Date("2021/06/06 17:08"), new Date("2021/06/06 17:10"), new Float(30));
+//		List<Integer> juegos = new ArrayList<Integer>();
+//		juegos.add(1);
+//		controllerOferta.agregarJuegosOferta(3,juegos);
 	}
 
 }

@@ -17,14 +17,20 @@ public class DataJuego {
 	private String descripcion;
 
 	private Float precio;
+	
+	private Float precioFinal;
 
 	private List<DataCategoria> categorias;
+	
+	private List<DataTag> tags;
 	
 	private DataMedia media;
 	
 	private DataPublicacion publicacion;
 	
 	private List<DataValoracion> valoraciones;
+	
+	private DataOferta ofertaActual;
 	
 	// Constructors
 	
@@ -45,17 +51,20 @@ public class DataJuego {
 	 * @param media
 	 * @param creador
 	 */
-	public DataJuego(Integer id, String nombre, String descripcion, Float precio, List<DataCategoria> categorias,
-			DataMedia media, DataPublicacion publicacion, List<DataValoracion> valoraciones) {
+	public DataJuego(Integer id, String nombre, String descripcion, Float precio, Float precioFinal, List<DataCategoria> categorias,
+			List<DataTag> tags, DataMedia media, DataPublicacion publicacion, List<DataValoracion> valoraciones, DataOferta ofertaActual) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
 		this.descripcion = descripcion;
 		this.precio = precio;
+		this.precioFinal = precioFinal;
 		this.categorias = categorias;
+		this.tags = tags;
 		this.media = media;
 		this.publicacion = publicacion;
 		this.valoraciones = valoraciones;
+		this.ofertaActual = ofertaActual;
 	}
 
 	// Getters
@@ -94,6 +103,13 @@ public class DataJuego {
 	public List<DataCategoria> getCategorias() {
 		return categorias;
 	}
+	
+	/**
+	 * @return the tags
+	 */
+	public List<DataTag> getTags() {
+		return tags;
+	}
 
 	/**
 	 * @return the media
@@ -114,6 +130,20 @@ public class DataJuego {
 	 */
 	public List<DataValoracion> getValoraciones() {
 		return valoraciones;
+	}
+	
+	/**
+	 * @return the ofertaActual
+	 */
+	public DataOferta getOfertaActual() {
+		return ofertaActual;
+	}
+
+	/**
+	 * @return the precioFinal
+	 */
+	public Float getPrecioFinal() {
+		return precioFinal;
 	}
 
 }

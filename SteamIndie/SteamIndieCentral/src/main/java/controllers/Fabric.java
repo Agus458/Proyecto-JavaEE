@@ -4,6 +4,8 @@ import persistence.CategoriaDAO;
 import persistence.CategoriaDAOImp;
 import persistence.CompraDAO;
 import persistence.CompraDAOImp;
+import persistence.OfertaDAO;
+import persistence.OfertaDAOImp;
 import persistence.ReseniaDAO;
 import persistence.ReseniaDAOImp;
 import persistence.UsuarioDAO;
@@ -23,6 +25,10 @@ public class Fabric {
 		return new ControllerCompraImp();
 	}
 	
+	public static ControllerOferta getControllerOferta() {
+		return new ControllerOfertaImp();
+	}
+	
 	public static UsuarioDAO getUsuarioPersistence() {
 		return new UsuarioDAOImp();
 	}
@@ -37,5 +43,9 @@ public class Fabric {
 	
 	public static ReseniaDAO getReseniaDAO() {
 		return new ReseniaDAOImp();
+	}
+	
+	public static OfertaDAO getOfertaDAO() {
+		return new OfertaDAOImp();
 	}
 }

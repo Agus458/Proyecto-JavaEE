@@ -10,6 +10,7 @@ import data_types.DataCreador;
 import data_types.DataJuego;
 import data_types.DataJugador;
 import data_types.DataUsuario;
+import enums.TipoPost;
 
 @Local
 public interface ControllerUsuario {
@@ -43,4 +44,6 @@ public interface ControllerUsuario {
 	public Float darSaldoJugador(Integer idJuagdor);
 
 	public List<DataJuego> darBibliotecaJugador(Integer idJugador);
+	
+	public void publicarPost(TipoPost tipo, String contenido, Integer idJuagdor);
 }
