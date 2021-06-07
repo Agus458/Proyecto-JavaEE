@@ -14,12 +14,12 @@ public class Test {
 
 	public static void main(String[] args) {
 		ControllerUsuario controller = Fabric.getControllerUsuario();
-//		DataJugador jugador = new DataJugador(null, "Santiago", "Sellanes", "santi@gmail.com", "123", "Santi");
-//		controller.registrarJugador(jugador);
-//		DataCreador creador = new DataCreador(null, "Agustin", "Peraza", "agu@gmail.com", "123", "Agu458", null);
-//		controller.registrarCreador(creador);
-//		DataAdmin admin = new DataAdmin(null, "Admin", "Admin", "admin@admin.com", "123456789", "admin");
-//		controller.registrarAdmin(admin);
+		DataJugador jugador = new DataJugador(null, "Santiago", "Sellanes", "santi@gmail.com", "123", "Santi", null);
+		controller.registrarJugador(jugador);
+		DataCreador creador = new DataCreador(null, "Agustin", "Peraza", "agu@gmail.com", "123", "Agu458", null);
+		controller.registrarCreador(creador);
+		DataAdmin admin = new DataAdmin(null, "Admin", "Admin", "admin@admin.com", "123456789", "admin");
+		controller.registrarAdmin(admin);
 //		System.out.println(controller.buscarUsuarioEmail(admin.getEmail()).getApellido());
 //		System.out.println(controller.buscarUsuarioNick(admin.getNickname()).getApellido());
 //		System.out.println(controller.buscarUsuarioId(3).getApellido());
@@ -64,7 +64,7 @@ public class Test {
 //		System.out.println(controllerCompra.darCantVentasJuego(1));
 		
 		ControllerOferta controllerOferta = Fabric.getControllerOferta();
-		controllerOferta.crearOferta("mundo abierto 6", new Date("2021/06/06 17:08"), new Date("2021/06/06 17:10"), new Float(30));
+//		controllerOferta.crearOferta("mundo abierto 6", new Date("2021/06/06 17:08"), new Date("2021/06/06 17:10"), new Float(30));
 //		List<Integer> juegos = new ArrayList<Integer>();
 //		juegos.add(1);
 //		controllerOferta.agregarJuegosOferta(3,juegos);

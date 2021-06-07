@@ -3,6 +3,8 @@
  */
 package data_types;
 
+import java.util.List;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 
@@ -13,7 +15,7 @@ import javax.xml.bind.annotation.XmlAccessorType;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class DataJugador extends DataUsuario{
 
-	private DataMuro muro;
+	private List<DataPost> posts;
 	
 	/**
 	 * Default constructor
@@ -30,22 +32,23 @@ public class DataJugador extends DataUsuario{
 	 * @param password
 	 * @param nickname
 	 */
-	public DataJugador(Integer id, String nombre, String apellido, String email, String password, String nickname, DataMuro muro) {
+	public DataJugador(Integer id, String nombre, String apellido, String email, String password, String nickname, List<DataPost> posts) {
 		super(id, nombre, apellido, email, password, nickname);
+		this.posts = posts;
 	}
 
 	/**
-	 * @return the muro
+	 * @return the posts
 	 */
-	public DataMuro getMuro() {
-		return muro;
+	public List<DataPost> getPosts() {
+		return posts;
 	}
 
 	/**
-	 * @param muro the muro to set
+	 * @param posts the posts to set
 	 */
-	public void setMuro(DataMuro muro) {
-		this.muro = muro;
+	public void setPosts(List<DataPost> posts) {
+		this.posts = posts;
 	}
 	
 }

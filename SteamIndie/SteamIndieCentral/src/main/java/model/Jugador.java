@@ -8,6 +8,7 @@ import javax.persistence.*;
 
 import data_types.DataCarrito;
 import data_types.DataJugador;
+import data_types.DataPost;
 import enums.TipoPost;
 
 /**
@@ -33,8 +34,8 @@ public class Jugador extends Usuario implements Serializable {
 	@OneToMany
 	private List<Juego> juegos;
 
-	@OneToOne(cascade = CascadeType.ALL)
-	private Muro muro;
+	@OneToMany(cascade = CascadeType.ALL)
+	private List<Post> posts;
 
 	// Constructors
 
@@ -60,7 +61,7 @@ public class Jugador extends Usuario implements Serializable {
 		this.carrito = null;
 		this.compras = new ArrayList<Compra>();
 		this.juegos = new ArrayList<Juego>();
-		this.muro = new Muro();
+		this.posts = new ArrayList<Post>();
 	}
 
 	// Getters
@@ -126,22 +127,27 @@ public class Jugador extends Usuario implements Serializable {
 	/**
 	 * @return the muro
 	 */
-	public Muro getMuro() {
-		return muro;
+	public List<Post> getPosts() {
+		return posts;
 	}
 
 	/**
 	 * @param muro the muro to set
 	 */
-	public void setMuro(Muro muro) {
-		this.muro = muro;
+	public void setMuro(List<Post> posts) {
+		this.posts = posts;
 	}
 
 	// Methods
 
 	public DataJugador darDatos() {
+		List<DataPost> p = new ArrayList<DataPost>();
+		for(Post aux : this.posts) {
+			p.add(aux.darDatos());
+		}
+		
 		return new DataJugador(this.getId(), this.getNombre(), this.getApellido(), this.getEmail(), this.getPassword(),
-				this.getNickname(), this.muro.darDatos());
+				this.getNickname(), p);
 	}
 
 	public DataCarrito darDatosCarrito() {
@@ -198,7 +204,7 @@ public class Jugador extends Usuario implements Serializable {
 
 	public void agregarPost(TipoPost tipo, String contenido) {
 		if (tipo != null && contenido != null) {
-			this.muro.agregarPost(tipo, contenido);
+			this.posts.add(new Post(contenido, tipo));
 		}
 	}
 
