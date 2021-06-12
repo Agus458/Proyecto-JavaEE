@@ -132,4 +132,25 @@ public class ReseniaDAOImp implements ReseniaDAO {
 		return comentarios;
 	}
 	
+	@Override
+	@SuppressWarnings("unchecked")
+	public List<Comentario> darComentariosReportados() {
+		List<Comentario> comentarios = new ArrayList<Comentario>();
+		
+		try {
+			Query query = em.createQuery("SELECT c FROM Comentario c WHERE c.reportado=1 ORDER BY c.fechaPublicacion DESC");
+						
+			comentarios = query.getResultList();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return comentarios;
+	}
+	
+	@Override
+	public void eliminarComentarioReportado(String idComentario) {
+		//TODO
+	}
+	
 }

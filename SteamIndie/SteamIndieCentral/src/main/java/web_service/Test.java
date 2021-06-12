@@ -14,10 +14,10 @@ public class Test {
 
 	public static void main(String[] args) {
 		ControllerUsuario controller = Fabric.getControllerUsuario();
-		DataJugador jugador = new DataJugador(null, "Santiago", "Sellanes", "santi@gmail.com", "123", "Santi", null);
-		controller.registrarJugador(jugador);
-		DataCreador creador = new DataCreador(null, "Agustin", "Peraza", "agu@gmail.com", "123", "Agu458", null);
-		controller.registrarCreador(creador);
+//		DataJugador jugador = new DataJugador(null, "Santiago", "Sellanes", "santi@gmail.com", "123", "Santi", null);
+//		controller.registrarJugador(jugador);
+//		DataCreador creador = new DataCreador(null, "Agustin", "Peraza", "agu@gmail.com", "123", "Agu458", null);
+//		controller.registrarCreador(creador);
 		DataAdmin admin = new DataAdmin(null, "Admin", "Admin", "admin@admin.com", "123456789", "admin");
 		controller.registrarAdmin(admin);
 //		System.out.println(controller.buscarUsuarioEmail(admin.getEmail()).getApellido());
@@ -68,6 +68,9 @@ public class Test {
 //		List<Integer> juegos = new ArrayList<Integer>();
 //		juegos.add(1);
 //		controllerOferta.agregarJuegosOferta(3,juegos);
+		for(DataOferta o: controllerOferta.darOfertasPendientes()) {
+			System.out.println(o.getNombre());
+		}
 	}
 
 }

@@ -117,6 +117,29 @@ public class JuegoDAOImp implements JuegoDAO {
 		return juego;
 	}
 
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Juego> buscarJuegos(String nombre) {
+		List<Juego> juegos = new ArrayList<Juego>();
+
+		if (nombre != null) {
+
+			try {
+
+				Query query = em.createQuery("SELECT j FROM Juego j WHERE j.nombre like CONCAT('%',:nombre,'%')");
+				query.setParameter("nombre", nombre);
+
+				juegos = query.getResultList();
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+		}
+
+		return juegos;
+	}
+	
 	@Override
 	public Publicacion crearPublicacion(Creador creador, Juego juego, Date fechaPublicacion) {
 		Publicacion entity = null;

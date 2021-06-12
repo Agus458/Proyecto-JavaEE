@@ -18,5 +18,7 @@ public interface OfertaDAO {
 	public Oferta buscarNombre(String nombreOferta);
 	
 	public List<Oferta> darOfertas();
+
+	public List<Oferta> darOfertasPendientes();
 	
 }

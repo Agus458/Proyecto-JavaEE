@@ -293,4 +293,35 @@ public class ControllerJuegoImp implements ControllerJuego {
 		}
 	}
 
+	@Override
+	public List<DataJuego> buscarJuegos(String nombre) {
+		List<DataJuego> juegos = new ArrayList<DataJuego>();
+
+		for(Juego j:juegoPersistence.buscarJuegos(nombre)){
+			juegos.add(j.darDatos());
+		}
+
+		return juegos;
+	}
+
+
+	@Override
+	public List<DataComentario> darComentariosReportados() {
+		List<DataComentario> comentarios = new ArrayList<DataComentario>();
+		
+		List<Comentario> coments = reseniaPersistence.darComentariosReportados();
+		
+		for(Comentario aux : coments) {
+			comentarios.add(aux.darDatos());
+		}
+		
+		return comentarios;
+	}
+	
+	@Override
+	public void eliminarComentarioReportado(String idComentario) {
+		//TODO
+	}
+
+
 }

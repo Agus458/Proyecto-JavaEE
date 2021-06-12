@@ -23,5 +23,9 @@ public interface ReseniaDAO {
 	public Comentario buscarComentarioId(Integer idComentario);
 	
 	public List<Comentario> darUltimosComentariosJuego(Integer idJuego);
+
+	public List<Comentario> darComentariosReportados();
+
+	public void eliminarComentarioReportado(String idComentario);
 	
 }

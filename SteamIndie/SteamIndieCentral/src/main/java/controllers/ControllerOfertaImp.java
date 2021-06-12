@@ -9,6 +9,7 @@ import java.util.TimerTask;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
+import data_types.DataOferta;
 import enums.EstadoOferta;
 import model.Juego;
 import model.Oferta;
@@ -177,6 +178,16 @@ public class ControllerOfertaImp implements ControllerOferta {
 			oferta.setEstado(EstadoOferta.FINALIZADA);
 			this.ofertaPersistence.actualizar(oferta);
 		}
+	}
+	
+	@Override
+	public List<DataOferta> darOfertasPendientes() {
+		List<DataOferta> res = new ArrayList<DataOferta>();
+		List<Oferta> ofertas = this.ofertaPersistence.darOfertasPendientes();
+			for(Oferta aux : ofertas) {
+				res.add(aux.darDatos());
+			}
+		return res;
 	}
 
 }

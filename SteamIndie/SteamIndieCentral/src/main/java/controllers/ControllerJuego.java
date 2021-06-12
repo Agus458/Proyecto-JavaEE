@@ -40,4 +40,10 @@ public interface ControllerJuego {
 	public List<DataComentario> darUltimosComentariosJuego(Integer idJuego);
 	
 	public void crearCategoria(String nombre);
+
+	public void eliminarComentarioReportado(String idComentario);
+
+	public List<DataComentario> darComentariosReportados();
+
+	public List<DataJuego> buscarJuegos(String nombre);
 }

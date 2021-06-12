@@ -110,4 +110,23 @@ public class OfertaDAOImp implements OfertaDAO {
 		return new ArrayList<Oferta>();
 	}
 
+	
+	@Override
+	public List<Oferta> darOfertasPendientes() {
+
+		try {
+
+			Query query = em.createQuery("SELECT o FROM Oferta o WHERE o.estado=enums.EstadoOferta.PENDIENTE");
+			
+			@SuppressWarnings("unchecked")
+			List<Oferta> aux = query.getResultList();
+
+			return aux;
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return new ArrayList<Oferta>();
+	}
 }

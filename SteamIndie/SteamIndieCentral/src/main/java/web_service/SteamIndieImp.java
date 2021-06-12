@@ -3,12 +3,14 @@
  */
 package web_service;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.jws.WebService;
 
 import controllers.ControllerCompra;
 import controllers.ControllerJuego;
+import controllers.ControllerOferta;
 import controllers.ControllerUsuario;
 import controllers.Fabric;
 import data_types.DataAdmin;
@@ -18,7 +20,9 @@ import data_types.DataComentario;
 import data_types.DataCreador;
 import data_types.DataJuego;
 import data_types.DataJugador;
+import data_types.DataOferta;
 import data_types.DataUsuario;
+import enums.TipoPost;
 
 /**
  * @author Agustín
@@ -237,4 +241,53 @@ public class SteamIndieImp implements SteamIndie{
 		ControllerCompra controller = Fabric.getControllerCompra();
 		return controller.darCantVentasJuego(idJuego);
 	}
+	
+	@Override
+	public void agregarCategoria(String nombre) {
+		ControllerJuego controller = Fabric.getControllerJuego();
+		controller.crearCategoria(nombre);
+	}
+	
+	@Override
+	public void crearOferta(String nombre, Date fechaInicio, Date fechaFin, float descuento ) {
+		ControllerOferta controller = Fabric.getControllerOferta();
+		controller.crearOferta(nombre, fechaInicio, fechaFin, descuento);
+	}
+	
+	@Override
+	public List<DataOferta> listarOfertasPendientes() {
+		ControllerOferta controller = Fabric.getControllerOferta();
+		return controller.darOfertasPendientes();
+	}
+	
+	@Override
+	public void agregarJuegoAOferta(Integer idOferta, List<Integer> idJuegos) {
+		ControllerOferta controller = Fabric.getControllerOferta();
+		controller.agregarJuegosOferta(idOferta, idJuegos);
+	}
+	
+	@Override
+	public void quitarJuegoAOferta(Integer idOferta, List<Integer> idJuegos) {
+		ControllerOferta controller = Fabric.getControllerOferta();
+		controller.removerJuegosOferta(idOferta, idJuegos);
+	}
+	
+	@Override
+	public void publicarPost(TipoPost tipo, String contenido, Integer idJugador) {
+		ControllerUsuario controller = Fabric.getControllerUsuario();
+		controller.publicarPost(tipo, contenido, idJugador);
+	}
+	
+	@Override
+	public List<DataComentario> darComentariosReportados(){
+		ControllerJuego controller = Fabric.getControllerJuego();
+		return controller.darComentariosReportados();
+	}
+	
+	@Override
+	public List<DataJuego> buscarJuegos(String nombre) {
+		ControllerJuego controller = Fabric.getControllerJuego();
+		return controller.buscarJuegos(nombre);
+	}
+	
 }
