@@ -10,7 +10,6 @@ import data_types.DataCreador;
 import data_types.DataJuego;
 import data_types.DataJugador;
 import data_types.DataPagina;
-import data_types.DataPost;
 import data_types.DataUsuario;
 import enums.TipoPost;
 
@@ -49,5 +48,5 @@ public interface ControllerUsuario {
 	
 	public void publicarPost(TipoPost tipo, String contenido, String texto, Integer idJuagdor);
 	
-	public DataPagina<DataPost> listarPost(Integer idJugador, Integer pagina);
+	public DataPagina listarPost(Integer idJugador, Integer pagina);
 }

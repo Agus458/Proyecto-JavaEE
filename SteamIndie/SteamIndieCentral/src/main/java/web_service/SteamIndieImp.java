@@ -22,7 +22,6 @@ import data_types.DataJuego;
 import data_types.DataJugador;
 import data_types.DataOferta;
 import data_types.DataPagina;
-import data_types.DataPost;
 import data_types.DataUsuario;
 import enums.TipoPost;
 
@@ -299,7 +298,7 @@ public class SteamIndieImp implements SteamIndie{
 	}
 
 	@Override
-	public DataPagina<DataPost> listarPost(Integer idJugador, Integer pagina) {
+	public DataPagina listarPost(Integer idJugador, Integer pagina) {
 		ControllerUsuario controller = Fabric.getControllerUsuario();
 		return controller.listarPost(idJugador, pagina);
 	}

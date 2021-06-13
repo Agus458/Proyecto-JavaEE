@@ -33,14 +33,14 @@ public class Test {
 //		for(int i = 0; i<11; i++) {
 //			controller.publicarPost(TipoPost.TEXTO, "blablabla", "desc", 1);
 //		}
-//		DataPagina<DataPost> dp = controller.listarPost(1, 3);
-//		if(dp != null) {
-//			System.out.println(dp.getPagina());
-//			System.out.println(dp.getCantPaginas());
-//			for(DataPost p: dp.getData()) {
-//				System.out.println(p.getId());
-//			}
-//		}
+		DataPagina dp = controller.listarPost(1, 1);
+		if(dp != null) {
+			System.out.println(dp.getPagina());
+			System.out.println(dp.getCantPaginas());
+			for(DataPost p: dp.getData()) {
+				System.out.println(p.getId());
+			}
+		}
 		
 		ControllerJuego controllerJuego = Fabric.getControllerJuego();
 //		controllerJuego.valorarJuego(5, 1, 1);

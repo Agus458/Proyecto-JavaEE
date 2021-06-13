@@ -18,7 +18,6 @@ import data_types.DataJuego;
 import data_types.DataJugador;
 import data_types.DataOferta;
 import data_types.DataPagina;
-import data_types.DataPost;
 import data_types.DataUsuario;
 import enums.TipoPost;
 
@@ -159,5 +158,5 @@ public interface SteamIndie {
 	public List<DataOferta> listarOfertas();
 	
 	@WebMethod
-	public DataPagina<DataPost> listarPost(Integer idJugador, Integer pagina);
+	public DataPagina listarPost(Integer idJugador, Integer pagina);
 }

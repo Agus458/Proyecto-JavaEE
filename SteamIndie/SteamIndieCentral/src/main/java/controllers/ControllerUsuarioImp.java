@@ -304,7 +304,7 @@ public class ControllerUsuarioImp implements ControllerUsuario {
 	}
 
 	@Override
-	public DataPagina<DataPost> listarPost(Integer idJugador, Integer pagina) {
+	public DataPagina listarPost(Integer idJugador, Integer pagina) {
 		if (idJugador != null) {
 			Jugador jugador = usuarioPersistence.buscarJugadorId(idJugador);
 			if (jugador != null) {
@@ -320,7 +320,7 @@ public class ControllerUsuarioImp implements ControllerUsuario {
 				if(cant > 0) {
 					cant = (cant / 10)+1;
 				}
-				return new DataPagina<DataPost>(pagina, cant, posts);
+				return new DataPagina(pagina, cant, posts);
 			}
 		}
 		return null;
