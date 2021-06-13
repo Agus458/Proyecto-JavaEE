@@ -2,7 +2,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:h="http://java.sun.com/jsf/html">
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
 
 <h:head>
     <meta charset="utf-8"></meta>
@@ -19,45 +20,95 @@
     <ui:include src="/partials/nav.xhtml" />
     
     <div class="container mt-2">
-    	<div class="row row-cols-1 row-cols-md-3">
-	  <div class="col mb-4">
-	    <div class="card h-100">
-	      <img src="..." class="card-img-top" alt="..."></img>
-	      <div class="card-body">
-	        <h5 class="card-title">Card title</h5>
-	        <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-	      </div>
-	    </div>
-	  </div>
-	  <div class="col mb-4">
-	    <div class="card h-100">
-	      <img src="..." class="card-img-top" alt="..."></img>
-	      <div class="card-body">
-	        <h5 class="card-title">Card title</h5>
-	        <p class="card-text">This is a short card.</p>
-	      </div>
-	    </div>
-	  </div>
-	  <div class="col mb-4">
-	    <div class="card h-100">
-	      <img src="..." class="card-img-top" alt="..."></img>
-	      <div class="card-body">
-	        <h5 class="card-title">Card title</h5>
-	        <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content.</p>
-	      </div>
-	    </div>
-	  </div>
-	  <div class="col mb-4">
-	    <div class="card h-100">
-	      <img src="..." class="card-img-top" alt="..."></img>
-	      <div class="card-body">
-	        <h5 class="card-title">Card title</h5>
-	        <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-	      </div>
+   		<div class="row row-cols-1 row-cols-md-3">
+   			<ui:repeat var="oferta" value="#{salesBean.ofertas}">
+   				
+				<div class="col mb-4">
+				    <div class="card h-100">
+				      <div class="card-body">
+				        <h5 class="card-title">#{oferta.nombre}</h5>
+				        <p class="card-text">
+					        Comienza el: #{oferta.fechaInicio.time}<br></br>
+					        Finaliza el: #{oferta.fechaFin.time} <br></br>
+					        Descuento: #{oferta.descuento}	
+				        </p>
+				        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ofertaModalAgregar" onclick="ofertas(#{oferta.id}, 'Agregar')">
+ 							Agregar juegos
+						</button>
+						<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#ofertaModalQuitar" onclick="ofertas(#{oferta.id}, 'Quitar')">
+ 							Quitar juegos
+						</button>		        
+				      </div>
+				    </div>
+			 	</div>
+			 	
+	  		</ui:repeat>
+		</div>
+	</div>
+	
+	<!-- Modal Agregar juego-->
+	<div class="modal fade" id="ofertaModalAgregar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	    	<h:form id="AgregarOferta">
+	    
+		      <div class="modal-header">
+		        <h5 class="modal-title" id="ofertaModalLabel">Que juegos desea agregar</h5>
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		          <span aria-hidden="true">&times;</span>
+		        </button>
+		      </div>
+		      <div class="modal-body">
+			      	<h:inputText value="#{salesBean.idOferta}" id="idOfertaAgregar" a:hidden="true"></h:inputText>
+			        <h:selectManyListbox styleClass="custom-select" value="#{salesBean.juegosElegidos}" required="true">
+			    		<f:selectItem itemLabel="Seleccione Juegos" itemValue="0" itemDisabled="true"/>
+			    		<f:selectItems value="#{indexBean.displayJuegos}" itemLabel="#{juego.nombre}" var="juego"  itemValue="#{juego.id}"/>
+			    	</h:selectManyListbox>
+		      	
+		      </div>
+		      <div class="modal-footer">
+		      	<h:commandButton actionListener="#{salesBean.agregarJuegoOferta()}" value="Confirmar" styleClass="btn btn-primary"/>
+		        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+		      </div>
+	      </h:form>
 	    </div>
 	  </div>
 	</div>
+	
+	<!-- Modal sacar juego-->
+	<div class="modal fade" id="ofertaModalQuitar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	    	<h:form id="QuitarOferta">
+	    
+		      <div class="modal-header">
+		        <h5 class="modal-title" id="ofertaModalLabel">Que juegos desea quitar</h5>
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		          <span aria-hidden="true">&times;</span>
+		        </button>
+		      </div>
+		      <div class="modal-body">
+			      	<h:inputText value="#{salesBean.idOferta}" id="idOfertaQuitar" a:hidden="true"></h:inputText>
+			        <h:selectManyListbox styleClass="custom-select" value="#{salesBean.juegosElegidos}" required="true">
+			    		<f:selectItem itemLabel="Seleccione Juegos" itemValue="0" itemDisabled="true"/>
+			    		<f:selectItems value="#{indexBean.displayJuegos}" itemLabel="#{juego.nombre}" var="juego"  itemValue="#{juego.id}"/>
+			    	</h:selectManyListbox>
+		      	
+		      </div>
+		      <div class="modal-footer">
+		      	<h:commandButton actionListener="#{salesBean.quitarJuegoOferta()}" value="Confirmar" styleClass="btn btn-primary"/>
+		        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+		      </div>
+	      </h:form>
+	    </div>
+	  </div>
 	</div>
+	<script>
+		function ofertas(id,mode){
+			document.getElementById(mode+"Oferta:idOferta"+mode).value = id;
+		}
+	</script>
+	
 	
 	<ui:include src="/partials/footer.xhtml" />    
 

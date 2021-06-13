@@ -21,14 +21,6 @@
 						data-toggle="modal" data-target="#ofertasModal">Ofertas</a></li>
 					<li class="nav-item"><a class="nav-link" 
 						href="/SteamIndieWeb/backoffice/stats.xhtml">Ventas</a></li>
-					
-
-
-					<form class="form-inline">
-						<input class="form-control mr-sm-2" type="search"
-							placeholder="Search" aria-label="Search"></input>
-					</form>
-					<button class="btn btn-outline-info my-2 my-sm-0" type="submit">Search</button>
 				</ul>
 
 			</div>
@@ -94,7 +86,7 @@
 					<div class="modal-footer">
 						<button type="button" class="btn btn-secondary"
 							data-dismiss="modal">Cerrar</button>
-						<h:commandButton value="Confirmar" action="#{gameBean.publicarJuego}"
+						<h:commandButton value="Confirmar" action="#{backOfficeBean.confirmarCategorias()}"
 							class="btn btn-primary"></h:commandButton>
 
 					</div>
@@ -128,14 +120,12 @@
 						<div class="form-inline justify-content-between">
 							<div>
 								<label>Fecha inicio</label>
-								<h:inputText a:type="date" value="#{backOfficeBean.fechaInicio}" styleClass="form-control">  
-								   <f:convertDateTime pattern="yyyy-MM-dd"/>  
+								<h:inputText a:type="datetime-local" value="#{backOfficeBean.fechaInicio}" styleClass="form-control">  
 								</h:inputText>
 							</div>
 							<div>
 								<label>Fecha fin</label>
-								<h:inputText a:type="date" value="#{backOfficeBean.fechaFin}" styleClass="form-control">  
-								   <f:convertDateTime pattern="yyyy-MM-dd"/>  
+								<h:inputText a:type="datetime-local" value="#{backOfficeBean.fechaFin}" styleClass="form-control">  
 								</h:inputText>
 							</div>	
 						</div>						

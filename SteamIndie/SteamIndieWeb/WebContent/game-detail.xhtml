@@ -46,9 +46,9 @@
 
 
             <ui:include src="/partials/nav.xhtml" />
+            	<c:set var="j" value="#{gameBean.dataJuego}" scope="request" />
             
-                <div class="container-fluid mt-3">
-					<c:set var="j" value="#{gameBean.dataJuego}" scope="request" />
+                <h:panelGroup layout="block" styleClass="container-fluid mt-3" rendered="#{j.id!=null}">
 				    <div class="row">
 				      <div class="col col-md-9 col-sm">
 				      	<h:form>
@@ -94,7 +94,7 @@
 								</h:outputLink>
 							</h:panelGroup>
 				          <div class="product-price">
-				            <p class="new-price">Precio: <span>$#{j.precio} </span></p>
+				            <p class="new-price">Precio: <span>$#{j.precioFinal} </span></p>
 				          </div>
 				
 				          <div class="product-detail">
@@ -128,9 +128,9 @@
 				      </div>
 				    </div>
 				
-				  </div>
+				  </h:panelGroup>
 				  
-				  <div class="container">
+				  <h:panelGroup layout="block" styleClass="container" rendered="#{j.id!=null}">
 					<div class="row">
 						<div class="col-12">
 							<!-- Contenedor Principal -->
@@ -233,7 +233,13 @@
 						</div>
 						
 					</div>
-				</div>
+				</h:panelGroup>
+				
+				<h:panelGroup layout="block" styleClass="container" rendered="#{j.id==null}">
+					<div class="alert alert-danger w-80" role="alert">
+						ID de juego invalida
+					</div>
+				</h:panelGroup>
 <ui:include src="/partials/footer.xhtml" />    
 
 </h:body>

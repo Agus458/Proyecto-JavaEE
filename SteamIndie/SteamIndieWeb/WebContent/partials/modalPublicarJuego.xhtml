@@ -30,22 +30,28 @@
 						</div>
 						<div class="form-group">
 							<label for="categorias">Categorias</label>
+							<h:selectManyListbox styleClass="custom-select" value="#{gameBean.categoriasElegidas}" id="categorias">
+								<f:selectItem itemLabel="Selecione categorias" itemDisabled="true"/>
+								<f:selectItems value="#{gameBean.categoriasDisponibles}" var="c" itemLabel="#{c.nombre}" itemValue="#{c.nombre}" selected="true" />
+							</h:selectManyListbox>
+						</div>
+						
+						<div class="form-group">
+							<label for="tags">Tags</label>
 						<div class="form-inline">
-							<h:inputText value="#{gameBean.categoria}" styleClass="form-control"/>
-							<h:commandButton value="Agregar Categoria" styleClass="btn btn-primary">
-						        <f:ajax listener="#{gameBean.agregarCategoria()}"
+							<h:inputText value="#{gameBean.tag}" styleClass="form-control"/>
+							<h:commandButton value="Agregar Tag" styleClass="btn btn-primary">
+						        <f:ajax listener="#{gameBean.agregarTags()}"
 						                execute="@form"
 						                render="@form" />
 						    </h:commandButton>	
 						</div>
-						
-						
-							
-							<h:selectManyListbox styleClass="custom-select" value="#{gameBean.categoriasElegidas}" id="categorias">
-								<f:selectItem itemLabel="Selecione una categoria" itemDisabled="true"/>
-								<f:selectItems value="#{gameBean.categoriasDisponibles}" var="c" itemLabel="#{c.nombre}" itemValue="#{c.nombre}" selected="true" />
+							<h:selectManyListbox styleClass="custom-select" value="#{gameBean.tagsElegidas}" id="tags">
+								<f:selectItem itemLabel="Selecione tags" itemDisabled="true"/>
+								<f:selectItems value="#{gameBean.tagsDisponibles}" var="c" itemLabel="#{c.nombre}" itemValue="#{c.nombre}" selected="true" />
 							</h:selectManyListbox>
 						</div>
+						
 						<div class="form-group">
 							<label for="precio">Precio</label>
 							<h:inputText id="precio" styleClass="form-control"

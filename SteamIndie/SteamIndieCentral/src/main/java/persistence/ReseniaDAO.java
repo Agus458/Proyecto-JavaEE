@@ -22,7 +22,7 @@ public interface ReseniaDAO {
 	
 	public Comentario buscarComentarioId(Integer idComentario);
 	
-	public List<Comentario> darUltimosComentariosJuego(Integer idJuego);
+	public List<Comentario> darUltimosComentariosJuego(Juego juego);
 
 	public List<Comentario> darComentariosReportados();
 

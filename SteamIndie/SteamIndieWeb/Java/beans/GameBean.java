@@ -1,6 +1,5 @@
 package beans;
 
-import java.io.IOException;
 import java.io.Serializable;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -17,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import web_service.DataCategoria;
 import web_service.DataJuego;
 import web_service.DataMedia;
+import web_service.DataTag;
 import web_service.SteamIndie;
 import web_service.SteamIndieImpPortBindingStub;
 import web_service.SteamIndieImpService;
@@ -37,11 +37,14 @@ public class GameBean implements Serializable {
 	
 	
 	//Creador
-	DataJuego dataJuego = new DataJuego(null,null,null,null,null,null,null, null);
+	DataJuego dataJuego = new DataJuego(null,null,null,null,null,null,null, null,null,null);
 	
 	private List<String> categoriasElegidas = new ArrayList<String>();
 	private List<DataCategoria> categoriasDisponibles = new ArrayList<DataCategoria>();
-	private String categoria="";
+	
+	private List<String> tagsElegidas = new ArrayList<String>();
+	private List<DataTag> tagsDisponibles = new ArrayList<DataTag>();
+	private String tag="";
 	
 	private String imagen="";
 	private List<String> imagenes = new ArrayList<String>();
@@ -56,10 +59,6 @@ public class GameBean implements Serializable {
 	@ManagedProperty(value="#{sesionBean}")
 		private SesionBean session;
 	
-	//Comentario
-	@ManagedProperty(value="#{commentsBean}")
-		private CommentsBean comentarios;
-		
 	//Valoracion
 	private String valoracion="0";
 	
@@ -85,16 +84,18 @@ public class GameBean implements Serializable {
 		}
 		if(idRequest!=null) {
 			dataJuego = ws.buscarJuegoId(Integer.parseInt(idRequest));
-			imagenSelect = dataJuego.getMedia().getImagenes(0);
-			if(dataJuego.getMedia().getImagenes()!=null) {
-				for(String s : dataJuego.getMedia().getImagenes()) {
-					imagenesSelect.add(s);
+			if(dataJuego.getId()!=null) {
+				if(dataJuego.getMedia().getImagenes()!=null) {
+					imagenSelect = dataJuego.getMedia().getImagenes(0);
+					for(String s : dataJuego.getMedia().getImagenes()) {
+						imagenesSelect.add(s);
+					}
 				}
-			}
-			if(dataJuego.getMedia().getVideos()!=null) {
-
-				for(String s : dataJuego.getMedia().getVideos()) {
-					videosSelect.add(s);
+				if(dataJuego.getMedia().getVideos()!=null) {
+	
+					for(String s : dataJuego.getMedia().getVideos()) {
+						videosSelect.add(s);
+					}
 				}
 			}
 		}
@@ -106,8 +107,9 @@ public class GameBean implements Serializable {
 		SteamIndieImpService servicio = new SteamIndieImpServiceLocator();
 		SteamIndie ws = new SteamIndieImpPortBindingStub(new URL(servicio.getSteamIndieImpPortAddress()), servicio);
 		
-		//Obteniendo Daots
+		//Obteniendo Datos
 		DataCategoria[] arregloCategoria = new DataCategoria[categoriasElegidas.size()];
+		DataTag[] arregloTag = new DataTag[tagsElegidas.size()];
 		String[] arregloImagenes = new String[imagenes.size()];		
 		String[] arregloVideos = new String[videos.size()];
 
@@ -116,6 +118,11 @@ public class GameBean implements Serializable {
 		//Interprentado los datos
 		for(String c: categoriasElegidas) {
 			arregloCategoria[i] = new DataCategoria(null,c);
+			i++;
+		}
+		i=0;
+		for(String c: tagsElegidas) {
+			arregloTag[i] = new DataTag(null,c);
 			i++;
 		}
 		i=0;
@@ -133,7 +140,7 @@ public class GameBean implements Serializable {
 		//Creacion de los objetos
 		DataMedia media = new DataMedia(null, logo , arregloVideos, arregloImagenes);
 		
-		DataJuego juego = new DataJuego(null, nombre, desc, precio, arregloCategoria ,media, null, null);
+		DataJuego juego = new DataJuego(null, nombre, desc, precio, null, arregloCategoria, arregloTag, media, null, null);
 		
 		
 		//Llamada final a persistencia WebService
@@ -144,9 +151,9 @@ public class GameBean implements Serializable {
 		return "index";
 	}
 		
-	public void agregarCategoria(){
-		categoriasDisponibles.add(new DataCategoria(null, categoria));
-		categoria="";
+	public void agregarTags(){
+		tagsDisponibles.add(new DataTag(null,tag));
+		tag="";
 	}
 	
 	public void agregarImagen(){
@@ -272,14 +279,6 @@ public class GameBean implements Serializable {
 		this.logo = logo;
 	}
 
-	public String getCategoria() {
-		return categoria;
-	}
-
-	public void setCategoria(String categoria) {
-		this.categoria = categoria;
-	}
-
 	public List<String> getImagenes() {
 		return imagenes;
 	}
@@ -320,14 +319,6 @@ public class GameBean implements Serializable {
 		this.imagenesSelect = imagenesSelect;
 	}
 
-	public CommentsBean getComentarios() {
-		return comentarios;
-	}
-
-	public void setComentarios(CommentsBean comentarios) {
-		this.comentarios = comentarios;
-	}
-
 	public List<String> getVideos() {
 		return videos;
 	}
@@ -358,6 +349,30 @@ public class GameBean implements Serializable {
 
 	public void setVideosSelect(ArrayList<String> videosSelect) {
 		this.videosSelect = videosSelect;
+	}
+
+	public List<String> getTagsElegidas() {
+		return tagsElegidas;
+	}
+
+	public void setTagsElegidas(List<String> tagsElegidas) {
+		this.tagsElegidas = tagsElegidas;
+	}
+
+	public List<DataTag> getTagsDisponibles() {
+		return tagsDisponibles;
+	}
+
+	public void setTagsDisponibles(List<DataTag> tagsDisponibles) {
+		this.tagsDisponibles = tagsDisponibles;
+	}
+
+	public String getTag() {
+		return tag;
+	}
+
+	public void setTag(String tag) {
+		this.tag = tag;
 	}
 	
 	

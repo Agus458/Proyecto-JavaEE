@@ -40,14 +40,15 @@ public class IndexBean implements Serializable{
 	public IndexBean() throws MalformedURLException, RemoteException {
 		SteamIndieImpService servicio = new SteamIndieImpServiceLocator();
 		SteamIndie ws = new SteamIndieImpPortBindingStub(new URL(servicio.getSteamIndieImpPortAddress()), servicio);		
-		
-		if(ws.listarCategorias()!=null&&ws.listarJuegos()!=null) {//TODO No devolver listas nulas
+		Integer i = 0;
+		if(ws.listarCategorias()!=null) {//TODO No devolver listas nulas
 		for(DataCategoria c : ws.listarCategorias()) {
 			categoriasDisponibles.add(c);
 			
 		}
-		Integer i = 0;
-		
+		}
+		i=0;
+		if(ws.listarJuegos()!=null) {
 		for(DataJuego j : ws.listarJuegos()){
 			switch (i) {
 			case 0:
@@ -68,26 +69,22 @@ public class IndexBean implements Serializable{
 			displayJuegos.add(j);
 		}
 		}
-	}
+	}	
 	
-	public String buscar() throws RemoteException, MalformedURLException {
+	public void buscar() throws RemoteException, MalformedURLException {
 		SteamIndieImpService servicio = new SteamIndieImpServiceLocator();
 		SteamIndie ws = new SteamIndieImpPortBindingStub(new URL(servicio.getSteamIndieImpPortAddress()), servicio);	
 		
 		List<DataJuego> res = new ArrayList<DataJuego>();
 		if(!query.isEmpty()) {
-			
-			for(DataJuego j : ws.listarJuegos()){
-				if(j.getNombre().equals(query)) {
-					res.add(j);
-				}
-			}
-				
+			for(DataJuego j : ws.buscarJuegos(query)){
+				res.add(j);		
+			}	
+			displayJuegos = res;
 		}
-		
-		displayJuegos = res;
-		
-		return "store.xhtml";
+		else {
+			displayJuegos = juegos;
+		}
 		
 	}
 	
@@ -173,8 +170,6 @@ public class IndexBean implements Serializable{
 
 	public void setCategoriasDisponibles(List<DataCategoria> categoriasDisponibles) {
 		this.categoriasDisponibles = categoriasDisponibles;
-	}
-	
-	
+	}	
 	
 }

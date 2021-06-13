@@ -117,11 +117,12 @@ public class ReseniaDAOImp implements ReseniaDAO {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Comentario> darUltimosComentariosJuego(Integer idJuego) {
+	public List<Comentario> darUltimosComentariosJuego(Juego juego) {
 		List<Comentario> comentarios = new ArrayList<Comentario>();
 		
 		try {
-			Query query = em.createQuery("SELECT c FROM Comentario c ORDER BY c.fechaPublicacion DESC");
+			Query query = em.createQuery("SELECT c FROM Comentario c WHERE c.juego=:juego ORDER BY c.fechaPublicacion DESC");
+			query.setParameter("juego", juego);
 			query.setMaxResults(10);
 			
 			comentarios = query.getResultList();

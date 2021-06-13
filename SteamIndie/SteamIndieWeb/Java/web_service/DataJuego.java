@@ -16,7 +16,11 @@ public class DataJuego  implements java.io.Serializable {
 
     private java.lang.Float precio;
 
+    private java.lang.Float precioFinal;
+
     private web_service.DataCategoria[] categorias;
+
+    private web_service.DataTag[] tags;
 
     private web_service.DataMedia media;
 
@@ -32,7 +36,9 @@ public class DataJuego  implements java.io.Serializable {
            java.lang.String nombre,
            java.lang.String descripcion,
            java.lang.Float precio,
+           java.lang.Float precioFinal,
            web_service.DataCategoria[] categorias,
+           web_service.DataTag[] tags,
            web_service.DataMedia media,
            web_service.DataPublicacion publicacion,
            web_service.DataValoracion[] valoraciones) {
@@ -40,7 +46,9 @@ public class DataJuego  implements java.io.Serializable {
            this.nombre = nombre;
            this.descripcion = descripcion;
            this.precio = precio;
+           this.precioFinal = precioFinal;
            this.categorias = categorias;
+           this.tags = tags;
            this.media = media;
            this.publicacion = publicacion;
            this.valoraciones = valoraciones;
@@ -128,6 +136,26 @@ public class DataJuego  implements java.io.Serializable {
 
 
     /**
+     * Gets the precioFinal value for this DataJuego.
+     * 
+     * @return precioFinal
+     */
+    public java.lang.Float getPrecioFinal() {
+        return precioFinal;
+    }
+
+
+    /**
+     * Sets the precioFinal value for this DataJuego.
+     * 
+     * @param precioFinal
+     */
+    public void setPrecioFinal(java.lang.Float precioFinal) {
+        this.precioFinal = precioFinal;
+    }
+
+
+    /**
      * Gets the categorias value for this DataJuego.
      * 
      * @return categorias
@@ -152,6 +180,34 @@ public class DataJuego  implements java.io.Serializable {
 
     public void setCategorias(int i, web_service.DataCategoria _value) {
         this.categorias[i] = _value;
+    }
+
+
+    /**
+     * Gets the tags value for this DataJuego.
+     * 
+     * @return tags
+     */
+    public web_service.DataTag[] getTags() {
+        return tags;
+    }
+
+
+    /**
+     * Sets the tags value for this DataJuego.
+     * 
+     * @param tags
+     */
+    public void setTags(web_service.DataTag[] tags) {
+        this.tags = tags;
+    }
+
+    public web_service.DataTag getTags(int i) {
+        return this.tags[i];
+    }
+
+    public void setTags(int i, web_service.DataTag _value) {
+        this.tags[i] = _value;
     }
 
 
@@ -246,9 +302,15 @@ public class DataJuego  implements java.io.Serializable {
             ((this.precio==null && other.getPrecio()==null) || 
              (this.precio!=null &&
               this.precio.equals(other.getPrecio()))) &&
+            ((this.precioFinal==null && other.getPrecioFinal()==null) || 
+             (this.precioFinal!=null &&
+              this.precioFinal.equals(other.getPrecioFinal()))) &&
             ((this.categorias==null && other.getCategorias()==null) || 
              (this.categorias!=null &&
               java.util.Arrays.equals(this.categorias, other.getCategorias()))) &&
+            ((this.tags==null && other.getTags()==null) || 
+             (this.tags!=null &&
+              java.util.Arrays.equals(this.tags, other.getTags()))) &&
             ((this.media==null && other.getMedia()==null) || 
              (this.media!=null &&
               this.media.equals(other.getMedia()))) &&
@@ -281,11 +343,25 @@ public class DataJuego  implements java.io.Serializable {
         if (getPrecio() != null) {
             _hashCode += getPrecio().hashCode();
         }
+        if (getPrecioFinal() != null) {
+            _hashCode += getPrecioFinal().hashCode();
+        }
         if (getCategorias() != null) {
             for (int i=0;
                  i<java.lang.reflect.Array.getLength(getCategorias());
                  i++) {
                 java.lang.Object obj = java.lang.reflect.Array.get(getCategorias(), i);
+                if (obj != null &&
+                    !obj.getClass().isArray()) {
+                    _hashCode += obj.hashCode();
+                }
+            }
+        }
+        if (getTags() != null) {
+            for (int i=0;
+                 i<java.lang.reflect.Array.getLength(getTags());
+                 i++) {
+                java.lang.Object obj = java.lang.reflect.Array.get(getTags(), i);
                 if (obj != null &&
                     !obj.getClass().isArray()) {
                     _hashCode += obj.hashCode();
@@ -348,9 +424,24 @@ public class DataJuego  implements java.io.Serializable {
         elemField.setNillable(false);
         typeDesc.addFieldDesc(elemField);
         elemField = new org.apache.axis.description.ElementDesc();
+        elemField.setFieldName("precioFinal");
+        elemField.setXmlName(new javax.xml.namespace.QName("", "precioFinal"));
+        elemField.setXmlType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "float"));
+        elemField.setMinOccurs(0);
+        elemField.setNillable(false);
+        typeDesc.addFieldDesc(elemField);
+        elemField = new org.apache.axis.description.ElementDesc();
         elemField.setFieldName("categorias");
         elemField.setXmlName(new javax.xml.namespace.QName("", "categorias"));
         elemField.setXmlType(new javax.xml.namespace.QName("http://web_service/", "dataCategoria"));
+        elemField.setMinOccurs(0);
+        elemField.setNillable(true);
+        elemField.setMaxOccursUnbounded(true);
+        typeDesc.addFieldDesc(elemField);
+        elemField = new org.apache.axis.description.ElementDesc();
+        elemField.setFieldName("tags");
+        elemField.setXmlName(new javax.xml.namespace.QName("", "tags"));
+        elemField.setXmlType(new javax.xml.namespace.QName("http://web_service/", "dataTag"));
         elemField.setMinOccurs(0);
         elemField.setNillable(true);
         elemField.setMaxOccursUnbounded(true);

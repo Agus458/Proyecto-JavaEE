@@ -38,9 +38,15 @@
 				</ul>
 			</div>
 			<div class="col">
-				<div class="card text-white bg-dark mb-3 border border-secondary" style="max-width: 18rem;">
+				<div class="card text-white bg-dark mb-3 border border-secondary" >
 				  <div class="card-header"><h5 class="card-title">Filtros</h5></div>
 				  <div class="card-body">
+					<h:inputText aria-label="Search" styleClass="form-control mr-sm-2" value="#{indexBean.query}"/>	
+					<h:commandButton value="Buscar" styleClass="btn btn-outline-info my-2 my-sm-0">
+					 <f:ajax listener="#{indexBean.buscar()}"
+						                execute="@form"
+						                render="@form" />
+					</h:commandButton>
 					<h:selectOneMenu styleClass="custom-select" value="#{indexBean.categoria}" id="categoriaFiltro">
 						<f:selectItem itemLabel="Selecione una categoria" noSelectionOption="true"/>
 						<f:selectItems value="#{indexBean.categoriasDisponibles}" var="c" itemLabel="#{c.nombre}" itemValue="#{c.nombre}"/>

@@ -15,91 +15,127 @@
 <h:body class="bg-dark">
 		
 	<ui:include src="/partials/nav.xhtml" />
-	<div class="container">
-	   <div class="row">
-	      <div class="col-md-12">
-	         <div id="content" class="content content-full-width">
-	            <!-- begin profile -->
-	            <div class="profile">
-	               <div class="profile-header">
-	                  <!-- BEGIN profile-header-cover -->
-	                  <div class="profile-header-cover"></div>
-	                  <!-- END profile-header-cover -->
-	                  <!-- BEGIN profile-header-content -->
-	                  <div class="profile-header-content">
-	                     <!-- BEGIN profile-header-img -->
-	                     <div class="profile-header-img">
-	                        <img src="https://bootdey.com/img/Content/avatar/avatar3.png" alt=""></img>
-	                     </div>
-	                     <!-- END profile-header-img -->
-	                     <!-- BEGIN profile-header-info -->
-	                     <div class="profile-header-info">
-	                        <h4 class="m-t-10 m-b-5">#{sesionBean.usuario.nickname}</h4>
-	                        <p class="m-b-10">#{sesionBean.usuario.nombre} #{sesionBean.usuario.apellido}</p>
-	                        <a href="#" class="btn btn-sm btn-info mb-2">Edit Profile</a>
-	                     </div>
-	                     <!-- END profile-header-info -->
-	                  </div>
-	                  <!-- END profile-header-content -->
-	                  <!-- BEGIN profile-header-tab -->
-	                  <ul class="profile-header-tab nav nav-tabs">
-	                     <li class="nav-item"><a href="#profile-post" class="nav-link active show" data-toggle="tab">POSTS</a></li>
-	                     <li class="nav-item"><a href="#profile-about" class="nav-link" data-toggle="tab">ABOUT</a></li>
-	                     <li class="nav-item"><a href="#profile-photos" class="nav-link" data-toggle="tab">PHOTOS</a></li>
-	                     <li class="nav-item"><a href="#profile-videos" class="nav-link" data-toggle="tab">VIDEOS</a></li>
-	                     <li class="nav-item"><a href="#profile-friends" class="nav-link" data-toggle="tab">FRIENDS</a></li>
-	                  </ul>
-	                  <!-- END profile-header-tab -->
-	               </div>
-	            </div>
-	            <!-- end profile -->
-	            <!-- begin profile-content -->
-	            <div class="profile-content">
-	               <!-- begin tab-content -->
-	               <div class="tab-content p-0">
-	                  <!-- begin #profile-post tab -->
-	                  <div class="tab-pane fade active show" id="profile-post">
-	                     <!-- begin timeline -->
-	                     <ul class="timeline">
-	                        <li>
-	                           <!-- begin timeline-time -->
-	                           <div class="timeline-time">
-	                              <span class="date">today</span>
-	                              <span class="time">04:20</span>
-	                           </div>
-	                           <!-- end timeline-time -->
-	                           <!-- begin timeline-icon -->
-	                           <div class="timeline-icon">
-	                              <a href="javascript:;">&nbsp;</a>
-	                           </div>
-	                           <!-- end timeline-icon -->
-	                           <!-- begin timeline-body -->
-	                           <div class="timeline-body bg-secondary">
-	                              <div class="timeline-header">
-	                                 <span class="userimage"><img src="https://bootdey.com/img/Content/avatar/avatar3.png" alt=""></img></span>
-	                                 <span class="username"><a href="javascript:;">#{sesionBean.usuario.nickname}</a> <small></small></span>
-	                              </div>
-	                              <div class="timeline-content">
-	                                 <p>
-	                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc faucibus turpis quis tincidunt luctus.
-	                                    Nam sagittis dui in nunc consequat, in imperdiet nunc sagittis.
-	                                 </p>
-	                              </div>                              
-	                              
-	                           </div>
-	                           <!-- end timeline-body -->
-	                        </li>
-	                     </ul>
-	                     <!-- end timeline -->
-	                  </div>
-	                  <!-- end #profile-post tab -->
-	               </div>
-	               <!-- end tab-content -->
-	            </div>
-	            <!-- end profile-content -->
-	         </div>
-	         </div>
- 		</div>
+	
+	
+    <div class="min-vh-100 overflow-hidden" id="feed">
+        <div class="row">
+
+          
+            <div class="col">
+
+                <div class="row justify-content-center mt-5 mb-5">
+                    <div class="card mb-3 " style="width: 80%" id="cardC">
+                        <h1 class="text-center text-white">#{sesionBean.usuario.nickname}</h1>
+                        <p class="text-center text-white"> #{sesionBean.usuario.nombre} #{sesionBean.usuario.apellido}</p>
+                        <p class="text-center text-white"> #{sesionBean.usuario.email}</p>
+                    </div>
+                </div>
+
+                <div class="row justify-content-center">
+                    <div class="card mb-3 " style="width: 80%" id="cardC">
+                        <h3 class="text-left text-white ml-3">Posts</h3>
+                       	<button type="button" class="btn-sm btn-primary" data-toggle="modal" data-target="#exampleModal">
+							Nuevo Post
+						</button>
+                    </div>
+
+                </div>
+				<ui:repeat var="post" value="#{profileBean.posts}">
+	              
+	                <h:panelGroup layout="block" styleClass="row justify-content-center" rendered="#{post.tipo.toString().equals('IMAGEN') || post.tipo.toString().equals('VIDEO')}">
+	                    <div class="card mb-3  " style="width: 80%" id="cardC">
+	                        <div class="row g-0">
+	                            <h:panelGroup class="col-md-4" rendered="#{post.tipo.toString().equals('IMAGEN')}">
+	                                <img class="img-fluid"
+	                                    src="#{post.contenido}"/>
+	                            </h:panelGroup>
+	                            <h:panelGroup class="col-md-4" rendered="#{post.tipo.toString().equals('VIDEO')}">
+	                                <iframe class="embed-responsive-item w-100"
+	                                    src="#{post.contenido}"/>
+	                            </h:panelGroup>
+	                            <div class="col-md-8">
+	                                <div class="card-body">
+	                                    <h5 class="card-title text-white">Video</h5>
+	                                    <p class="card-text text-white">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris
+	                                        venenatis convallis enim nec pretium. Suspendisse ac iaculis nisi, non
+	                                        ullamcorper neque. Etiam dapibus rhoncus lacus, ac semper nulla volutpat non.
+	                                        Sed nunc ante, hendrerit quis felis in, elementum tincidunt odio.</p>
+	                                </div>
+	                            </div>
+	                        </div>
+	                    </div>
+	                </h:panelGroup>
+	
+	                <h:panelGroup layout="block" styleClass="row justify-content-center" rendered="#{post.tipo.toString().equals('TEXTO')}">
+	                    <div class="card mb-3" style="width: 80%" id="cardC">
+	                        <div class="row g-0">
+	                            
+	                            <div class="col-md-12">
+	                                <div class="card-body w-100">
+	                                    <h5 class="card-title" style="color: white;">Solo texto</h5>
+	                                    <p class="card-text text-white">#{post.texto}</p>
+	                                </div>
+	                            </div>
+	                        </div>
+	                    </div>
+	                </h:panelGroup>
+            	</ui:repeat>  
+            </div>
+
+        </div>
+    </div>
+	<!-- 
+	<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+	  Launch demo modal
+	</button>
+
+	
+		<div class="card text-white bg-secondary mb-3">
+		  <div class="card-header">Header</div>
+		  <div class="card-body">
+		    <h5 class="card-title">Secondary card title</h5>
+		    <h:outputText styleClass="card-text"  value="#{post.contenido}" /> 
+		    <h:graphicImage value="#{post.contenido}" rendered="#{post.tipo.toString().equals('IMAGEN')}"/> 
+		    <h:panelGroup rendered="#{post.tipo.toString().equals('VIDEO')}">
+		    	<iframe width="1280" height="720" src="#{post.contenido}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="true"></iframe>
+		    </h:panelGroup> 
+		  </div>
+		</div>
+	</ui:repeat>	 -->
+	<!-- Modal Post-->
+	<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	    	<h:form>
+			      <div class="modal-header">
+			        <h5 class="modal-title" id="postModal">Publicar post</h5>
+			        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			          <span aria-hidden="true">&times;</span>
+			        </button>
+			      </div>
+			      <div class="modal-body">
+				      <div class="form-group">
+				        <h:selectOneMenu value="#{profileBean.tipo}" styleClass="custom-select">
+				        	<f:selectItem itemValue="0" itemLabel="Seleccione un tipo de Post" itemDisabled="true"/>
+				        	<f:selectItem itemValue="1" itemLabel="Texto"/>
+				        	<f:selectItem itemValue="2" itemLabel="Imagen"/>
+				        	<f:selectItem itemValue="3" itemLabel="Video"/>
+				        </h:selectOneMenu>
+				      </div>
+				      <div class="form-group">
+				        <h:inputText value="#{profileBean.contenido}" styleClass="form-control"></h:inputText>
+				      </div>
+				      <div class="form-group">
+				        <h:inputTextarea value="#{profileBean.texto}" styleClass="form-control"></h:inputTextarea>
+				      </div>
+			      </div>
+			      <div class="modal-footer">
+			        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+			        <h:commandButton action="#{profileBean.publicarPost()}" value="Publicar" styleClass="btn btn-primary"/>
+		     	  </div>
+     		</h:form>
+	    </div>
+	  </div>
 	</div>
 <ui:include src="/partials/footer.xhtml" />    
 

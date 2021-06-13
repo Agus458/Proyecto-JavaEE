@@ -4,7 +4,10 @@ import java.io.Serializable;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.rmi.RemoteException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -13,7 +16,6 @@ import javax.faces.bean.ViewScoped;
 
 import web_service.DataCategoria;
 import web_service.DataComentario;
-import web_service.DataJuego;
 import web_service.SteamIndie;
 import web_service.SteamIndieImpPortBindingStub;
 import web_service.SteamIndieImpService;
@@ -30,9 +32,9 @@ public class BackOfficeBean implements Serializable{
 	private List<String> categoriasAlojadas = new ArrayList<String>();
 	
 	private String nombreOferta;
-	private Integer descuentoOferta;
-	private Date fechaInicio;
-	private Date fechaFin;
+	private float descuentoOferta;
+	private String fechaInicio;
+	private String fechaFin;
 	
 	private List<DataComentario> comentariosReportados = new ArrayList<DataComentario>();
 	
@@ -40,13 +42,12 @@ public class BackOfficeBean implements Serializable{
 		SteamIndieImpService servicio = new SteamIndieImpServiceLocator();
 		SteamIndie ws = new SteamIndieImpPortBindingStub(new URL(servicio.getSteamIndieImpPortAddress()), servicio);		
 		
-		for(DataJuego j: ws.listarJuegos() ) {
-			for(DataComentario c: ws.darUltimosComentariosJuego(j.getId())) {
-				if(c.getReportado()) {
-					comentariosReportados.add(c);
-				}
+		if(ws.darComentariosReportados()!=null) {
+			for(DataComentario c: ws.darComentariosReportados()) {
+				comentariosReportados.add(c);
 			}
 		}
+		
 	}
 
 	public void agregarCategoria(){
@@ -56,9 +57,35 @@ public class BackOfficeBean implements Serializable{
 		}
 	}
 	
+	public void confirmarCategorias() throws RemoteException, MalformedURLException {
+		SteamIndieImpService servicio = new SteamIndieImpServiceLocator();
+		SteamIndie ws = new SteamIndieImpPortBindingStub(new URL(servicio.getSteamIndieImpPortAddress()), servicio);		
+		
+		for(DataCategoria c: categorias) {
+			ws.agregarCategoria(c.getNombre());
+		}
+	}
 	
-	public void crearOferta() {
-		//TODO
+	public void crearOferta() throws MalformedURLException, RemoteException, ParseException{
+		SteamIndieImpService servicio = new SteamIndieImpServiceLocator();
+		SteamIndie ws = new SteamIndieImpPortBindingStub(new URL(servicio.getSteamIndieImpPortAddress()), servicio);		
+		
+		String fInicio= fechaInicio.substring(0,10)+' '+fechaInicio.substring(11);
+
+		String fFin=  fechaFin.substring(0,10)+' '+fechaFin.substring(11);
+		
+		System.out.println(fInicio);
+
+		System.out.println(fFin);
+
+		
+		ws.crearOferta(nombreOferta, toCalendar(new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(fInicio)), toCalendar(new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(fFin)), descuentoOferta);
+	}
+
+	public static Calendar toCalendar(Date date){ 
+	  Calendar cal = Calendar.getInstance();
+	  cal.setTime(date);
+	  return cal;
 	}
 	
 	//
@@ -100,19 +127,19 @@ public class BackOfficeBean implements Serializable{
 		this.categoriasAlojadas = categoriasAlojadas;
 	}
 
-	public Date getFechaInicio() {
+	public String getFechaInicio() {
 		return fechaInicio;
 	}
 
-	public void setFechaInicio(Date fechaInicio) {
+	public void setFechaInicio(String fechaInicio) {
 		this.fechaInicio = fechaInicio;
 	}
 
-	public Date getFechaFin() {
+	public String getFechaFin() {
 		return fechaFin;
 	}
 
-	public void setFechaFin(Date fechaFin) {
+	public void setFechaFin(String fechaFin) {
 		this.fechaFin = fechaFin;
 	}
 
@@ -124,11 +151,11 @@ public class BackOfficeBean implements Serializable{
 		this.nombreOferta = nombreOferta;
 	}
 
-	public Integer getDescuentoOferta() {
+	public float getDescuentoOferta() {
 		return descuentoOferta;
 	}
 
-	public void setDescuentoOferta(Integer descuentoOferta) {
+	public void setDescuentoOferta(float descuentoOferta) {
 		this.descuentoOferta = descuentoOferta;
 	}
 

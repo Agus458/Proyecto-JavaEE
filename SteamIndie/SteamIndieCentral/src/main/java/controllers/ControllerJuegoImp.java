@@ -274,12 +274,14 @@ public class ControllerJuegoImp implements ControllerJuego {
 	public List<DataComentario> darUltimosComentariosJuego(Integer idJuego) {
 		List<DataComentario> comentarios = new ArrayList<DataComentario>();
 		
-		List<Comentario> coments = reseniaPersistence.darUltimosComentariosJuego(idJuego);
-		
-		for(Comentario aux : coments) {
-			comentarios.add(aux.darDatos());
+		Juego juego = juegoPersistence.buscarJuegoId(idJuego);
+		if(juego!=null) {
+			List<Comentario> coments = reseniaPersistence.darUltimosComentariosJuego(juego);
+			
+			for(Comentario aux : coments) {
+				comentarios.add(aux.darDatos());
+			}
 		}
-		
 		return comentarios;
 	}
 

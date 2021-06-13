@@ -1,0 +1,61 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+<h:head>
+    <meta charset="utf-8"></meta>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"></meta>
+
+    <title>Steam Indie</title>
+    <ui:include src="/partials/head.xhtml"/>
+    
+	<!-- Socket.io -->
+    <script src="https://cdn.socket.io/4.0.1/socket.io.js"></script>
+
+    
+</h:head>
+
+<h:body class="bg-dark">
+
+	<ui:include src="/partials/nav.xhtml" />
+
+    <div class="container mt-5" id="container">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col">
+                        <div class="card" style="height: 500px;">
+                            <div class="card-body scroll">
+                                <div id="output"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <ul class="list-group" id="users"></ul>
+                    </div>
+                </div>
+                <form action="" id="messageForm">
+                    <div class="row mt-3">
+                        <div class="col">
+                            <div class="input-group">
+                                <input class="form-control" type="text" name="message" id="message"></input>
+                                <div class="input-group-append">
+                                    <button class="btn btn-success btn-block">Send</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="../partials/chat.js"></script>
+
+   
+</h:body>
+
+</html>
