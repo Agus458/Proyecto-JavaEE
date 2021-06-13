@@ -21,6 +21,8 @@ import data_types.DataCreador;
 import data_types.DataJuego;
 import data_types.DataJugador;
 import data_types.DataOferta;
+import data_types.DataPagina;
+import data_types.DataPost;
 import data_types.DataUsuario;
 import enums.TipoPost;
 
@@ -273,9 +275,9 @@ public class SteamIndieImp implements SteamIndie{
 	}
 	
 	@Override
-	public void publicarPost(TipoPost tipo, String contenido, Integer idJugador) {
+	public void publicarPost(TipoPost tipo, String contenido, String texto, Integer idJugador) {
 		ControllerUsuario controller = Fabric.getControllerUsuario();
-		controller.publicarPost(tipo, contenido, idJugador);
+		controller.publicarPost(tipo, contenido, texto, idJugador);
 	}
 	
 	@Override
@@ -288,6 +290,18 @@ public class SteamIndieImp implements SteamIndie{
 	public List<DataJuego> buscarJuegos(String nombre) {
 		ControllerJuego controller = Fabric.getControllerJuego();
 		return controller.buscarJuegos(nombre);
+	}
+
+	@Override
+	public List<DataOferta> listarOfertas() {
+		ControllerOferta controller = Fabric.getControllerOferta();
+		return controller.listarOfertas();
+	}
+
+	@Override
+	public DataPagina<DataPost> listarPost(Integer idJugador, Integer pagina) {
+		ControllerUsuario controller = Fabric.getControllerUsuario();
+		return controller.listarPost(idJugador, pagina);
 	}
 	
 }

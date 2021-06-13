@@ -11,6 +11,7 @@ import model.Admin;
 import model.Carrito;
 import model.Creador;
 import model.Jugador;
+import model.Post;
 
 @Local
 public interface UsuarioDAO {
@@ -47,4 +48,6 @@ public interface UsuarioDAO {
 	
 	public void removerCarrito(Carrito carrito);
 	
+	public List<Post> listarPost(Jugador jugador, Integer pagina);
+
 }

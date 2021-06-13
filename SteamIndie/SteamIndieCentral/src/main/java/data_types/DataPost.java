@@ -14,6 +14,8 @@ public class DataPost {
 	
 	private String contenido;
 	
+	private String texto;
+	
 	private TipoPost tipo;
 	
 	private Date fecha;
@@ -31,12 +33,20 @@ public class DataPost {
 	 * @param tipo
 	 * @param fecha
 	 */
-	public DataPost(Integer id, String contenido, TipoPost tipo, Date fecha) {
+	public DataPost(Integer id, String contenido, String texto, TipoPost tipo, Date fecha) {
 		super();
 		this.id = id;
 		this.contenido = contenido;
+		this.texto = texto;
 		this.tipo = tipo;
 		this.fecha = fecha;
+	}
+
+	/**
+	 * @return the texto
+	 */
+	public String getTexto() {
+		return texto;
 	}
 
 	/**

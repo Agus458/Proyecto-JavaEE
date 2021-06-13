@@ -6,6 +6,7 @@ import java.util.List;
 
 import controllers.*;
 import data_types.*;
+import enums.TipoPost;
 
 public class Test {
 
@@ -14,12 +15,12 @@ public class Test {
 
 	public static void main(String[] args) {
 		ControllerUsuario controller = Fabric.getControllerUsuario();
-//		DataJugador jugador = new DataJugador(null, "Santiago", "Sellanes", "santi@gmail.com", "123", "Santi", null);
+//		DataJugador jugador = new DataJugador(null, "Santiago", "Sellanes", "santi@gmail.com", "123", "Santi");
 //		controller.registrarJugador(jugador);
 //		DataCreador creador = new DataCreador(null, "Agustin", "Peraza", "agu@gmail.com", "123", "Agu458", null);
 //		controller.registrarCreador(creador);
-		DataAdmin admin = new DataAdmin(null, "Admin", "Admin", "admin@admin.com", "123456789", "admin");
-		controller.registrarAdmin(admin);
+//		DataAdmin admin = new DataAdmin(null, "Admin", "Admin", "admin@admin.com", "123456789", "admin");
+//		controller.registrarAdmin(admin);
 //		System.out.println(controller.buscarUsuarioEmail(admin.getEmail()).getApellido());
 //		System.out.println(controller.buscarUsuarioNick(admin.getNickname()).getApellido());
 //		System.out.println(controller.buscarUsuarioId(3).getApellido());
@@ -29,13 +30,25 @@ public class Test {
 //			System.out.println(aux.getId());
 //		}
 //		
+//		for(int i = 0; i<11; i++) {
+//			controller.publicarPost(TipoPost.TEXTO, "blablabla", "desc", 1);
+//		}
+//		DataPagina<DataPost> dp = controller.listarPost(1, 3);
+//		if(dp != null) {
+//			System.out.println(dp.getPagina());
+//			System.out.println(dp.getCantPaginas());
+//			for(DataPost p: dp.getData()) {
+//				System.out.println(p.getId());
+//			}
+//		}
+		
 		ControllerJuego controllerJuego = Fabric.getControllerJuego();
 //		controllerJuego.valorarJuego(5, 1, 1);
 //		List<DataCategoria> cats = new ArrayList<DataCategoria>();
 //		cats.add(new DataCategoria(null,"Building"));
 //		cats.add(new DataCategoria(null,"Rolplay"));
 //		DataMedia media = new DataMedia(null, "https://cdn2.unrealengine.com/16br-agentjonesy-egs-s2-1200x1600-1200x1600-2531e05bb04f.jpg", null, null);
-//		controllerJuego.publicarJuego(new DataJuego(null, "Minecraft","Make your own world",new Float(30), null,cats,media,null, null,null), 2);
+//		controllerJuego.publicarJuego(new DataJuego(null, "Minecraft","Sandbox",new Float(40), null,null,null,null, null,null), 1);
 //		
 //		List<DataJuego> juegos = controllerJuego.listarJuegos();
 //		for(DataJuego aux : juegos) {
@@ -64,13 +77,14 @@ public class Test {
 //		System.out.println(controllerCompra.darCantVentasJuego(1));
 		
 		ControllerOferta controllerOferta = Fabric.getControllerOferta();
-//		controllerOferta.crearOferta("mundo abierto 6", new Date("2021/06/06 17:08"), new Date("2021/06/06 17:10"), new Float(30));
+//		controllerOferta.crearOferta("mundo abierto 2", new Date("2021/06/13 15:05"), new Date("2021/06/13 15:10"), new Float(30));
 //		List<Integer> juegos = new ArrayList<Integer>();
 //		juegos.add(1);
-//		controllerOferta.agregarJuegosOferta(3,juegos);
-		for(DataOferta o: controllerOferta.darOfertasPendientes()) {
-			System.out.println(o.getNombre());
-		}
+//		juegos.add(2);
+//		controllerOferta.agregarJuegosOferta(2,juegos);
+//		for(DataOferta o: controllerOferta.listarOfertas()) {
+//			System.out.println(o.getNombre());
+//		}
 	}
 
 }

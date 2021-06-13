@@ -11,6 +11,8 @@ import data_types.DataCarrito;
 import data_types.DataCreador;
 import data_types.DataJuego;
 import data_types.DataJugador;
+import data_types.DataPagina;
+import data_types.DataPost;
 import data_types.DataUsuario;
 import enums.TipoPost;
 import model.Admin;
@@ -18,6 +20,7 @@ import model.Carrito;
 import model.Creador;
 import model.Juego;
 import model.Jugador;
+import model.Post;
 import persistence.UsuarioDAO;
 import persistence.UsuarioDAOImp;
 
@@ -52,7 +55,7 @@ public class ControllerUsuarioImp implements ControllerUsuario {
 			usuarioPersistence.insertarCreador(creador);
 		}
 	}
-	
+
 	@Override
 	public void registrarAdmin(DataAdmin admin) {
 		if (!emailEnUso(admin.getEmail()) && !nickEnUso(admin.getNickname())) {
@@ -73,7 +76,7 @@ public class ControllerUsuarioImp implements ControllerUsuario {
 				enUso = true;
 			} else {
 				Admin aux3 = usuarioPersistence.buscarAdminEmail(email);
-				if(aux3 != null) {
+				if (aux3 != null) {
 					enUso = true;
 				}
 			}
@@ -95,7 +98,7 @@ public class ControllerUsuarioImp implements ControllerUsuario {
 				enUso = true;
 			} else {
 				Admin aux3 = usuarioPersistence.buscarAdminNick(nick);
-				if(aux3 != null) {
+				if (aux3 != null) {
 					enUso = true;
 				}
 			}
@@ -134,7 +137,7 @@ public class ControllerUsuarioImp implements ControllerUsuario {
 				usuario = aux2.darDatos();
 			} else {
 				Admin aux3 = usuarioPersistence.buscarAdminEmail(email);
-				if(aux3 != null) {
+				if (aux3 != null) {
 					usuario = aux3.darDatos();
 				}
 			}
@@ -156,7 +159,7 @@ public class ControllerUsuarioImp implements ControllerUsuario {
 				usuario = aux2.darDatos();
 			} else {
 				Admin aux3 = usuarioPersistence.buscarAdminNick(nick);
-				if(aux3 != null) {
+				if (aux3 != null) {
 					usuario = aux3.darDatos();
 				}
 			}
@@ -178,7 +181,7 @@ public class ControllerUsuarioImp implements ControllerUsuario {
 				usuario = aux2.darDatos();
 			} else {
 				Admin aux3 = usuarioPersistence.buscarAdminId(id);
-				if(aux3 != null) {
+				if (aux3 != null) {
 					usuario = aux3.darDatos();
 				}
 			}
@@ -276,28 +279,51 @@ public class ControllerUsuarioImp implements ControllerUsuario {
 	@Override
 	public List<DataJuego> darBibliotecaJugador(Integer idJugador) {
 		List<DataJuego> biblioteca = new ArrayList<DataJuego>();
-		
-		if(idJugador != null) {
+
+		if (idJugador != null) {
 			Jugador jugador = usuarioPersistence.buscarJugadorId(idJugador);
-			if(jugador != null) {
-				for(Juego aux : jugador.getJuegos()) {
+			if (jugador != null) {
+				for (Juego aux : jugador.getJuegos()) {
 					biblioteca.add(aux.darDatos());
 				}
 			}
 		}
-		
+
 		return biblioteca;
 	}
 
 	@Override
-	public void publicarPost(TipoPost tipo, String contenido, Integer idJuagdor) {
-		if(tipo != null && contenido != null && idJuagdor != null) {
+	public void publicarPost(TipoPost tipo, String contenido, String texto, Integer idJuagdor) {
+		if (tipo != null && contenido != null && idJuagdor != null) {
 			Jugador jugador = this.usuarioPersistence.buscarJugadorId(idJuagdor);
-			if(jugador != null) {
-				jugador.agregarPost(tipo, contenido);
+			if (jugador != null) {
+				jugador.agregarPost(tipo, contenido, texto);
 				this.usuarioPersistence.actualizarJugador(jugador);
 			}
 		}
+	}
+
+	@Override
+	public DataPagina<DataPost> listarPost(Integer idJugador, Integer pagina) {
+		if (idJugador != null) {
+			Jugador jugador = usuarioPersistence.buscarJugadorId(idJugador);
+			if (jugador != null) {
+				if (pagina <= 0) {
+					pagina = 1;
+				}
+				List<Post> list = usuarioPersistence.listarPost(jugador, pagina);
+				List<DataPost> posts = new ArrayList<DataPost>();
+				for(Post aux : list) {
+					posts.add(aux.darDatos());
+				}
+				Integer cant = jugador.getPosts().size();
+				if(cant > 0) {
+					cant = (cant / 10)+1;
+				}
+				return new DataPagina<DataPost>(pagina, cant, posts);
+			}
+		}
+		return null;
 	}
 
 }

@@ -17,6 +17,8 @@ import data_types.DataCreador;
 import data_types.DataJuego;
 import data_types.DataJugador;
 import data_types.DataOferta;
+import data_types.DataPagina;
+import data_types.DataPost;
 import data_types.DataUsuario;
 import enums.TipoPost;
 
@@ -145,7 +147,7 @@ public interface SteamIndie {
 	public void quitarJuegoAOferta(Integer idOferta, List<Integer> idJuegos);
 
 	@WebMethod
-	public void publicarPost(TipoPost tipo, String contenido, Integer idJugador);
+	public void publicarPost(TipoPost tipo, String contenido, String texto, Integer idJugador);
 
 	@WebMethod
 	public List<DataComentario> darComentariosReportados();
@@ -153,6 +155,9 @@ public interface SteamIndie {
 	@WebMethod
 	public List<DataJuego> buscarJuegos(String nombre);
 
-
+	@WebMethod
+	public List<DataOferta> listarOfertas();
 	
+	@WebMethod
+	public DataPagina<DataPost> listarPost(Integer idJugador, Integer pagina);
 }

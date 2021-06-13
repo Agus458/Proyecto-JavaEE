@@ -20,4 +20,6 @@ public interface ControllerOferta {
 	
 	public List<DataOferta> darOfertasPendientes();
 	
+	public List<DataOferta> listarOfertas();
+	
 }

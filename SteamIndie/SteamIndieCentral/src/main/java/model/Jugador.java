@@ -8,7 +8,6 @@ import javax.persistence.*;
 
 import data_types.DataCarrito;
 import data_types.DataJugador;
-import data_types.DataPost;
 import enums.TipoPost;
 
 /**
@@ -34,7 +33,7 @@ public class Jugador extends Usuario implements Serializable {
 	@OneToMany
 	private List<Juego> juegos;
 
-	@OneToMany(cascade = CascadeType.ALL)
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "jugador")
 	private List<Post> posts;
 
 	// Constructors
@@ -141,13 +140,8 @@ public class Jugador extends Usuario implements Serializable {
 	// Methods
 
 	public DataJugador darDatos() {
-		List<DataPost> p = new ArrayList<DataPost>();
-		for(Post aux : this.posts) {
-			p.add(aux.darDatos());
-		}
-		
 		return new DataJugador(this.getId(), this.getNombre(), this.getApellido(), this.getEmail(), this.getPassword(),
-				this.getNickname(), p);
+				this.getNickname());
 	}
 
 	public DataCarrito darDatosCarrito() {
@@ -202,9 +196,9 @@ public class Jugador extends Usuario implements Serializable {
 		}
 	}
 
-	public void agregarPost(TipoPost tipo, String contenido) {
+	public void agregarPost(TipoPost tipo, String contenido, String texto) {
 		if (tipo != null && contenido != null) {
-			this.posts.add(new Post(contenido, tipo));
+			this.posts.add(new Post(contenido, texto, tipo, this));
 		}
 	}
 

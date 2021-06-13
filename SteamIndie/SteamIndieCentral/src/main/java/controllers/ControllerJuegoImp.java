@@ -125,7 +125,7 @@ public class ControllerJuegoImp implements ControllerJuego {
 
 	@Override
 	public DataJuego buscarJuegoId(Integer id) {
-		DataJuego juego = new DataJuego(null, "", "", null, null, null, null, null, null, null, null);
+		DataJuego juego = new DataJuego(null, "", "", null, null, null, null, null, null, null);
 
 		Juego aux = juegoPersistence.buscarJuegoId(id);
 
@@ -138,7 +138,7 @@ public class ControllerJuegoImp implements ControllerJuego {
 
 	@Override
 	public DataJuego buscarJuegoNombre(String nombre) {
-		DataJuego juego = new DataJuego(null, "", "", null, null, null, null, null, null, null, null);
+		DataJuego juego = new DataJuego(null, "", "", null, null, null, null, null, null, null);
 
 		Juego aux = juegoPersistence.buscarJuegoNombre(nombre);
 

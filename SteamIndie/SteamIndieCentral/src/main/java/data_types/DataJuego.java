@@ -30,8 +30,6 @@ public class DataJuego {
 	
 	private List<DataValoracion> valoraciones;
 	
-	private DataOferta ofertaActual;
-	
 	// Constructors
 	
 	/*
@@ -52,7 +50,7 @@ public class DataJuego {
 	 * @param creador
 	 */
 	public DataJuego(Integer id, String nombre, String descripcion, Float precio, Float precioFinal, List<DataCategoria> categorias,
-			List<DataTag> tags, DataMedia media, DataPublicacion publicacion, List<DataValoracion> valoraciones, DataOferta ofertaActual) {
+			List<DataTag> tags, DataMedia media, DataPublicacion publicacion, List<DataValoracion> valoraciones) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
@@ -64,7 +62,6 @@ public class DataJuego {
 		this.media = media;
 		this.publicacion = publicacion;
 		this.valoraciones = valoraciones;
-		this.ofertaActual = ofertaActual;
 	}
 
 	// Getters
@@ -130,13 +127,6 @@ public class DataJuego {
 	 */
 	public List<DataValoracion> getValoraciones() {
 		return valoraciones;
-	}
-	
-	/**
-	 * @return the ofertaActual
-	 */
-	public DataOferta getOfertaActual() {
-		return ofertaActual;
 	}
 
 	/**

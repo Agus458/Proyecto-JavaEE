@@ -121,7 +121,7 @@ public class ControllerOfertaImp implements ControllerOferta {
 				for(Juego aux : juegos) {
 					oferta.agregarJuego(aux);
 				}
-				
+				System.out.println(oferta.getJuegos().size());
 				ofertaPersistence.actualizar(oferta);
 			}
 			
@@ -157,8 +157,8 @@ public class ControllerOfertaImp implements ControllerOferta {
 	private void alIniciar(String nombre){
 		Oferta oferta = this.ofertaPersistence.buscarNombre(nombre);
 		if(oferta != null) {
+			System.out.println(oferta.getJuegos().size());
 			for(Juego aux : oferta.getJuegos()) {
-				aux.setOfertaActual(oferta);
 				aux.setPrecioFinal(aux.getPrecio() - ((oferta.getDescuento() * aux.getPrecio()) / 100));
 				this.juegoPersistence.update(aux);
 			}
@@ -171,7 +171,6 @@ public class ControllerOfertaImp implements ControllerOferta {
 		Oferta oferta = this.ofertaPersistence.buscarNombre(nombre);
 		if(oferta != null) {
 			for(Juego aux : oferta.getJuegos()) {
-				aux.setOfertaActual(null);
 				aux.setPrecioFinal(aux.getPrecio());
 				this.juegoPersistence.update(aux);
 			}
@@ -190,4 +189,13 @@ public class ControllerOfertaImp implements ControllerOferta {
 		return res;
 	}
 
+	@Override
+	public List<DataOferta> listarOfertas() {
+		List<DataOferta> res = new ArrayList<DataOferta>();
+		List<Oferta> ofertas = this.ofertaPersistence.darOfertas();
+			for(Oferta aux : ofertas) {
+				res.add(aux.darDatos());
+			}
+		return res;
+	}
 }

@@ -23,12 +23,19 @@ public class Post implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
+	@Column(columnDefinition = "TEXT")
 	private String contenido;
+	
+	@Column(columnDefinition = "TEXT")
+	private String texto;
 	
 	private TipoPost tipo;
 	
 	@Temporal(TemporalType.DATE)
 	private Date fecha;
+	
+	@ManyToOne
+	private Jugador jugador;
 
 	public Post() {
 		super();
@@ -38,11 +45,13 @@ public class Post implements Serializable {
 	 * @param contenido
 	 * @param tipo
 	 */
-	public Post(String contenido, TipoPost tipo) {
+	public Post(String contenido, String texto, TipoPost tipo, Jugador jugador) {
 		super();
 		this.contenido = contenido;
+		this.texto = texto;
 		this.tipo = tipo;
 		this.fecha = new Date();
+		this.jugador = jugador;
 	}
 
 	/**
@@ -94,7 +103,21 @@ public class Post implements Serializable {
 		this.fecha = fecha;
 	}
    
+	/**
+	 * @return the texto
+	 */
+	public String getTexto() {
+		return texto;
+	}
+
+	/**
+	 * @param texto the texto to set
+	 */
+	public void setTexto(String texto) {
+		this.texto = texto;
+	}
+
 	public DataPost darDatos() {
-		return new DataPost(id, contenido, tipo, fecha);
+		return new DataPost(id, contenido, texto, tipo, fecha);
 	}
 }

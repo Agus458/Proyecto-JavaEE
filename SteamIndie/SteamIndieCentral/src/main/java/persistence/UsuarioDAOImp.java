@@ -1,5 +1,6 @@
 package persistence;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.Stateless;
@@ -12,6 +13,7 @@ import model.Admin;
 import model.Carrito;
 import model.Creador;
 import model.Jugador;
+import model.Post;
 
 /**
  * Session Bean implementation class UsuarioDAOImp
@@ -308,6 +310,25 @@ public class UsuarioDAOImp implements UsuarioDAO {
 		}
 
 		return entity;
+	}
+	
+	
+	@Override
+	@SuppressWarnings("unchecked")
+	public List<Post> listarPost(Jugador jugador, Integer pagina){
+		List<Post> posts = new ArrayList<Post>();
+		
+		try {
+			Query query = em.createQuery("SELECT p FROM Post p WHERE p.jugador = :jugador ORDER BY p.fecha DESC");
+			query.setParameter("jugador", jugador);
+			query.setFirstResult((pagina-1) * 10);
+			query.setMaxResults(10);
+			
+			posts = query.getResultList();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return posts;
 	}
 
 }

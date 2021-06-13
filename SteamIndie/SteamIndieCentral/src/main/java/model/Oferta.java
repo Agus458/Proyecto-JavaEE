@@ -40,7 +40,7 @@ public class Oferta implements Serializable {
 	
 	private EstadoOferta estado;
 	
-	@ManyToMany
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private List<Juego> juegos;
 	
 	// Constructores
