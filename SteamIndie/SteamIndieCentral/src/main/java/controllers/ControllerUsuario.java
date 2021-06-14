@@ -49,4 +49,5 @@ public interface ControllerUsuario {
 	public void publicarPost(TipoPost tipo, String contenido, String texto, Integer idJuagdor);
 	
 	public DataPagina listarPost(Integer idJugador, Integer pagina);
+	
 }

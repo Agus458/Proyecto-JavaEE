@@ -9,6 +9,7 @@ import javax.persistence.*;
 
 import data_types.DataComentario;
 import data_types.DataRespuesta;
+import enums.EstadoBloqueo;
 
 /**
  * Entity implementation class for Entity: Comentario
@@ -37,7 +38,9 @@ public class Comentario implements Serializable {
 	
 	private String contenido;
 	
-	private Boolean reportado;
+	private Integer reportes;
+	
+	private EstadoBloqueo estadoBloqueo;
 	
 	@Temporal(TemporalType.DATE)
 	private Date fechaPublicacion;
@@ -60,8 +63,9 @@ public class Comentario implements Serializable {
 		this.juego = juego;
 		this.contenido = contenido;
 		this.fechaPublicacion = new Date();
-		this.reportado = false;
+		this.reportes = 0;
 		this.respuestas = new ArrayList<Respuesta>();
+		this.estadoBloqueo = EstadoBloqueo.NOACTIVO;
 	}
 
 	// Getters
@@ -104,8 +108,8 @@ public class Comentario implements Serializable {
 	/**
 	 * @return the reportado
 	 */
-	public Boolean getReportado() {
-		return reportado;
+	public Integer getReportes() {
+		return reportes;
 	}
 
 	/**
@@ -148,8 +152,8 @@ public class Comentario implements Serializable {
 	/**
 	 * @param reportado the reportado to set
 	 */
-	public void setReportado(Boolean reportado) {
-		this.reportado = reportado;
+	public void setReportes(Integer reportes) {
+		this.reportes = reportes;
 	}
 
 	/**
@@ -173,6 +177,14 @@ public class Comentario implements Serializable {
 			responses.add(aux.darDatos());
 		}
 		
-		return new DataComentario(this.id, this.jugador.getId(), this.juego.getId(), responses, this.contenido, this.reportado, this.fechaPublicacion);
+		return new DataComentario(this.id, this.jugador.getId(), this.juego.getId(), responses, this.contenido, this.reportes, this.fechaPublicacion);
+	}
+
+	public EstadoBloqueo getEstadoBloqueo() {
+		return estadoBloqueo;
+	}
+
+	public void setEstadoBloqueo(EstadoBloqueo estadoBloqueo) {
+		this.estadoBloqueo = estadoBloqueo;
 	}
 }

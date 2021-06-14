@@ -12,6 +12,7 @@ import data_types.DataComentario;
 import data_types.DataCreador;
 import data_types.DataJuego;
 import data_types.DataTag;
+import enums.EstadoBloqueo;
 import model.Categoria;
 import model.Comentario;
 import model.Creador;
@@ -40,7 +41,7 @@ public class ControllerJuegoImp implements ControllerJuego {
 
 	@EJB
 	private CategoriaDAO categoriaPersistence = Fabric.getCategoriaPersistence();
-	
+
 	@EJB
 	private ReseniaDAO reseniaPersistence = Fabric.getReseniaDAO();
 
@@ -71,7 +72,7 @@ public class ControllerJuegoImp implements ControllerJuego {
 								}
 							}
 						}
-						
+
 						List<Tag> tags = new ArrayList<Tag>();
 						if (juego.getTags() != null && !juego.getTags().isEmpty()) {
 							for (DataTag aux : juego.getTags()) {
@@ -125,7 +126,7 @@ public class ControllerJuegoImp implements ControllerJuego {
 
 	@Override
 	public DataJuego buscarJuegoId(Integer id) {
-		DataJuego juego = new DataJuego(null, "", "", null, null, null, null, null, null, null);
+		DataJuego juego = new DataJuego(null, "", "", null, null, null, null, null, null, null, null);
 
 		Juego aux = juegoPersistence.buscarJuegoId(id);
 
@@ -138,7 +139,7 @@ public class ControllerJuegoImp implements ControllerJuego {
 
 	@Override
 	public DataJuego buscarJuegoNombre(String nombre) {
-		DataJuego juego = new DataJuego(null, "", "", null, null, null, null, null, null, null);
+		DataJuego juego = new DataJuego(null, "", "", null, null, null, null, null, null, null, null);
 
 		Juego aux = juegoPersistence.buscarJuegoNombre(nombre);
 
@@ -254,7 +255,6 @@ public class ControllerJuegoImp implements ControllerJuego {
 		}
 	}
 
-
 	@Override
 	public void reportarComentario(Integer idComentario) {
 		if (idComentario != null) {
@@ -262,7 +262,7 @@ public class ControllerJuegoImp implements ControllerJuego {
 			Comentario comentario = reseniaPersistence.buscarComentarioId(idComentario);
 			if (comentario != null) {
 
-				comentario.setReportado(true);
+				comentario.setReportes(comentario.getReportes() + 1);
 				reseniaPersistence.actualizarComentario(comentario);
 
 			}
@@ -273,12 +273,12 @@ public class ControllerJuegoImp implements ControllerJuego {
 	@Override
 	public List<DataComentario> darUltimosComentariosJuego(Integer idJuego) {
 		List<DataComentario> comentarios = new ArrayList<DataComentario>();
-		
+
 		Juego juego = juegoPersistence.buscarJuegoId(idJuego);
-		if(juego!=null) {
+		if (juego != null) {
 			List<Comentario> coments = reseniaPersistence.darUltimosComentariosJuego(juego);
-			
-			for(Comentario aux : coments) {
+
+			for (Comentario aux : coments) {
 				comentarios.add(aux.darDatos());
 			}
 		}
@@ -287,9 +287,9 @@ public class ControllerJuegoImp implements ControllerJuego {
 
 	@Override
 	public void crearCategoria(String nombre) {
-		if(nombre != null) {
+		if (nombre != null) {
 			Categoria cat = this.categoriaPersistence.buscarCategoriaNombre(nombre);
-			if(cat == null) {
+			if (cat == null) {
 				this.categoriaPersistence.insertarCategoria(new DataCategoria(null, nombre));
 			}
 		}
@@ -299,31 +299,71 @@ public class ControllerJuegoImp implements ControllerJuego {
 	public List<DataJuego> buscarJuegos(String nombre) {
 		List<DataJuego> juegos = new ArrayList<DataJuego>();
 
-		for(Juego j:juegoPersistence.buscarJuegos(nombre)){
+		for (Juego j : juegoPersistence.buscarJuegos(nombre)) {
 			juegos.add(j.darDatos());
 		}
 
 		return juegos;
 	}
 
-
 	@Override
 	public List<DataComentario> darComentariosReportados() {
 		List<DataComentario> comentarios = new ArrayList<DataComentario>();
-		
+
 		List<Comentario> coments = reseniaPersistence.darComentariosReportados();
-		
-		for(Comentario aux : coments) {
+
+		for (Comentario aux : coments) {
 			comentarios.add(aux.darDatos());
 		}
-		
+
 		return comentarios;
 	}
-	
+
 	@Override
-	public void eliminarComentarioReportado(String idComentario) {
-		//TODO
+	public void bloquearComentario(Integer idComentario) {
+		// TODO Auto-generated method stub
+		if (idComentario != null) {
+			Comentario comentario = this.reseniaPersistence.buscarComentarioId(idComentario);
+			if (comentario != null) {
+				comentario.setEstadoBloqueo(EstadoBloqueo.ACTIVO);
+				this.reseniaPersistence.actualizarComentario(comentario);
+			}
+		}
 	}
 
+	@Override
+	public void reportarJuego(Integer idJuego) {
+		if (idJuego != null) {
+			Juego juego = this.juegoPersistence.buscarJuegoId(idJuego);
+			if (juego != null) {
+				juego.setReportes(juego.getReportes() + 1);
+				this.juegoPersistence.update(juego);
+			}
+		}
+	}
+
+	@Override
+	public void bloquearJuego(Integer idJuego) {
+		if (idJuego != null) {
+			Juego juego = this.juegoPersistence.buscarJuegoId(idJuego);
+			if (juego != null) {
+				juego.setEstadoBloqueo(EstadoBloqueo.ACTIVO);
+				this.juegoPersistence.update(juego);
+			}
+		}
+	}
+
+	@Override
+	public List<DataJuego> darJuegosReportados() {
+		List<DataJuego> juegos = new ArrayList<DataJuego>();
+
+		List<Juego> games = reseniaPersistence.darJuegosReportados();
+
+		for (Juego aux : games) {
+			juegos.add(aux.darDatos());
+		}
+
+		return juegos;
+	}
 
 }

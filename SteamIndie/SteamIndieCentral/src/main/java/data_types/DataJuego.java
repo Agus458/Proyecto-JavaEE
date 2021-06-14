@@ -19,6 +19,8 @@ public class DataJuego {
 	private Float precio;
 	
 	private Float precioFinal;
+	
+	private Integer reportes;
 
 	private List<DataCategoria> categorias;
 	
@@ -49,7 +51,7 @@ public class DataJuego {
 	 * @param media
 	 * @param creador
 	 */
-	public DataJuego(Integer id, String nombre, String descripcion, Float precio, Float precioFinal, List<DataCategoria> categorias,
+	public DataJuego(Integer id, String nombre, String descripcion, Float precio, Float precioFinal, Integer reportes, List<DataCategoria> categorias,
 			List<DataTag> tags, DataMedia media, DataPublicacion publicacion, List<DataValoracion> valoraciones) {
 		super();
 		this.id = id;
@@ -62,6 +64,7 @@ public class DataJuego {
 		this.media = media;
 		this.publicacion = publicacion;
 		this.valoraciones = valoraciones;
+		this.reportes = reportes;
 	}
 
 	// Getters
@@ -134,6 +137,10 @@ public class DataJuego {
 	 */
 	public Float getPrecioFinal() {
 		return precioFinal;
+	}
+
+	public Integer getReportes() {
+		return reportes;
 	}
 
 }

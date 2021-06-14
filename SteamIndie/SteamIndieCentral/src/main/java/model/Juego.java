@@ -12,6 +12,7 @@ import data_types.DataJuego;
 import data_types.DataMedia;
 import data_types.DataTag;
 import data_types.DataValoracion;
+import enums.EstadoBloqueo;
 
 /**
  * Entity implementation class for Entity: Juego
@@ -36,6 +37,10 @@ public class Juego implements Serializable {
 	private Float precio;
 	
 	private Float precioFinal;
+	
+	private Integer reportes;
+	
+	private EstadoBloqueo estadoBloqueo;
 
 	@ManyToMany
 	private List<Categoria> categorias;
@@ -83,6 +88,8 @@ public class Juego implements Serializable {
 		this.publicacion = null;
 		this.categorias = categorias;
 		this.tags = tags;
+		this.estadoBloqueo = EstadoBloqueo.NOACTIVO;
+		this.reportes = 0;
 		this.valoraciones = new ArrayList<Valoracion>();
 	}
 
@@ -247,7 +254,7 @@ public class Juego implements Serializable {
 			vals.add(aux.darDatos());
 		}
 		
-		return new DataJuego(this.id, this.nombre, this.descripcion, this.precio, this.precioFinal, cats, tas, dataMedia,
+		return new DataJuego(this.id, this.nombre, this.descripcion, this.precio, this.precioFinal, this.reportes, cats, tas, dataMedia,
 				this.publicacion.darDatos(), vals);
 	}
 
@@ -293,6 +300,22 @@ public class Juego implements Serializable {
 		}
 		
 		return false;
+	}
+
+	public Integer getReportes() {
+		return reportes;
+	}
+
+	public void setReportes(Integer reportes) {
+		this.reportes = reportes;
+	}
+
+	public EstadoBloqueo getEstadoBloqueo() {
+		return estadoBloqueo;
+	}
+
+	public void setEstadoBloqueo(EstadoBloqueo estadoBloqueo) {
+		this.estadoBloqueo = estadoBloqueo;
 	}
 
 }

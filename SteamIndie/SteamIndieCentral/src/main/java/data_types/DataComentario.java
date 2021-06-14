@@ -21,7 +21,7 @@ public class DataComentario {
 	
 	private String contenido;
 	
-	private Boolean reportado;
+	private Integer reportes;
 	
 	private Date fechaPublicacion;
 	
@@ -37,14 +37,14 @@ public class DataComentario {
 	 * Constructor para el datatype comentario
 	 */
 	public DataComentario(Integer id, Integer idJugador, Integer idJuego, List<DataRespuesta> respuestas,
-			String contenido, Boolean reportado, Date fechaPublicacion) {
+			String contenido, Integer reportes, Date fechaPublicacion) {
 		super();
 		this.id = id;
 		this.idJugador = idJugador;
 		this.idJuego = idJuego;
 		this.respuestas = respuestas;
 		this.contenido = contenido;
-		this.reportado = reportado;
+		this.reportes = reportes;
 		this.fechaPublicacion = fechaPublicacion;
 	}
 
@@ -88,8 +88,8 @@ public class DataComentario {
 	/**
 	 * @return the reportado
 	 */
-	public Boolean getReportado() {
-		return reportado;
+	public Integer getReportes() {
+		return reportes;
 	}
 
 	/**
