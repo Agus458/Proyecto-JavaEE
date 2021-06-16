@@ -15,12 +15,12 @@ public class Test {
 
 	public static void main(String[] args) {
 		ControllerUsuario controller = Fabric.getControllerUsuario();
-//		DataJugador jugador = new DataJugador(null, "Santiago", "Sellanes", "santi@gmail.com", "123", "Santi");
-//		controller.registrarJugador(jugador);
-//		DataCreador creador = new DataCreador(null, "Agustin", "Peraza", "agu@gmail.com", "123", "Agu458", null);
-//		controller.registrarCreador(creador);
-//		DataAdmin admin = new DataAdmin(null, "Admin", "Admin", "admin@admin.com", "123456789", "admin");
-//		controller.registrarAdmin(admin);
+		DataJugador jugador = new DataJugador(null, "Santiago", "Sellanes", "santi@gmail.com", "123", "Santi");
+		controller.registrarJugador(jugador);
+		DataCreador creador = new DataCreador(null, "Agustin", "Peraza", "agu@gmail.com", "123", "Agu458", null);
+		controller.registrarCreador(creador);
+		DataAdmin admin = new DataAdmin(null, "Admin", "Admin", "admin@admin.com", "123456789", "admin");
+		controller.registrarAdmin(admin);
 //		System.out.println(controller.buscarUsuarioEmail(admin.getEmail()).getApellido());
 //		System.out.println(controller.buscarUsuarioNick(admin.getNickname()).getApellido());
 //		System.out.println(controller.buscarUsuarioId(3).getApellido());
