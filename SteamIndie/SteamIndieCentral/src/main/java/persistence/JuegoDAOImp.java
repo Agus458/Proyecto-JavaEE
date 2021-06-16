@@ -63,7 +63,7 @@ public class JuegoDAOImp implements JuegoDAO {
 
 		try {
 
-			Query query = em.createQuery("SELECT j FROM Juego j");
+			Query query = em.createQuery("SELECT j FROM Juego j WHERE j.estadoBloqueo = enums.EstadoBloqueo.NOACTIVO");
 			@SuppressWarnings("unchecked")
 			List<Juego> jue = query.getResultList();
 
@@ -126,7 +126,7 @@ public class JuegoDAOImp implements JuegoDAO {
 
 			try {
 
-				Query query = em.createQuery("SELECT j FROM Juego j WHERE j.nombre like CONCAT('%',:nombre,'%')");
+				Query query = em.createQuery("SELECT j FROM Juego j WHERE j.nombre like CONCAT('%',:nombre,'%') AND j.estadoBloqueo = enums.EstadoBloqueo.NOACTIVO");
 				query.setParameter("nombre", nombre);
 
 				juegos = query.getResultList();

@@ -18,7 +18,7 @@ public class DataComentario  implements java.io.Serializable {
 
     private java.lang.String contenido;
 
-    private java.lang.Boolean reportado;
+    private java.lang.Integer reportes;
 
     private java.util.Calendar fechaPublicacion;
 
@@ -31,14 +31,14 @@ public class DataComentario  implements java.io.Serializable {
            java.lang.Integer idJuego,
            web_service.DataRespuesta[] respuestas,
            java.lang.String contenido,
-           java.lang.Boolean reportado,
+           java.lang.Integer reportes,
            java.util.Calendar fechaPublicacion) {
            this.id = id;
            this.idJugador = idJugador;
            this.idJuego = idJuego;
            this.respuestas = respuestas;
            this.contenido = contenido;
-           this.reportado = reportado;
+           this.reportes = reportes;
            this.fechaPublicacion = fechaPublicacion;
     }
 
@@ -152,22 +152,22 @@ public class DataComentario  implements java.io.Serializable {
 
 
     /**
-     * Gets the reportado value for this DataComentario.
+     * Gets the reportes value for this DataComentario.
      * 
-     * @return reportado
+     * @return reportes
      */
-    public java.lang.Boolean getReportado() {
-        return reportado;
+    public java.lang.Integer getReportes() {
+        return reportes;
     }
 
 
     /**
-     * Sets the reportado value for this DataComentario.
+     * Sets the reportes value for this DataComentario.
      * 
-     * @param reportado
+     * @param reportes
      */
-    public void setReportado(java.lang.Boolean reportado) {
-        this.reportado = reportado;
+    public void setReportes(java.lang.Integer reportes) {
+        this.reportes = reportes;
     }
 
 
@@ -217,9 +217,9 @@ public class DataComentario  implements java.io.Serializable {
             ((this.contenido==null && other.getContenido()==null) || 
              (this.contenido!=null &&
               this.contenido.equals(other.getContenido()))) &&
-            ((this.reportado==null && other.getReportado()==null) || 
-             (this.reportado!=null &&
-              this.reportado.equals(other.getReportado()))) &&
+            ((this.reportes==null && other.getReportes()==null) || 
+             (this.reportes!=null &&
+              this.reportes.equals(other.getReportes()))) &&
             ((this.fechaPublicacion==null && other.getFechaPublicacion()==null) || 
              (this.fechaPublicacion!=null &&
               this.fechaPublicacion.equals(other.getFechaPublicacion())));
@@ -257,8 +257,8 @@ public class DataComentario  implements java.io.Serializable {
         if (getContenido() != null) {
             _hashCode += getContenido().hashCode();
         }
-        if (getReportado() != null) {
-            _hashCode += getReportado().hashCode();
+        if (getReportes() != null) {
+            _hashCode += getReportes().hashCode();
         }
         if (getFechaPublicacion() != null) {
             _hashCode += getFechaPublicacion().hashCode();
@@ -310,9 +310,9 @@ public class DataComentario  implements java.io.Serializable {
         elemField.setNillable(false);
         typeDesc.addFieldDesc(elemField);
         elemField = new org.apache.axis.description.ElementDesc();
-        elemField.setFieldName("reportado");
-        elemField.setXmlName(new javax.xml.namespace.QName("", "reportado"));
-        elemField.setXmlType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "boolean"));
+        elemField.setFieldName("reportes");
+        elemField.setXmlName(new javax.xml.namespace.QName("", "reportes"));
+        elemField.setXmlType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "int"));
         elemField.setMinOccurs(0);
         elemField.setNillable(false);
         typeDesc.addFieldDesc(elemField);

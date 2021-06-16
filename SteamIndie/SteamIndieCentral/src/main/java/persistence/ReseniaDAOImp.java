@@ -9,6 +9,7 @@ import javax.persistence.Persistence;
 import javax.persistence.Query;
 
 import model.Comentario;
+import model.Creador;
 import model.Juego;
 import model.Jugador;
 import model.Valoracion;
@@ -140,7 +141,7 @@ public class ReseniaDAOImp implements ReseniaDAO {
 		List<Comentario> comentarios = new ArrayList<Comentario>();
 
 		try {
-			Query query = em.createQuery("SELECT c FROM Comentario c WHERE c.reportes > 0 ORDER BY c.reportes DESC");
+			Query query = em.createQuery("SELECT c FROM Comentario c WHERE c.reportes > 0 AND c.estadoBloqueo = enums.EstadoBloqueo.NOACTIVO ORDER BY c.reportes DESC");
 
 			comentarios = query.getResultList();
 		} catch (Exception e) {
@@ -156,8 +157,40 @@ public class ReseniaDAOImp implements ReseniaDAO {
 		List<Juego> juegos = new ArrayList<Juego>();
 
 		try {
-			Query query = em.createQuery("SELECT j FROM Juego j WHERE j.reportes > 0 ORDER BY j.reportes DESC");
+			Query query = em.createQuery("SELECT j FROM Juego j WHERE j.reportes > 0 AND j.estadoBloqueo = enums.EstadoBloqueo.NOACTIVO ORDER BY j.reportes DESC");
 
+			juegos = query.getResultList();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return juegos;
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Juego> darJuegosSolicitados() {
+		List<Juego> juegos = new ArrayList<Juego>();
+
+		try {
+			Query query = em.createQuery("SELECT j FROM Juego j WHERE j.estadoBloqueo = enums.EstadoBloqueo.SOLICITUD ORDER BY j.reportes DESC");
+
+			juegos = query.getResultList();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return juegos;
+	}
+	
+	@Override
+	@SuppressWarnings("unchecked")
+	public List<Juego> darJuegosBloqueados(Creador creador) {
+		List<Juego> juegos = new ArrayList<Juego>();
+
+		try {
+			Query query = em.createQuery("SELECT j FROM Juego j JOIN j.publicacion p WHERE j.estadoBloqueo = enums.EstadoBloqueo.ACTIVO AND p.creador = :creador ORDER BY j.reportes DESC");
+			query.setParameter("creador", creador);
 			juegos = query.getResultList();
 		} catch (Exception e) {
 			e.printStackTrace();

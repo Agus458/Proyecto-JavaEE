@@ -18,6 +18,8 @@ public class DataJuego  implements java.io.Serializable {
 
     private java.lang.Float precioFinal;
 
+    private java.lang.Integer reportes;
+
     private web_service.DataCategoria[] categorias;
 
     private web_service.DataTag[] tags;
@@ -37,6 +39,7 @@ public class DataJuego  implements java.io.Serializable {
            java.lang.String descripcion,
            java.lang.Float precio,
            java.lang.Float precioFinal,
+           java.lang.Integer reportes,
            web_service.DataCategoria[] categorias,
            web_service.DataTag[] tags,
            web_service.DataMedia media,
@@ -47,6 +50,7 @@ public class DataJuego  implements java.io.Serializable {
            this.descripcion = descripcion;
            this.precio = precio;
            this.precioFinal = precioFinal;
+           this.reportes = reportes;
            this.categorias = categorias;
            this.tags = tags;
            this.media = media;
@@ -152,6 +156,26 @@ public class DataJuego  implements java.io.Serializable {
      */
     public void setPrecioFinal(java.lang.Float precioFinal) {
         this.precioFinal = precioFinal;
+    }
+
+
+    /**
+     * Gets the reportes value for this DataJuego.
+     * 
+     * @return reportes
+     */
+    public java.lang.Integer getReportes() {
+        return reportes;
+    }
+
+
+    /**
+     * Sets the reportes value for this DataJuego.
+     * 
+     * @param reportes
+     */
+    public void setReportes(java.lang.Integer reportes) {
+        this.reportes = reportes;
     }
 
 
@@ -305,6 +329,9 @@ public class DataJuego  implements java.io.Serializable {
             ((this.precioFinal==null && other.getPrecioFinal()==null) || 
              (this.precioFinal!=null &&
               this.precioFinal.equals(other.getPrecioFinal()))) &&
+            ((this.reportes==null && other.getReportes()==null) || 
+             (this.reportes!=null &&
+              this.reportes.equals(other.getReportes()))) &&
             ((this.categorias==null && other.getCategorias()==null) || 
              (this.categorias!=null &&
               java.util.Arrays.equals(this.categorias, other.getCategorias()))) &&
@@ -345,6 +372,9 @@ public class DataJuego  implements java.io.Serializable {
         }
         if (getPrecioFinal() != null) {
             _hashCode += getPrecioFinal().hashCode();
+        }
+        if (getReportes() != null) {
+            _hashCode += getReportes().hashCode();
         }
         if (getCategorias() != null) {
             for (int i=0;
@@ -427,6 +457,13 @@ public class DataJuego  implements java.io.Serializable {
         elemField.setFieldName("precioFinal");
         elemField.setXmlName(new javax.xml.namespace.QName("", "precioFinal"));
         elemField.setXmlType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "float"));
+        elemField.setMinOccurs(0);
+        elemField.setNillable(false);
+        typeDesc.addFieldDesc(elemField);
+        elemField = new org.apache.axis.description.ElementDesc();
+        elemField.setFieldName("reportes");
+        elemField.setXmlName(new javax.xml.namespace.QName("", "reportes"));
+        elemField.setXmlType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "int"));
         elemField.setMinOccurs(0);
         elemField.setNillable(false);
         typeDesc.addFieldDesc(elemField);

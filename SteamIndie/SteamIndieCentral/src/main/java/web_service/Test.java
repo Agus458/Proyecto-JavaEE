@@ -33,15 +33,15 @@ public class Test {
 //		for(int i = 0; i<11; i++) {
 //			controller.publicarPost(TipoPost.TEXTO, "blablabla", "desc", 1);
 //		}
-		DataPagina dp = controller.listarPost(1, 1);
-		if(dp != null) {
-			System.out.println(dp.getPagina());
-			System.out.println(dp.getCantPaginas());
-			for(DataPost p: dp.getData()) {
-				System.out.println(p.getId());
-			}
-		}
-		
+//		DataPagina dp = controller.listarPost(1, 1);
+//		if(dp != null) {
+//			System.out.println(dp.getPagina());
+//			System.out.println(dp.getCantPaginas());
+//			for(DataPost p: dp.getData()) {
+//				System.out.println(p.getId());
+//			}
+//		}
+//		
 		ControllerJuego controllerJuego = Fabric.getControllerJuego();
 //		controllerJuego.valorarJuego(5, 1, 1);
 //		List<DataCategoria> cats = new ArrayList<DataCategoria>();
@@ -66,6 +66,10 @@ public class Test {
 //			System.out.println(c.getNombre());
 //		}
 //		
+//		for(DataJuego j: controllerJuego.darJuegosBloqueados(1)) {
+//			System.out.println(j.getNombre());
+//		}
+//		
 		ControllerCompra controllerCompra = Fabric.getControllerCompra();
 //		controllerCompra.realizarCheckout(1);
 //		System.out.println(controllerCompra.darVentasTotalCreador(1));
@@ -77,11 +81,11 @@ public class Test {
 //		System.out.println(controllerCompra.darCantVentasJuego(1));
 		
 		ControllerOferta controllerOferta = Fabric.getControllerOferta();
-//		controllerOferta.crearOferta("mundo abierto 2", new Date("2021/06/13 15:05"), new Date("2021/06/13 15:10"), new Float(30));
+//		controllerOferta.crearOferta("mundo abierto 5", new Date("2021/06/14 19:10"), new Date("2021/06/14 19:13"), new Float(30));
 //		List<Integer> juegos = new ArrayList<Integer>();
 //		juegos.add(1);
 //		juegos.add(2);
-//		controllerOferta.agregarJuegosOferta(2,juegos);
+//		controllerOferta.agregarJuegosOferta(6,juegos);
 //		for(DataOferta o: controllerOferta.listarOfertas()) {
 //			System.out.println(o.getNombre());
 //		}

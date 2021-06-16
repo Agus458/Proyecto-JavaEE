@@ -73,6 +73,8 @@ public class SalesBean implements Serializable{
 	}
 
 
+	// GETTES & SETTERS
+	
 	public List<DataOferta> getOfertas() {
 		return ofertas;
 	}

@@ -5,6 +5,7 @@ import java.util.List;
 import javax.ejb.Local;
 
 import model.Comentario;
+import model.Creador;
 import model.Juego;
 import model.Jugador;
 import model.Valoracion;
@@ -27,5 +28,9 @@ public interface ReseniaDAO {
 	public List<Comentario> darComentariosReportados();
 	
 	public List<Juego> darJuegosReportados();
+
+	public List<Juego> darJuegosBloqueados(Creador Creador);
+
+	public List<Juego> darJuegosSolicitados();
 	
 }

@@ -321,7 +321,6 @@ public class ControllerJuegoImp implements ControllerJuego {
 
 	@Override
 	public void bloquearComentario(Integer idComentario) {
-		// TODO Auto-generated method stub
 		if (idComentario != null) {
 			Comentario comentario = this.reseniaPersistence.buscarComentarioId(idComentario);
 			if (comentario != null) {
@@ -352,6 +351,29 @@ public class ControllerJuegoImp implements ControllerJuego {
 			}
 		}
 	}
+	
+	@Override
+	public void desbloquearJuego(Integer idJuego) {
+		if (idJuego != null) {
+			Juego juego = this.juegoPersistence.buscarJuegoId(idJuego);
+			if (juego != null) {
+				juego.setReportes(0);
+				juego.setEstadoBloqueo(EstadoBloqueo.NOACTIVO);
+				this.juegoPersistence.update(juego);
+			}
+		}
+	}
+	
+	@Override
+	public void solicitarDesbloqueoJuego(Integer idJuego) {
+		if (idJuego != null) {
+			Juego juego = this.juegoPersistence.buscarJuegoId(idJuego);
+			if (juego != null) {
+				juego.setEstadoBloqueo(EstadoBloqueo.SOLICITUD);
+				this.juegoPersistence.update(juego);
+			}
+		}
+	}
 
 	@Override
 	public List<DataJuego> darJuegosReportados() {
@@ -363,6 +385,33 @@ public class ControllerJuegoImp implements ControllerJuego {
 			juegos.add(aux.darDatos());
 		}
 
+		return juegos;
+	}
+	
+	@Override
+	public List<DataJuego> darJuegosSolicitados() {
+		List<DataJuego> juegos = new ArrayList<DataJuego>();
+
+		List<Juego> games = reseniaPersistence.darJuegosSolicitados();
+
+		for (Juego aux : games) {
+			juegos.add(aux.darDatos());
+		}
+
+		return juegos;
+	}
+	
+	@Override
+	public List<DataJuego> darJuegosBloqueados(Integer idCreador) {
+		List<DataJuego> juegos = new ArrayList<DataJuego>();
+		Creador usuario = persistenceUsuario.buscarCreadorId(idCreador);
+		if(usuario!=null) {
+			List<Juego> games = reseniaPersistence.darJuegosBloqueados(usuario);
+
+			for (Juego aux : games) {
+				juegos.add(aux.darDatos());
+			}
+		}
 		return juegos;
 	}
 

@@ -303,4 +303,51 @@ public class SteamIndieImp implements SteamIndie{
 		return controller.listarPost(idJugador, pagina);
 	}
 	
+	@Override
+	public void bloquearComentario(Integer idComentario) {
+		ControllerJuego controller = Fabric.getControllerJuego();
+		controller.bloquearComentario(idComentario);
+	}
+	
+	@Override
+	public void bloquearJuego(Integer idJuego) {
+		ControllerJuego controller = Fabric.getControllerJuego();
+		controller.bloquearJuego(idJuego);
+	}
+	
+	@Override
+	public void desbloquearJuego(Integer idJuego) {
+		ControllerJuego controller = Fabric.getControllerJuego();
+		controller.desbloquearJuego(idJuego);
+	}
+
+	@Override
+	public void solicitarDesbloquearJuego(Integer idJuego) {
+		ControllerJuego controller = Fabric.getControllerJuego();
+		controller.solicitarDesbloqueoJuego(idJuego);
+	}
+	
+	@Override
+	public List<DataJuego> darJuegosReportados() {
+		ControllerJuego controller = Fabric.getControllerJuego();
+		return controller.darJuegosReportados();
+	}
+	
+	@Override
+	public List<DataJuego> darJuegosBloqueados(Integer idCreador) {
+		ControllerJuego controller = Fabric.getControllerJuego();
+		return controller.darJuegosBloqueados(idCreador);
+	}
+	
+	@Override
+	public List<DataJuego> darJuegosSolicitados() {
+		ControllerJuego controller = Fabric.getControllerJuego();
+		return controller.darJuegosSolicitados();
+	}
+	
+	@Override
+	public void reportarJuego(Integer idJuego) {
+		ControllerJuego controller = Fabric.getControllerJuego();
+		controller.reportarJuego(idJuego);
+	}
 }

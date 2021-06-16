@@ -81,17 +81,21 @@
 				        </h:form>
 				      </div>
 				      <div class="col">
+				     	
 				        <div class="product-content">
-				        	
+				        	<h:form>
 			        		<h2 class="product-title">#{j.nombre}</h2>				          
 				        	<a href="#" class="product-link">||Creador||</a>
-							<button class="btn btn-sm btn-danger">
-								<i class="fas fa-exclamation fa-lg"></i>
-							</button>
+				        	
+								<h:commandLink action="#{gameBean.enviarReporte()}">
+						        	<i class="ml-1 fas fa-exclamation fa-lg text-danger"></i>
+	                          	</h:commandLink>
+							
 							<h:panelGroup rendered="#{sesionBean.admin!=null}">
-								<h:outputLink styleClass="btn btn-sm btn-danger">
-									<i class="far fa-trash-alt"></i> 
-								</h:outputLink>
+								<h:commandLink styleClass="btn btn-sm btn-danger" action="#{backOfficeBean.bloquearJuego(j.id)}">
+                     				<i class="far fa-trash-alt"></i> 
+	                          	</h:commandLink>
+								
 							</h:panelGroup>
 				          <div class="product-price">
 				            <p class="new-price">Precio: <span>$#{j.precioFinal} </span></p>
@@ -112,18 +116,16 @@
 				          </div>
 							<h:panelGroup rendered="#{sesionBean.creador==null}" >
 					          <div class="purchase-info">
-								<h:form>
-									<h:commandButton actionListener="#{carritoBean.addCarrito()}" value="Agregar al carrito" styleClass="btn btn-primary" >
-						            	<f:ajax execute="@form" render="@none" />
-						            	<f:param name="id" value="#{gameBean.dataJuego.id}"></f:param>
-						            </h:commandButton>
-						            <!--<button type="button" class="btn">
-						              Añadir al carrito <i class="fas fa-shopping-cart"></i>
-						            </button><!-->
-								</h:form>
-								
+								<h:commandButton actionListener="#{carritoBean.addCarrito()}" value="Agregar al carrito" styleClass="btn btn-primary" >
+					            	<f:ajax execute="@form" render="@none" />
+					            	<f:param name="id" value="#{gameBean.dataJuego.id}"></f:param>
+					            </h:commandButton>
+					            <!--<button type="button" class="btn">
+					              Añadir al carrito <i class="fas fa-shopping-cart"></i>
+					            </button><!-->					
 					          </div>
 				          </h:panelGroup>
+				          </h:form>
 				        </div>
 				      </div>
 				    </div>

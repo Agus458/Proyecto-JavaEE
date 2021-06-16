@@ -37,7 +37,7 @@ public class GameBean implements Serializable {
 	
 	
 	//Creador
-	DataJuego dataJuego = new DataJuego(null,null,null,null,null,null,null, null,null,null);
+	DataJuego dataJuego = new DataJuego(null,null,null,null,null,null,null, null,null,null, null);
 	
 	private List<String> categoriasElegidas = new ArrayList<String>();
 	private List<DataCategoria> categoriasDisponibles = new ArrayList<DataCategoria>();
@@ -140,7 +140,7 @@ public class GameBean implements Serializable {
 		//Creacion de los objetos
 		DataMedia media = new DataMedia(null, logo , arregloVideos, arregloImagenes);
 		
-		DataJuego juego = new DataJuego(null, nombre, desc, precio, null, arregloCategoria, arregloTag, media, null, null);
+		DataJuego juego = new DataJuego(null, nombre, desc, precio, null, null,arregloCategoria, arregloTag, media, null, null);
 		
 		
 		//Llamada final a persistencia WebService
@@ -183,8 +183,12 @@ public class GameBean implements Serializable {
 	
 	
 	//Reportar Juego
-	public void enviarReporte() {
-		//TODO Reportar juego
+	public void enviarReporte() throws RemoteException, MalformedURLException {
+		SteamIndieImpService servicio = new SteamIndieImpServiceLocator();
+		SteamIndie ws = new SteamIndieImpPortBindingStub(new URL(servicio.getSteamIndieImpPortAddress()), servicio);
+		
+		ws.reportarJuego(dataJuego.getId());
+
 	}
 	
 	//===================//

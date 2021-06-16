@@ -36,15 +36,19 @@ public interface ControllerJuego {
 	public void responderComentario(Integer idComentario, String contenido, Integer idJugador);
 	
 	public void reportarComentario(Integer idComentario);
-	////////
+
 	public void bloquearComentario(Integer idComentario);
 	
 	public void reportarJuego(Integer idJuego);
 	
 	public void bloquearJuego(Integer idJuego);
 	
+	public void solicitarDesbloqueoJuego(Integer idJuego);
+	
+	public void desbloquearJuego(Integer idJuego);
+	
 	public List<DataJuego> darJuegosReportados();
-	////////
+
 	public List<DataComentario> darUltimosComentariosJuego(Integer idJuego);
 	
 	public void crearCategoria(String nombre);
@@ -52,4 +56,10 @@ public interface ControllerJuego {
 	public List<DataComentario> darComentariosReportados();
 
 	public List<DataJuego> buscarJuegos(String nombre);
+
+	public List<DataJuego> darJuegosBloqueados(Integer idCreador);
+
+	public List<DataJuego> darJuegosSolicitados();
+
+
 }

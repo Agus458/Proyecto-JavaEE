@@ -16,6 +16,7 @@ import javax.faces.bean.ViewScoped;
 
 import web_service.DataCategoria;
 import web_service.DataComentario;
+import web_service.DataJuego;
 import web_service.SteamIndie;
 import web_service.SteamIndieImpPortBindingStub;
 import web_service.SteamIndieImpService;
@@ -37,6 +38,8 @@ public class BackOfficeBean implements Serializable{
 	private String fechaFin;
 	
 	private List<DataComentario> comentariosReportados = new ArrayList<DataComentario>();
+	private List<DataJuego> juegosReportados = new ArrayList<DataJuego>();
+	private List<DataJuego> juegosSolicitados = new ArrayList<DataJuego>();
 	
 	public BackOfficeBean() throws MalformedURLException, RemoteException {
 		SteamIndieImpService servicio = new SteamIndieImpServiceLocator();
@@ -45,6 +48,18 @@ public class BackOfficeBean implements Serializable{
 		if(ws.darComentariosReportados()!=null) {
 			for(DataComentario c: ws.darComentariosReportados()) {
 				comentariosReportados.add(c);
+			}
+		}
+		
+		if(ws.darJuegosReportados()!=null) {
+			for(DataJuego j: ws.darJuegosReportados()) {
+				juegosReportados.add(j);
+			}
+		}
+		
+		if(ws.darJuegosSolicitados()!=null) {
+			for(DataJuego j: ws.darJuegosSolicitados()) {
+				juegosSolicitados.add(j);
 			}
 		}
 		
@@ -74,14 +89,31 @@ public class BackOfficeBean implements Serializable{
 
 		String fFin=  fechaFin.substring(0,10)+' '+fechaFin.substring(11);
 		
-		System.out.println(fInicio);
-
-		System.out.println(fFin);
-
-		
 		ws.crearOferta(nombreOferta, toCalendar(new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(fInicio)), toCalendar(new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(fFin)), descuentoOferta);
 	}
-
+	
+	public void borrarComentario(Integer idComentario) throws RemoteException, MalformedURLException {
+		SteamIndieImpService servicio = new SteamIndieImpServiceLocator();
+		SteamIndie ws = new SteamIndieImpPortBindingStub(new URL(servicio.getSteamIndieImpPortAddress()), servicio);		
+		
+		ws.bloquearComentario(idComentario);
+	}
+	
+	public void bloquearJuego(Integer idJuego) throws RemoteException, MalformedURLException {
+		SteamIndieImpService servicio = new SteamIndieImpServiceLocator();
+		SteamIndie ws = new SteamIndieImpPortBindingStub(new URL(servicio.getSteamIndieImpPortAddress()), servicio);		
+		
+		ws.bloquearJuego(idJuego);
+	}
+	
+	public void desbloquearJuego(Integer idJuego) throws RemoteException, MalformedURLException {
+		SteamIndieImpService servicio = new SteamIndieImpServiceLocator();
+		SteamIndie ws = new SteamIndieImpPortBindingStub(new URL(servicio.getSteamIndieImpPortAddress()), servicio);		
+		
+		ws.desbloquearJuego(idJuego);
+	}
+	
+	//Funciones auxliares
 	public static Calendar toCalendar(Date date){ 
 	  Calendar cal = Calendar.getInstance();
 	  cal.setTime(date);
@@ -167,4 +199,21 @@ public class BackOfficeBean implements Serializable{
 		this.comentariosReportados = comentariosReportados;
 	}
 
+	public List<DataJuego> getJuegosReportados() {
+		return juegosReportados;
+	}
+
+	public void setJuegosReportados(List<DataJuego> juegosReportados) {
+		this.juegosReportados = juegosReportados;
+	}
+
+	public List<DataJuego> getJuegosSolicitados() {
+		return juegosSolicitados;
+	}
+
+	public void setJuegosSolicitados(List<DataJuego> juegosSolicitados) {
+		this.juegosSolicitados = juegosSolicitados;
+	}
+
+	
 }

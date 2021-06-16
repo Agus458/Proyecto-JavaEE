@@ -159,4 +159,29 @@ public interface SteamIndie {
 	
 	@WebMethod
 	public DataPagina listarPost(Integer idJugador, Integer pagina);
+
+	@WebMethod
+	public void bloquearComentario(Integer idComentario);
+	
+	@WebMethod
+	public void reportarJuego(Integer idJuego);
+
+	@WebMethod
+	public void bloquearJuego(Integer idJuego);
+	
+	@WebMethod
+	public List<DataJuego> darJuegosReportados();
+
+	@WebMethod
+	public void solicitarDesbloquearJuego(Integer idJuego);
+	
+	@WebMethod
+	public void desbloquearJuego(Integer idJuego);
+
+	@WebMethod
+	public List<DataJuego> darJuegosBloqueados(Integer idCreador);
+
+	@WebMethod
+	public List<DataJuego> darJuegosSolicitados();
+	
 }

@@ -25,18 +25,25 @@ public class StatsBean implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private List<DataJuego> masVendidos = new ArrayList<DataJuego>();
+	private List<DataJuego> juegosBloqueados = new ArrayList<DataJuego>();
 
 	private float ganancias = -1;
-
+	
 	// Sesion
 	@ManagedProperty(value = "#{sesionBean}")
 	private SesionBean session;
 
 	public StatsBean() {}
 	
+	public void solicitarDesbloqueo(Integer idJuego) throws RemoteException, MalformedURLException {
+		SteamIndieImpService servicio = new SteamIndieImpServiceLocator();
+		SteamIndie ws = new SteamIndieImpPortBindingStub(new URL(servicio.getSteamIndieImpPortAddress()), servicio);
+		
+		ws.solicitarDesbloquearJuego(idJuego);
+	}
 	
-	public void init(){}
-
+	// GETTERS & SETTERS
+	
 	public List<DataJuego> getMasVendidos() throws RemoteException, MalformedURLException {
 		if(masVendidos.isEmpty()) {
 			SteamIndieImpService servicio = new SteamIndieImpServiceLocator();
@@ -98,6 +105,28 @@ public class StatsBean implements Serializable {
 		SteamIndieImpService servicio = new SteamIndieImpServiceLocator();
 		SteamIndie ws = new SteamIndieImpPortBindingStub(new URL(servicio.getSteamIndieImpPortAddress()), servicio);
 		return ws.darCantVentasJuego(idJuego);
+	}
+
+
+	public List<DataJuego> getJuegosBloqueados() throws RemoteException, MalformedURLException {
+		if(juegosBloqueados.isEmpty()) {
+			SteamIndieImpService servicio = new SteamIndieImpServiceLocator();
+			SteamIndie ws = new SteamIndieImpPortBindingStub(new URL(servicio.getSteamIndieImpPortAddress()), servicio);
+			DataUsuario usuario = session.getCreador();
+			if(usuario!=null) {
+				if(ws.darJuegosBloqueados(usuario.getId())!=null) {
+					for(DataJuego j :ws.darJuegosBloqueados(usuario.getId())) {
+						juegosBloqueados.add(j);
+					}
+				}
+			}
+		}
+		return juegosBloqueados;
+	}
+
+
+	public void setJuegosBloqueados(List<DataJuego> juegosBloqueados) {
+		this.juegosBloqueados = juegosBloqueados;
 	}
 	
 }
