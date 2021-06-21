@@ -192,7 +192,7 @@ public class ControllerUsuarioImp implements ControllerUsuario {
 
 	@Override
 	public DataCarrito darDatosCarritoJugador(Integer idJugador) {
-		DataCarrito carrito = new DataCarrito(null, null, null);
+		DataCarrito carrito = new DataCarrito(null, null, null, null);
 		if (idJugador != null) {
 
 			Jugador jugador = usuarioPersistence.buscarJugadorId(idJugador);
@@ -324,6 +324,17 @@ public class ControllerUsuarioImp implements ControllerUsuario {
 			}
 		}
 		return null;
+	}
+
+	@Override
+	public List<DataJugador> listarJugadores() {
+		List<DataJugador> jugadores = new ArrayList<DataJugador>();
+		
+		for(Jugador aux : this.usuarioPersistence.listarJugadores()) {
+			jugadores.add(aux.darDatos());
+		}
+		
+		return jugadores;
 	}
 
 }

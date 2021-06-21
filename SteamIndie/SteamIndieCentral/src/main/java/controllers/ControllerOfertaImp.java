@@ -9,13 +9,16 @@ import java.util.TimerTask;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
+import data_types.DataJuego;
 import data_types.DataOferta;
 import enums.EstadoOferta;
+import model.Creador;
 import model.Juego;
 import model.Oferta;
 import persistence.JuegoDAO;
 import persistence.JuegoDAOImp;
 import persistence.OfertaDAO;
+import persistence.UsuarioDAO;
 
 /**
  * Session Bean implementation class ControllerOfertaImp
@@ -25,6 +28,9 @@ public class ControllerOfertaImp implements ControllerOferta {
 
 	@EJB
 	private OfertaDAO ofertaPersistence = Fabric.getOfertaDAO();
+	
+	@EJB
+	private UsuarioDAO persistenceUsuario = Fabric.getUsuarioPersistence();
 	
 	@EJB
 	private JuegoDAO juegoPersistence = new JuegoDAOImp();
@@ -121,7 +127,6 @@ public class ControllerOfertaImp implements ControllerOferta {
 				for(Juego aux : juegos) {
 					oferta.agregarJuego(aux);
 				}
-				System.out.println(oferta.getJuegos().size());
 				ofertaPersistence.actualizar(oferta);
 			}
 			
@@ -157,7 +162,6 @@ public class ControllerOfertaImp implements ControllerOferta {
 	private void alIniciar(String nombre){
 		Oferta oferta = this.ofertaPersistence.buscarNombre(nombre);
 		if(oferta != null) {
-			System.out.println(oferta.getJuegos().size());
 			for(Juego aux : oferta.getJuegos()) {
 				aux.setPrecioFinal(aux.getPrecio() - ((oferta.getDescuento() * aux.getPrecio()) / 100));
 				this.juegoPersistence.update(aux);
@@ -197,5 +201,41 @@ public class ControllerOfertaImp implements ControllerOferta {
 				res.add(aux.darDatos());
 			}
 		return res;
+	}
+
+	@Override
+	public List<DataJuego> darJuegosEnOferaCreador(Integer idOferta, Integer idCreador) {
+		List<DataJuego> juegos = new ArrayList<DataJuego>();
+		Creador usuario = persistenceUsuario.buscarCreadorId(idCreador);
+		Oferta oferta = this.ofertaPersistence.buscarId(idOferta);
+		
+		if(usuario != null && oferta != null) {
+			List<Juego> games = juegoPersistence.darJuegosCreador(usuario);
+
+			for (Juego aux : games) {
+				if(oferta.estaEnOferta(aux)) {
+					juegos.add(aux.darDatos());
+				}
+			}
+		}
+		return juegos;
+	}
+
+	@Override
+	public List<DataJuego> darJuegosNoEnOferaCreador(Integer idOferta, Integer idCreador) {
+		List<DataJuego> juegos = new ArrayList<DataJuego>();
+		Creador usuario = persistenceUsuario.buscarCreadorId(idCreador);
+		Oferta oferta = this.ofertaPersistence.buscarId(idOferta);
+		
+		if(usuario != null && oferta != null) {
+			List<Juego> games = juegoPersistence.darJuegosCreador(usuario);
+
+			for (Juego aux : games) {
+				if(!oferta.estaEnOferta(aux)) {
+					juegos.add(aux.darDatos());
+				}
+			}
+		}
+		return juegos;
 	}
 }

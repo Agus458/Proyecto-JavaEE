@@ -15,12 +15,14 @@ public class Test {
 
 	public static void main(String[] args) {
 		ControllerUsuario controller = Fabric.getControllerUsuario();
-		DataJugador jugador = new DataJugador(null, "Santiago", "Sellanes", "santi@gmail.com", "123", "Santi");
-		controller.registrarJugador(jugador);
-		DataCreador creador = new DataCreador(null, "Agustin", "Peraza", "agu@gmail.com", "123", "Agu458", null);
-		controller.registrarCreador(creador);
-		DataAdmin admin = new DataAdmin(null, "Admin", "Admin", "admin@admin.com", "123456789", "admin");
-		controller.registrarAdmin(admin);
+//		DataJugador jugador = new DataJugador(null, "Santiago", "Sellanes", "santi@gmail.com", "123", "Santi");
+//		controller.registrarJugador(jugador);
+//		DataCreador creador = new DataCreador(null, "Agustin", "Peraza", "agu@gmail.com", "123", "Agu458", null);
+//		controller.registrarCreador(creador);
+//		DataCreador creador2 = new DataCreador(null, "Santiago", "Sellanes", "santi@gmail.com", "123", "Santi", null);
+//		controller.registrarCreador(creador2);
+//		DataAdmin admin = new DataAdmin(null, "Admin", "Admin", "admin@admin.com", "123456789", "admin");
+//		controller.registrarAdmin(admin);
 //		System.out.println(controller.buscarUsuarioEmail(admin.getEmail()).getApellido());
 //		System.out.println(controller.buscarUsuarioNick(admin.getNickname()).getApellido());
 //		System.out.println(controller.buscarUsuarioId(3).getApellido());
@@ -48,7 +50,8 @@ public class Test {
 //		cats.add(new DataCategoria(null,"Building"));
 //		cats.add(new DataCategoria(null,"Rolplay"));
 //		DataMedia media = new DataMedia(null, "https://cdn2.unrealengine.com/16br-agentjonesy-egs-s2-1200x1600-1200x1600-2531e05bb04f.jpg", null, null);
-//		controllerJuego.publicarJuego(new DataJuego(null, "Minecraft","Sandbox",new Float(40), null,null,null,null, null,null), 1);
+//		controllerJuego.publicarJuego(new DataJuego(null, "Minecraft","Sandbox",new Float(40), null,null,null,null, null,null, null), 1);
+//		controllerJuego.publicarJuego(new DataJuego(null, "Fortnite","Shooter",new Float(30), null,null,null,null, null,null, null), 2);
 //		
 //		List<DataJuego> juegos = controllerJuego.listarJuegos();
 //		for(DataJuego aux : juegos) {
@@ -81,11 +84,14 @@ public class Test {
 //		System.out.println(controllerCompra.darCantVentasJuego(1));
 		
 		ControllerOferta controllerOferta = Fabric.getControllerOferta();
-//		controllerOferta.crearOferta("mundo abierto 5", new Date("2021/06/14 19:10"), new Date("2021/06/14 19:13"), new Float(30));
+//		controllerOferta.crearOferta("mundo abierto", new Date("2021/06/21 11:20"), new Date("2021/06/21 11:30"), new Float(30));
+		for(DataJuego j : controllerOferta.darJuegosEnOferaCreador(1, 1)) {
+			System.out.println(j.getNombre());
+		}
 //		List<Integer> juegos = new ArrayList<Integer>();
 //		juegos.add(1);
 //		juegos.add(2);
-//		controllerOferta.agregarJuegosOferta(6,juegos);
+//		controllerOferta.agregarJuegosOferta(1,juegos);
 //		for(DataOferta o: controllerOferta.listarOfertas()) {
 //			System.out.println(o.getNombre());
 //		}

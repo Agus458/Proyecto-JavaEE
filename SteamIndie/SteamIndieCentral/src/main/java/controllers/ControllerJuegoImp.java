@@ -415,4 +415,18 @@ public class ControllerJuegoImp implements ControllerJuego {
 		return juegos;
 	}
 
+	@Override
+	public List<DataJuego> darJuegosCreador(Integer idCreador) {
+		List<DataJuego> juegos = new ArrayList<DataJuego>();
+		Creador usuario = persistenceUsuario.buscarCreadorId(idCreador);
+		if(usuario!=null) {
+			List<Juego> games = juegoPersistence.darJuegosCreador(usuario);
+
+			for (Juego aux : games) {
+				juegos.add(aux.darDatos());
+			}
+		}
+		return juegos;
+	}
+
 }

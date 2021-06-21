@@ -29,4 +29,5 @@ public interface JuegoDAO {
 
 	public List<Juego> buscarJuegos(String nombre);
 	
+	public List<Juego> darJuegosCreador(Creador creador);
 }

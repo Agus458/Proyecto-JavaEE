@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.ejb.Local;
 
+import data_types.DataJuego;
 import data_types.DataOferta;
 
 @Local
@@ -21,5 +22,9 @@ public interface ControllerOferta {
 	public List<DataOferta> darOfertasPendientes();
 	
 	public List<DataOferta> listarOfertas();
+	
+	public List<DataJuego> darJuegosEnOferaCreador(Integer idOferta, Integer idCreador);
+	
+	public List<DataJuego> darJuegosNoEnOferaCreador(Integer idOferta, Integer idCreador);
 	
 }

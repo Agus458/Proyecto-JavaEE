@@ -33,7 +33,7 @@ public interface SteamIndie {
 
 	@WebMethod
 	public void registrarCreador(DataCreador creador);
-	
+
 	@WebMethod
 	public void registrarAdmin(DataAdmin admin);
 
@@ -87,28 +87,28 @@ public interface SteamIndie {
 
 	@WebMethod
 	public List<DataCategoria> listarCategorias();
-	
+
 	@WebMethod
 	public void realizarCheckout(Integer idJugador);
-	
+
 	@WebMethod
 	public DataCreador darDatosCreadorJuego(Integer idJuego);
-	
+
 	@WebMethod
 	public List<DataJuego> darBibliotecaJugador(Integer idJugador);
-	
+
 	@WebMethod
 	public void valorarJuego(Integer valoracion, Integer idJuego, Integer idJugador);
 
 	@WebMethod
 	public void comentarJuego(String contenido, Integer idJuego, Integer idJugador);
-	
+
 	@WebMethod
 	public void responderComentario(Integer idComentario, String contenido, Integer idJugador);
-	
+
 	@WebMethod
 	public void reportarComentario(Integer idComentario);
-	
+
 	@WebMethod
 	public List<DataComentario> darUltimosComentariosJuego(Integer idJuego);
 
@@ -123,7 +123,7 @@ public interface SteamIndie {
 
 	@WebMethod
 	public float darVentasCreador(Integer idCreador);
-	
+
 	@WebMethod
 	public Integer darCantVentasCreador(Integer idCreador);
 
@@ -132,13 +132,13 @@ public interface SteamIndie {
 
 	@WebMethod
 	public void agregarCategoria(String nombre);
-	
+
 	@WebMethod
 	public void crearOferta(String nombre, Date fechaInicio, Date fechaFin, float descuento);
 
 	@WebMethod
 	public List<DataOferta> listarOfertasPendientes();
-	
+
 	@WebMethod
 	public void agregarJuegoAOferta(Integer idOferta, List<Integer> idJuegos);
 
@@ -156,25 +156,25 @@ public interface SteamIndie {
 
 	@WebMethod
 	public List<DataOferta> listarOfertas();
-	
+
 	@WebMethod
 	public DataPagina listarPost(Integer idJugador, Integer pagina);
 
 	@WebMethod
 	public void bloquearComentario(Integer idComentario);
-	
+
 	@WebMethod
 	public void reportarJuego(Integer idJuego);
 
 	@WebMethod
 	public void bloquearJuego(Integer idJuego);
-	
+
 	@WebMethod
 	public List<DataJuego> darJuegosReportados();
 
 	@WebMethod
 	public void solicitarDesbloquearJuego(Integer idJuego);
-	
+
 	@WebMethod
 	public void desbloquearJuego(Integer idJuego);
 
@@ -183,5 +183,14 @@ public interface SteamIndie {
 
 	@WebMethod
 	public List<DataJuego> darJuegosSolicitados();
-	
+
+	@WebMethod
+	public List<DataJugador> listarJugadores();
+
+	@WebMethod
+	public List<DataJuego> darJuegosEnOferaCreador(Integer idOferta, Integer idCreador);
+
+	@WebMethod
+	public List<DataJuego> darJuegosNoEnOferaCreador(Integer idOferta, Integer idCreador);
+
 }

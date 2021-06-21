@@ -22,6 +22,8 @@ public class DataCarrito {
 	
 	private Integer jugador;
 	
+	private Float total;
+	
 	// Constructor
 	
 	/**
@@ -38,11 +40,12 @@ public class DataCarrito {
 	 * @param subTotal
 	 * @param jugador
 	 */
-	public DataCarrito(Integer id, List<DataJuego> juegos, Integer jugador) {
+	public DataCarrito(Integer id, List<DataJuego> juegos, Integer jugador, Float total) {
 		super();
 		this.id = id;
 		this.juegos = juegos;
 		this.jugador = jugador;
+		this.total = total;
 	}
 	
 	// Getters;
@@ -66,6 +69,13 @@ public class DataCarrito {
 	 */
 	public Integer getJugador() {
 		return jugador;
+	}
+	
+	/**
+	 * @return the total
+	 */
+	public Float getTotal() {
+		return total;
 	}
 
 }

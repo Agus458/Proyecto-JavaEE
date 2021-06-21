@@ -98,7 +98,7 @@ public class Carrito implements Serializable {
 		for (Juego aux : this.juegos) {
 			games.add(aux.darDatos());
 		}
-		return new DataCarrito(this.id, games, this.jugador.getId());
+		return new DataCarrito(this.id, games, this.jugador.getId(), this.darSubTotal());
 	}
 
 	/*

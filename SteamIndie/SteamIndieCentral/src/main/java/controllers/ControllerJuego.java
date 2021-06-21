@@ -58,6 +58,8 @@ public interface ControllerJuego {
 	public List<DataJuego> buscarJuegos(String nombre);
 
 	public List<DataJuego> darJuegosBloqueados(Integer idCreador);
+	
+	public List<DataJuego> darJuegosCreador(Integer idCreador);
 
 	public List<DataJuego> darJuegosSolicitados();
 

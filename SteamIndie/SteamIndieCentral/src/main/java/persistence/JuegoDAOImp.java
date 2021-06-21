@@ -187,4 +187,20 @@ public class JuegoDAOImp implements JuegoDAO {
 		
 	}
 
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Juego> darJuegosCreador(Creador creador) {
+		List<Juego> juegos = new ArrayList<Juego>();
+
+		try {
+			Query query = em.createQuery("SELECT j FROM Juego j JOIN j.publicacion p WHERE p.creador = :creador");
+			query.setParameter("creador", creador);
+			juegos = query.getResultList();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return juegos;
+	}
+
 }

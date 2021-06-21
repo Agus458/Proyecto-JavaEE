@@ -27,6 +27,8 @@ public interface ControllerUsuario {
 	public void registrarAdmin(DataAdmin admin);
 
 	public List<DataUsuario> listarUsuarios();
+	
+	public List<DataJugador> listarJugadores();
 
 	public DataUsuario buscarUsuarioEmail(String email);
 
