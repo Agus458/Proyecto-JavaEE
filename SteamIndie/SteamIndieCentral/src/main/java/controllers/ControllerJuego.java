@@ -8,6 +8,7 @@ import data_types.DataCategoria;
 import data_types.DataComentario;
 import data_types.DataCreador;
 import data_types.DataJuego;
+import data_types.DataTag;
 import model.Juego;
 
 @Local
@@ -62,6 +63,8 @@ public interface ControllerJuego {
 	public List<DataJuego> darJuegosCreador(Integer idCreador);
 
 	public List<DataJuego> darJuegosSolicitados();
+
+	public List<DataTag> listarTags();
 
 
 }

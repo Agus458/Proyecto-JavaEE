@@ -22,6 +22,7 @@ import data_types.DataJuego;
 import data_types.DataJugador;
 import data_types.DataOferta;
 import data_types.DataPagina;
+import data_types.DataTag;
 import data_types.DataUsuario;
 import enums.TipoPost;
 
@@ -367,5 +368,11 @@ public class SteamIndieImp implements SteamIndie{
 	public List<DataJuego> darJuegosNoEnOferaCreador(Integer idOferta, Integer idCreador) {
 		ControllerOferta controller = Fabric.getControllerOferta();
 		return controller.darJuegosNoEnOferaCreador(idOferta, idCreador);
+	}
+	
+	@Override
+	public List<DataTag> listarTags() {
+		ControllerJuego controller = Fabric.getControllerJuego();
+		return controller.listarTags();
 	}
 }

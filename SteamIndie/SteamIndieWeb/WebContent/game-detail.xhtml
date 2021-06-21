@@ -196,11 +196,13 @@
 	                      							</h6>
 													<i class="fas fa-reply" onclick="reply(#{comentario.id})"></i>
 													<h:commandLink action="#{commentsBean.reportarComentario(comentario.id)}">
+															<f:ajax/>
 					                            			<i class="ml-1 fas fa-exclamation fa-lg text-danger"></i>
 		                                			</h:commandLink>
 		                                			
 		                                			<h:panelGroup rendered="#{sesionBean.admin!=null}">
-														<h:commandLink styleClass="btn btn-sm btn-danger ml-2 mr-1" action="#{backOfficeBean.borrarComentario(comentario.id)}">
+														<h:commandLink styleClass="btn btn-sm btn-danger ml-2 mr-1" action="#{backOfficeBean.borrarComentario(comentario.id)}">	
+															<f:ajax render="@form"/>
 						                     				<i class="fas fa-lock"></i>
 							                          	</h:commandLink>
 													</h:panelGroup>
@@ -220,12 +222,8 @@
 												<div class="comment-box">
 													<div class="comment-head">												
 														<h6 class="comment-name">
-															<h:outputLink value="views/profile.xhtml">
-		                      								<f:param name="id" value="#{comentario.idJugador}"></f:param>#{userBean.darUsuarioId(comentario.idJugador).nickname}</h:outputLink>
+		                      								#{sesionBean.usuario.nickname}
 	                      								</h6>
-														<h:commandLink action="#{commentsBean.reportarComentario(comentario.id)}">
-					                            			<i class="ml-1 fas fa-exclamation fa-lg text-danger"></i>
-		                                				</h:commandLink>	
 													</div>
 													<div class="comment-content">
 														<h:inputTextarea value="#{commentsBean.respuesta}" styleClass="form-control"> 
@@ -246,10 +244,9 @@
 												<!-- Contenedor del Comentario -->
 												<div class="comment-box">
 													<div class="comment-head">													
-														<h6 class="comment-name">Lorena Rojero</h6>
-														<h:commandLink>
-					                            			<i class="ml-1 fas fa-exclamation fa-lg text-danger"></i>
-		                                				</h:commandLink>
+														<h6 class="comment-name">
+														<h:outputLink value="views/profile.xhtml">
+	                      								<f:param name="id" value="#{respuesta.jugador.id}"></f:param>#{respuesta.jugador.nickname}</h:outputLink></h6>		                                				
 													</div>
 													<div class="comment-content">
 														#{respuesta.contenido}

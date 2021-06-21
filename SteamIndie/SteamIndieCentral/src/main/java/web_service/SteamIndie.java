@@ -18,6 +18,7 @@ import data_types.DataJuego;
 import data_types.DataJugador;
 import data_types.DataOferta;
 import data_types.DataPagina;
+import data_types.DataTag;
 import data_types.DataUsuario;
 import enums.TipoPost;
 
@@ -192,5 +193,8 @@ public interface SteamIndie {
 
 	@WebMethod
 	public List<DataJuego> darJuegosNoEnOferaCreador(Integer idOferta, Integer idCreador);
+
+	@WebMethod
+	public List<DataTag> listarTags();
 
 }

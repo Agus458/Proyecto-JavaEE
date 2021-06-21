@@ -172,6 +172,18 @@ public class ControllerJuegoImp implements ControllerJuego {
 	}
 
 	@Override
+	public List<DataTag> listarTags() {
+		List<DataTag> dataTags = new ArrayList<DataTag>();
+
+		List<Tag> tags = categoriaPersistence.listarTags();
+		for (Tag aux : tags) {
+			dataTags.add(aux.darDatos());
+		}
+
+		return dataTags;
+	}
+
+	@Override
 	public DataCreador darDatosCreadorJuego(Integer idJuego) {
 		DataCreador creador = new DataCreador(null, "", "", "", "", "", null);
 

@@ -92,25 +92,31 @@ public class BackOfficeBean implements Serializable{
 		ws.crearOferta(nombreOferta, toCalendar(new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(fInicio)), toCalendar(new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(fFin)), descuentoOferta);
 	}
 	
-	public void borrarComentario(Integer idComentario) throws RemoteException, MalformedURLException {
+	public String borrarComentario(Integer idComentario) throws RemoteException, MalformedURLException {
 		SteamIndieImpService servicio = new SteamIndieImpServiceLocator();
 		SteamIndie ws = new SteamIndieImpPortBindingStub(new URL(servicio.getSteamIndieImpPortAddress()), servicio);		
 		
 		ws.bloquearComentario(idComentario);
+		
+		return "/backoffice/backoffice.xhtml";
 	}
 	
-	public void bloquearJuego(Integer idJuego) throws RemoteException, MalformedURLException {
+	public String bloquearJuego(Integer idJuego) throws RemoteException, MalformedURLException {
 		SteamIndieImpService servicio = new SteamIndieImpServiceLocator();
 		SteamIndie ws = new SteamIndieImpPortBindingStub(new URL(servicio.getSteamIndieImpPortAddress()), servicio);		
 		
 		ws.bloquearJuego(idJuego);
+		
+		return "/backoffice/backoffice.xhtml";
 	}
 	
-	public void desbloquearJuego(Integer idJuego) throws RemoteException, MalformedURLException {
+	public String desbloquearJuego(Integer idJuego) throws RemoteException, MalformedURLException {
 		SteamIndieImpService servicio = new SteamIndieImpServiceLocator();
 		SteamIndie ws = new SteamIndieImpPortBindingStub(new URL(servicio.getSteamIndieImpPortAddress()), servicio);		
 		
 		ws.desbloquearJuego(idJuego);
+		
+		return "/backoffice/backoffice.xhtml";
 	}
 	
 	//Funciones auxliares

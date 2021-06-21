@@ -79,10 +79,16 @@ public class GameBean implements Serializable {
 
 		SteamIndieImpService servicio = new SteamIndieImpServiceLocator();
 		SteamIndie ws = new SteamIndieImpPortBindingStub(new URL(servicio.getSteamIndieImpPortAddress()), servicio);
-		if(ws.listarCategorias()!=null) {//TODO No devolver listas nulas
-		for(DataCategoria c :  ws.listarCategorias()) {
-			categoriasDisponibles.add(c);
+		if(ws.listarCategorias()!=null) {
+			for(DataCategoria c :  ws.listarCategorias()) {
+				categoriasDisponibles.add(c);
+			}
 		}
+
+		if(ws.listarTags()!=null) {
+			for(DataTag c :  ws.listarTags()) {
+				tagsDisponibles.add(c);
+			}
 		}
 		if(idRequest!=null) {
 			dataJuego = ws.buscarJuegoId(Integer.parseInt(idRequest));
