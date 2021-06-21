@@ -14,16 +14,20 @@ public class DataCarrito  implements java.io.Serializable {
 
     private java.lang.Integer jugador;
 
+    private java.lang.Float total;
+
     public DataCarrito() {
     }
 
     public DataCarrito(
            java.lang.Integer id,
            web_service.DataJuego[] juegos,
-           java.lang.Integer jugador) {
+           java.lang.Integer jugador,
+           java.lang.Float total) {
            this.id = id;
            this.juegos = juegos;
            this.jugador = jugador;
+           this.total = total;
     }
 
 
@@ -94,6 +98,26 @@ public class DataCarrito  implements java.io.Serializable {
         this.jugador = jugador;
     }
 
+
+    /**
+     * Gets the total value for this DataCarrito.
+     * 
+     * @return total
+     */
+    public java.lang.Float getTotal() {
+        return total;
+    }
+
+
+    /**
+     * Sets the total value for this DataCarrito.
+     * 
+     * @param total
+     */
+    public void setTotal(java.lang.Float total) {
+        this.total = total;
+    }
+
     private java.lang.Object __equalsCalc = null;
     public synchronized boolean equals(java.lang.Object obj) {
         if (!(obj instanceof DataCarrito)) return false;
@@ -114,7 +138,10 @@ public class DataCarrito  implements java.io.Serializable {
               java.util.Arrays.equals(this.juegos, other.getJuegos()))) &&
             ((this.jugador==null && other.getJugador()==null) || 
              (this.jugador!=null &&
-              this.jugador.equals(other.getJugador())));
+              this.jugador.equals(other.getJugador()))) &&
+            ((this.total==null && other.getTotal()==null) || 
+             (this.total!=null &&
+              this.total.equals(other.getTotal())));
         __equalsCalc = null;
         return _equals;
     }
@@ -142,6 +169,9 @@ public class DataCarrito  implements java.io.Serializable {
         }
         if (getJugador() != null) {
             _hashCode += getJugador().hashCode();
+        }
+        if (getTotal() != null) {
+            _hashCode += getTotal().hashCode();
         }
         __hashCodeCalc = false;
         return _hashCode;
@@ -172,6 +202,13 @@ public class DataCarrito  implements java.io.Serializable {
         elemField.setFieldName("jugador");
         elemField.setXmlName(new javax.xml.namespace.QName("", "jugador"));
         elemField.setXmlType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "int"));
+        elemField.setMinOccurs(0);
+        elemField.setNillable(false);
+        typeDesc.addFieldDesc(elemField);
+        elemField = new org.apache.axis.description.ElementDesc();
+        elemField.setFieldName("total");
+        elemField.setXmlName(new javax.xml.namespace.QName("", "total"));
+        elemField.setXmlType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "float"));
         elemField.setMinOccurs(0);
         elemField.setNillable(false);
         typeDesc.addFieldDesc(elemField);

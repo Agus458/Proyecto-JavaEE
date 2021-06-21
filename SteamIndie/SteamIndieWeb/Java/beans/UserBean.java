@@ -17,7 +17,6 @@ import javax.faces.context.FacesContext;
 import org.apache.axis.AxisFault;
 
 import web_service.DataCreador;
-import web_service.DataJuego;
 import web_service.DataJugador;
 import web_service.DataUsuario;
 import web_service.SteamIndie;
@@ -101,19 +100,27 @@ public class UserBean implements Serializable {
 		SteamIndieImpService servicio = new SteamIndieImpServiceLocator();
 		SteamIndie ws = new SteamIndieImpPortBindingStub(new URL(servicio.getSteamIndieImpPortAddress()), servicio);
 		
-		DataUsuario[] users = ws.listarUsuarios();
+		DataUsuario[] users = ws.listarJugadores();
 		
 		List<DataUsuario> res = new ArrayList<DataUsuario>();
 
 		
 		if(users != null) {
-			for(DataUsuario aux : ws.listarUsuarios()){
+			for(DataUsuario aux : users){
 				res.add(aux);
 			}
 		}
 		
 		return res;
 
+	}
+	
+	public DataUsuario darUsuarioId(Integer id) throws RemoteException, MalformedURLException {
+		// WebService
+		SteamIndieImpService servicio = new SteamIndieImpServiceLocator();
+		SteamIndie ws = new SteamIndieImpPortBindingStub(new URL(servicio.getSteamIndieImpPortAddress()), servicio);
+		
+		return ws.buscarUsuarioId(id);
 	}
 
 	public String getEmail() {

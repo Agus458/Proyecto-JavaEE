@@ -9,10 +9,13 @@ import java.util.List;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.RequestScoped;
+import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpServletRequest;
 
 import web_service.DataPagina;
 import web_service.DataPost;
+import web_service.DataUsuario;
 import web_service.SteamIndie;
 import web_service.SteamIndieImpPortBindingStub;
 import web_service.SteamIndieImpService;
@@ -20,7 +23,7 @@ import web_service.SteamIndieImpServiceLocator;
 import web_service.TipoPost;
 
 @ManagedBean
-@RequestScoped
+@ViewScoped
 public class ProfileBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -36,10 +39,17 @@ public class ProfileBean implements Serializable {
 		private SesionBean session;
 
 	private String texto;
-		
+	
+	private DataUsuario user = new DataUsuario();
+	
+	private Integer currentPage = 1;
+	
+	private String id;
 	
 	public ProfileBean() {
+
 	}
+	
 	
 	public void publicarPost() throws MalformedURLException, RemoteException{
 		SteamIndieImpService servicio = new SteamIndieImpServiceLocator();
@@ -71,18 +81,55 @@ public class ProfileBean implements Serializable {
 //	===================================
 	
 
-	public List<DataPost> getPosts() throws RemoteException, MalformedURLException {
-		if(posts.isEmpty()) {
-			SteamIndieImpService servicio = new SteamIndieImpServiceLocator();
-			SteamIndie ws = new SteamIndieImpPortBindingStub(new URL(servicio.getSteamIndieImpPortAddress()), servicio);
-			DataPagina page = ws.listarPost(session.getUsuario().getId(), 0);
+	public DataUsuario getUser() throws NumberFormatException, RemoteException, MalformedURLException {
+		HttpServletRequest origRequest = (HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest();	
+		String idRequest = origRequest.getParameter("id");
+		
+		if(idRequest!=null) {
+			id = idRequest;
+		}
+		
+		user = session.getUsuario();
+		
+		SteamIndieImpService servicio = new SteamIndieImpServiceLocator();
+		SteamIndie ws = new SteamIndieImpPortBindingStub(new URL(servicio.getSteamIndieImpPortAddress()), servicio);
+		
+		if(id!=null){
+			
+			user = ws.buscarUsuarioId(Integer.parseInt(id));
+		}
+		
+		if(posts.isEmpty()) {			
+			DataPagina page = ws.listarPost(user.getId(),1);
 			if(page!=null && page.getData()!=null) {
 				for(Object o: page.getData()){
-					
 					posts.add((DataPost) o);
 				}
 			}
 		}
+		return user;
+	}
+	
+	public void cambiarPagina(Integer pagina) throws RemoteException, MalformedURLException {
+		List<DataPost> res = new ArrayList<DataPost>();
+		SteamIndieImpService servicio = new SteamIndieImpServiceLocator();
+		SteamIndie ws = new SteamIndieImpPortBindingStub(new URL(servicio.getSteamIndieImpPortAddress()), servicio);
+		
+		
+		DataPagina page = ws.listarPost(user.getId(), pagina);
+		if(page!=null && page.getData()!=null) {
+			for(Object o: page.getData()){
+				res.add((DataPost) o);
+			}
+			setCurrentPage(pagina);
+			posts = res;
+		}
+		
+		
+		
+	}
+	
+	public List<DataPost> getPosts() throws RemoteException, MalformedURLException {
 		return posts;
 	}
 
@@ -120,6 +167,28 @@ public class ProfileBean implements Serializable {
 
 	public void setTexto(String texto) {
 		this.texto = texto;
+	}
+
+	public void setUser(DataUsuario user) {
+		this.user = user;
+	}
+
+	public Integer getCurrentPage() {
+		return currentPage;
+	}
+
+	public void setCurrentPage(Integer currentPage) {
+		this.currentPage = currentPage;
+	}
+
+
+	public String getId() {
+		return id;
+	}
+
+
+	public void setId(String id) {
+		this.id = id;
 	}
 
 	

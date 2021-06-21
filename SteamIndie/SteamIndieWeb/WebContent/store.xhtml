@@ -20,7 +20,7 @@
     <h:form>
     <div class="container mt-2">
     	<div class="row justify-content-center">
-			<div class="col">
+			<h:panelGroup layout="block" styleClass="col" rendered="#{indexBean.displayJuegos.size()>0}">
 				<ul class="list-unstyled">
 					<ui:repeat value="#{indexBean.displayJuegos}" var="juego">
 						<h:outputLink value="game-detail.xhtml">
@@ -36,26 +36,34 @@
 						</h:outputLink>
 					</ui:repeat>
 				</ul>
-			</div>
+			</h:panelGroup>
+			<h:panelGroup layout="block" styleClass="col" rendered="#{not (indexBean.displayJuegos.size()>0)}">
+				<div class="alert alert-info w-80" role="alert">
+					No existen juegos o no hay disponibles con tales filtros
+				</div>
+			</h:panelGroup>
 			<div class="col">
 				<div class="card text-white bg-dark mb-3 border border-secondary" >
 				  <div class="card-header"><h5 class="card-title">Filtros</h5></div>
 				  <div class="card-body">
-					<h:inputText aria-label="Search" styleClass="form-control mr-sm-2" value="#{indexBean.query}"/>	
-					<h:commandButton value="Buscar" styleClass="btn btn-outline-info my-2 my-sm-0">
-					 <f:ajax listener="#{indexBean.buscar()}"
-						                execute="@form"
-						                render="@form" />
-					</h:commandButton>
-					<h:selectOneMenu styleClass="custom-select" value="#{indexBean.categoria}" id="categoriaFiltro">
-						<f:selectItem itemLabel="Selecione una categoria" noSelectionOption="true"/>
-						<f:selectItems value="#{indexBean.categoriasDisponibles}" var="c" itemLabel="#{c.nombre}" itemValue="#{c.nombre}"/>
-					</h:selectOneMenu>
-					<h:commandButton value="Aplicar Filtros" styleClass="btn btn-primary">
-						        <f:ajax listener="#{indexBean.aplicarFiltros()}"
-						                execute="@form"
-						                render="@form" />
-				    </h:commandButton>
+				  	<div class="form-group">
+					  	<label for="query">Buscar por nombre</label>
+						<h:inputText id="query" aria-label="Search" styleClass="form-control mr-sm-2" value="#{indexBean.query}"/>	
+					</div>
+				  	<div class="form-group">
+						<label for="query">Categorias</label>
+						<h:selectOneMenu styleClass="custom-select" value="#{indexBean.categoria}" id="categoriaFiltro">
+							<f:selectItem itemLabel="Selecione una categoria" noSelectionOption="true"/>
+							<f:selectItems value="#{indexBean.categoriasDisponibles}" var="c" itemLabel="#{c.nombre}" itemValue="#{c.nombre}"/>
+						</h:selectOneMenu>
+				  	</div>
+				  	<div class="form-group">
+						<h:commandButton value="Aplicar Filtros" styleClass="btn btn-outline-info my-2 my-sm-0">
+							        <f:ajax listener="#{indexBean.aplicarFiltros()}"
+							                execute="@form"
+							                render="@form" />
+					    </h:commandButton>
+				    </div>
 				  </div>
 				</div>
 			</div>

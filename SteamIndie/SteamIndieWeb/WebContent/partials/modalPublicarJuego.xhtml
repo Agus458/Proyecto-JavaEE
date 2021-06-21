@@ -2,7 +2,8 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html">
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
 
 <div class="modal fade" id="publicarJuegoModal" tabindex="-1" role="dialog"
 		aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="false">
@@ -21,12 +22,12 @@
 						<div class="form-group">
 							<label for="nombre">Nombre</label>
 							<h:inputText id="nombre" styleClass="form-control"
-								value="#{gameBean.nombre}" required="true"></h:inputText>
+								value="#{gameBean.nombre}" required="true" a:required="true"></h:inputText>
 						</div>
 						<div class="form-group">
 							<label for="descripcion">Descripcion</label>
 							<h:inputText id="descripcion" styleClass="form-control"
-								value="#{gameBean.desc}" ></h:inputText>
+								value="#{gameBean.desc}" required="true" a:required="true"></h:inputText>
 						</div>
 						<div class="form-group">
 							<label for="categorias">Categorias</label>
@@ -34,6 +35,16 @@
 								<f:selectItem itemLabel="Selecione categorias" itemDisabled="true"/>
 								<f:selectItems value="#{gameBean.categoriasDisponibles}" var="c" itemLabel="#{c.nombre}" itemValue="#{c.nombre}" selected="true" />
 							</h:selectManyListbox>
+						</div>
+						<div class="form-group">
+							<label for="precio">Precio</label>
+							<h:inputText id="precio" styleClass="form-control"
+								value="#{gameBean.precio}" converterMessage="Please enter digits only." required="true" a:required="true"></h:inputText>
+						</div>				
+						<div class="form-group">
+							<label for="Logo">Logo</label>
+							<h:inputText id="Logo" styleClass="form-control"
+								value="#{gameBean.logo}" required="true" a:required="true"></h:inputText>
 						</div>
 						
 						<div class="form-group">
@@ -52,16 +63,6 @@
 							</h:selectManyListbox>
 						</div>
 						
-						<div class="form-group">
-							<label for="precio">Precio</label>
-							<h:inputText id="precio" styleClass="form-control"
-								value="#{gameBean.precio}" converterMessage="Please enter digits only." ></h:inputText>
-						</div>				
-						<div class="form-group">
-							<label for="Logo">Logo</label>
-							<h:inputText id="Logo" styleClass="form-control"
-								value="#{gameBean.logo}"></h:inputText>
-						</div>
 						<div class="form-group">
 							<label for="imagenes">Imagenes</label>
 							<div class="form-inline">

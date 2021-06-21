@@ -71,34 +71,37 @@ public class IndexBean implements Serializable{
 		}
 	}	
 	
-	public void buscar() throws RemoteException, MalformedURLException {
+	public void aplicarFiltros() throws RemoteException, MalformedURLException {
 		SteamIndieImpService servicio = new SteamIndieImpServiceLocator();
 		SteamIndie ws = new SteamIndieImpPortBindingStub(new URL(servicio.getSteamIndieImpPortAddress()), servicio);	
 		
+		
+		List<DataJuego> queryRes = new ArrayList<DataJuego>();
 		List<DataJuego> res = new ArrayList<DataJuego>();
+
 		if(!query.isEmpty()) {
 			for(DataJuego j : ws.buscarJuegos(query)){
-				res.add(j);		
+				queryRes.add(j);		
 			}	
-			displayJuegos = res;
 		}
 		else {
-			displayJuegos = juegos;
+			queryRes = juegos;
 		}
 		
-	}
-	
-	public void aplicarFiltros() {
-		List<DataJuego> res = new ArrayList<DataJuego>();
-		for(DataJuego j: juegos) {
-			if(j.getCategorias()!=null) {
-				for(DataCategoria c: j.getCategorias()) {
-					if(c.getNombre().equals(categoria)) {
-						res.add(j);
-						break;
+		if(!categoria.isEmpty()) {
+			for(DataJuego j: queryRes) {
+				if(j.getCategorias()!=null) {
+					for(DataCategoria c: j.getCategorias()) {
+						if(c.getNombre().equals(categoria)) {
+							res.add(j);
+							break;
+						}
 					}
 				}
 			}
+		}
+		else {
+			res = queryRes;
 		}
 		displayJuegos = res;
 	}

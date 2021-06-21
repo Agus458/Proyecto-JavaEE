@@ -19,7 +19,11 @@
 
 	<ui:include src="../partials/nav.xhtml" />
 	<h:panelGroup rendered="#{carritoBean.carrito.id != null}">
-            
+        <h:panelGroup layout="block" styleClass="container" rendered="#{carritoBean.saldoInsuficiente}">
+	    	<div class="alert alert-danger w-80" role="alert">
+				Saldo insuficiente
+			</div>
+	    </h:panelGroup>   
 	    <div class="container">
 			<section class="mt-5">
 			    <div class="container">
@@ -35,7 +39,7 @@
 			                    </thead>
 			                    <tbody>
 			                    	<ui:repeat value="#{carritoBean.carrito.juegos}" var="juego">
-			                    								    		<h:form>
+			                    	<h:form>
 			                    
 			                        <tr>
 			                            <td>
@@ -72,7 +76,7 @@
 			    <div class="checkout">
 			        <ul>
 			            <li class="cart-total">Total
-			                <span>$60.00</span>
+			                <span>US$ #{carritoBean.carrito.total}</span>
 			            </li>
 			        </ul>
 			        <h:form>
@@ -84,7 +88,11 @@
         </div>
 	</h:panelGroup>
             
-    
+    <h:panelGroup layout="block" styleClass="container" rendered="#{carritoBean.carrito.id == null}">
+    	<div class="alert alert-info w-80" role="alert">
+			Carrito vacío
+		</div>
+    </h:panelGroup>
 <ui:include src="../partials/footer.xhtml" />    
 
 </h:body>

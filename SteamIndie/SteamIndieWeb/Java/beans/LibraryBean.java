@@ -27,7 +27,7 @@ public class LibraryBean implements Serializable{
 	//Atributos Bean
 	private DataJuego juego = null;
 	private List<DataJuego> biblioteca; 
-	
+	private Boolean bibliotecaVacia = true;
 	
 	//Inyeccion sesion
 	@ManagedProperty(value = "#{sesionBean}")
@@ -55,7 +55,6 @@ public class LibraryBean implements Serializable{
 	}
 	
 	
-	
 	//===================//
 	// GETTERS & SETTERS //
 	//===================//
@@ -73,10 +72,13 @@ public class LibraryBean implements Serializable{
 		if(biblioteca.isEmpty()) {
 			SteamIndieImpService servicio = new SteamIndieImpServiceLocator();
 			SteamIndie ws = new SteamIndieImpPortBindingStub(new URL(servicio.getSteamIndieImpPortAddress()), servicio);
+			if(session.isActivo()) {
 			DataJuego[] bibliotecaWS =  ws.darBibliotecaJugador(session.getUsuario().getId());
-			if(bibliotecaWS!=null) {
-				for(DataJuego j : bibliotecaWS ) {
-					biblioteca.add(j);
+				if(bibliotecaWS!=null) {
+					for(DataJuego j : bibliotecaWS ) {
+						biblioteca.add(j);
+					}
+					bibliotecaVacia = false;
 				}
 			}
 		}
@@ -93,6 +95,14 @@ public class LibraryBean implements Serializable{
 
 	public void setSession(SesionBean session) {
 		this.session = session;
+	}
+
+	public Boolean getBibliotecaVacia() {
+		return bibliotecaVacia;
+	}
+
+	public void setBibliotecaVacia(Boolean bibliotecaVacia) {
+		this.bibliotecaVacia = bibliotecaVacia;
 	}
 
 	

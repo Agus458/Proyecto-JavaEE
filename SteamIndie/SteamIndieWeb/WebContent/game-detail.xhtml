@@ -15,7 +15,8 @@
 
 	<script type="text/javascript">
         function myFunction(id) {
-            document.getElementById("formValoracion:valoracion").value=id;
+
+            document.getElementById("formContent:formValoracion:valoracion").value=id;
             for (i = 1; i &lt;= 5; i++) {
                 let x = document.getElementById(i);
                 if (x.getAttribute("class") == "fas fa-star fa-lg text-warning" &amp;&amp; i &gt;= id) {
@@ -37,42 +38,52 @@
 			    x.style.display = "none";
 			  }
         }
-        
+
+		function toast(){
+        	$('.toast').toast('show');
+		}
     </script>    
     
 </h:head>
 
 <h:body class="bg-dark">
+			
 
 
             <ui:include src="/partials/nav.xhtml" />
+            
             	<c:set var="j" value="#{gameBean.dataJuego}" scope="request" />
             
                 <h:panelGroup layout="block" styleClass="container-fluid mt-3" rendered="#{j.id!=null}">
+                	
 				    <div class="row">
 				      <div class="col col-md-9 col-sm">
 				      	<h:form>
 					        <div class="img-display">
-					          <div class="img-showcase">
+					          <h:panelGroup layout="block" styleClass="img-showcase" rendered="#{gameBean.esImagen}">
 					          	<h:graphicImage value="#{gameBean.imagenSelect}" styleClass="animate__animated animate__fadeInLeft"/>
-					          </div>
+					          </h:panelGroup>
+					       	  <h:panelGroup layout="block" styleClass="img-showcase" rendered="#{not (gameBean.esImagen)}">
+					       	  	<iframe src="#{gameBean.imagenSelect}" class="animate__animated animate__fadeInLeft" width="1280" height="720"></iframe>
+					       	  </h:panelGroup>
+					          
 					        </div>
 						
 				        	<div class="img-select">
 				        	<ui:repeat value="#{gameBean.imagenesSelect}" var="imagen">
 					          <div class="img-item">
 					           	<f:ajax render="@form">
-			        				<h:commandLink action="#{gameBean.cambiarImagen(imagen)}">
+			        				<h:commandLink action="#{gameBean.cambiarImagen(imagen,true)}">
 					          			<h:graphicImage value="#{imagen}" />
 					          		</h:commandLink>
 					           	</f:ajax>
 					          </div>
 				          	</ui:repeat>
-				          	<ui:repeat value="#{gameBean.videosSelect}" var="imagen">
+				          	<ui:repeat value="#{gameBean.videosSelect}" var="video">
 					          <div class="img-item">
 					           	<f:ajax render="@form">
-			        				<h:commandLink action="#{gameBean.cambiarImagen(imagen)}">
-					          			<iframe src="#{imagen}"/>
+			        				<h:commandLink action="#{gameBean.cambiarImagen(video,false)}">
+					          			<h:graphicImage value="https://i.stack.imgur.com/PtbGQ.png"/>
 					          		</h:commandLink>
 					           	</f:ajax>
 					          </div>
@@ -83,20 +94,19 @@
 				      <div class="col">
 				     	
 				        <div class="product-content">
-				        	<h:form>
+				        	<h:form id="formContent">
 			        		<h2 class="product-title">#{j.nombre}</h2>				          
-				        	<a href="#" class="product-link">||Creador||</a>
 				        	
-								<h:commandLink action="#{gameBean.enviarReporte()}">
-						        	<i class="ml-1 fas fa-exclamation fa-lg text-danger"></i>
+								<h:commandLink action="#{gameBean.enviarReporte()}" value="Reportar" styleClass="btn btn-danger btn-sm">
+						        	<i class="ml-1 fas fa-exclamation fa-lg text-white"></i>
 	                          	</h:commandLink>
 							
 							<h:panelGroup rendered="#{sesionBean.admin!=null}">
-								<h:commandLink styleClass="btn btn-sm btn-danger" action="#{backOfficeBean.bloquearJuego(j.id)}">
-                     				<i class="far fa-trash-alt"></i> 
+								<h:commandLink styleClass="btn btn-sm btn-danger ml-2" action="#{backOfficeBean.bloquearJuego(j.id)}">
+                     				<i class="fas fa-lock text-white"></i> 
 	                          	</h:commandLink>
-								
 							</h:panelGroup>
+							
 				          <div class="product-price">
 				            <p class="new-price">Precio: <span>$#{j.precioFinal} </span></p>
 				          </div>
@@ -114,15 +124,27 @@
 							    <h:commandButton action="#{gameBean.valorarJuego()}" value="Valorar" styleClass="btn btn-primary"/>
 							</h:form>
 				          </div>
-							<h:panelGroup rendered="#{sesionBean.creador==null}" >
+							<h:panelGroup rendered="#{(sesionBean.activo and sesionBean.creador==null and sesionBean.admin==null and not libraryBean.tieneJuego(j.id))}">
 					          <div class="purchase-info">
-								<h:commandButton actionListener="#{carritoBean.addCarrito()}" value="Agregar al carrito" styleClass="btn btn-primary" >
+								<h:commandButton actionListener="#{carritoBean.addCarrito()}" value="Agregar al carrito" styleClass="btn btn-primary" onclick="toast()">
 					            	<f:ajax execute="@form" render="@none" />
 					            	<f:param name="id" value="#{gameBean.dataJuego.id}"></f:param>
 					            </h:commandButton>
 					            <!--<button type="button" class="btn">
 					              Añadir al carrito <i class="fas fa-shopping-cart"></i>
-					            </button><!-->					
+					            </button><!-->
+					            <div role="alert" aria-live="assertive" aria-atomic="true" class="toast" data-autohide="false" style="position: absolute; top: 50; right: -10;!">
+							      <div class="toast-header">
+							     	 <i class="fas fa-shopping-cart rounded mr-2"></i>
+							        <strong class="mr-auto">Carrito</strong>
+							        <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+							          <span aria-hidden="true">&times;</span>
+							        </button>
+							      </div>
+							      <div class="toast-body text-dark">
+							        Juego agregado al carrito
+							      </div>
+								</div>					
 					          </div>
 				          </h:panelGroup>
 				          </h:form>
@@ -137,12 +159,12 @@
 						<div class="col-12">
 							<!-- Contenedor Principal -->
 						    <div class="comments-container">
-								<h:form id="formComentarios">
+								<h:form id="formComentarios" rendered="#{commentsBean.comments.size()>0||sesionBean.activo and libraryBean.tieneJuego(j.id)}">
 								<ul id="comments-list" class="comments-list">
 									<li>
-										<div class="comment-main-level mb-1">
+										<h:panelGroup layout="block" class="comment-main-level mb-1" rendered="#{libraryBean.tieneJuego(j.id)}">
 											<!-- Avatar -->
-											<div class="comment-avatar"><img src="http://i9.photobucket.com/albums/a88/creaticode/avatar_1_zps8e1c80cd.jpg" alt=""></img></div>
+											<div class="comment-avatar"><img src="https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png" alt=""></img></div>
 											<!-- Contenedor del Comentario -->
 											<div class="comment-box">
 												<div class="comment-head">
@@ -158,21 +180,30 @@
 													</h:commandButton>
 												</div>
 											</div>
-										</div>
+										</h:panelGroup>
 									</li>
 										<ui:repeat var="comentario" value="#{commentsBean.comments}">
 										<li>
 										<div class="comment-main-level">
 											<!-- Avatar -->
-											<div class="comment-avatar"><img src="http://i9.photobucket.com/albums/a88/creaticode/avatar_1_zps8e1c80cd.jpg" alt=""></img></div>
+											<div class="comment-avatar"><img src="https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png" alt=""></img></div>
 											<!-- Contenedor del Comentario -->
 											<div class="comment-box">
 												<div class="comment-head">
-													<h6 class="comment-name"><a href="">#{comentario.idJugador}</a></h6>
+													<h6 class="comment-name">
+														<h:outputLink value="views/profile.xhtml">
+	                      								<f:param name="id" value="#{comentario.idJugador}"></f:param>#{userBean.darUsuarioId(comentario.idJugador).nickname}</h:outputLink>
+	                      							</h6>
 													<i class="fas fa-reply" onclick="reply(#{comentario.id})"></i>
 													<h:commandLink action="#{commentsBean.reportarComentario(comentario.id)}">
 					                            			<i class="ml-1 fas fa-exclamation fa-lg text-danger"></i>
 		                                			</h:commandLink>
+		                                			
+		                                			<h:panelGroup rendered="#{sesionBean.admin!=null}">
+														<h:commandLink styleClass="btn btn-sm btn-danger ml-2 mr-1" action="#{backOfficeBean.borrarComentario(comentario.id)}">
+						                     				<i class="fas fa-lock"></i>
+							                          	</h:commandLink>
+													</h:panelGroup>
 												</div>
 												<div class="comment-content">
 													#{comentario.contenido}
@@ -183,12 +214,15 @@
 										<h:form id="formRespuestas">
 										<ul class="comments-list reply-list">
 											<li id="replyTo#{comentario.id}" style="display: none;">
-												<div class="comment-avatar"><img src="http://i9.photobucket.com/albums/a88/creaticode/avatar_1_zps8e1c80cd.jpg" alt=""></img></div>											
+												<div class="comment-avatar"><img src="https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png" alt=""></img></div>											
 												<!-- Contenedor del Comentario -->
 												
 												<div class="comment-box">
 													<div class="comment-head">												
-														<h6 class="comment-name"><a href="http://creaticode.com/blog">Lorena Rojero</a></h6>
+														<h6 class="comment-name">
+															<h:outputLink value="views/profile.xhtml">
+		                      								<f:param name="id" value="#{comentario.idJugador}"></f:param>#{userBean.darUsuarioId(comentario.idJugador).nickname}</h:outputLink>
+	                      								</h6>
 														<h:commandLink action="#{commentsBean.reportarComentario(comentario.id)}">
 					                            			<i class="ml-1 fas fa-exclamation fa-lg text-danger"></i>
 		                                				</h:commandLink>	
@@ -208,11 +242,11 @@
 											</li>
 											<ui:repeat value="#{comentario.respuestas}" var="respuesta">
 											<li>
-												<div class="comment-avatar"><img src="http://i9.photobucket.com/albums/a88/creaticode/avatar_1_zps8e1c80cd.jpg" alt=""></img></div>											
+												<div class="comment-avatar"><img src="https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png" alt=""></img></div>											
 												<!-- Contenedor del Comentario -->
 												<div class="comment-box">
 													<div class="comment-head">													
-														<h6 class="comment-name"><a href="http://creaticode.com/blog">Lorena Rojero</a></h6>
+														<h6 class="comment-name">Lorena Rojero</h6>
 														<h:commandLink>
 					                            			<i class="ml-1 fas fa-exclamation fa-lg text-danger"></i>
 		                                				</h:commandLink>
@@ -243,6 +277,14 @@
 					</div>
 				</h:panelGroup>
 <ui:include src="/partials/footer.xhtml" />    
+
+<script>
+function toast(){
+	 $(document).ready(function() {
+	        $(".toast").toast('show');
+	    });
+}
+</script>    
 
 </h:body>
 

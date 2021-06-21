@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 
 
 import web_service.DataCarrito;
+import web_service.DataJuego;
 import web_service.SteamIndie;
 import web_service.SteamIndieImpPortBindingStub;
 import web_service.SteamIndieImpService;
@@ -26,7 +27,9 @@ public class CarritoBean implements Serializable{
 
 	DataCarrito carrito;
 	Integer addId;
-
+	Boolean saldoInsuficiente = false;
+	float total = 0;
+	
 	@ManagedProperty(value="#{sesionBean}")
 		private SesionBean session; 
 	
@@ -78,6 +81,11 @@ public class CarritoBean implements Serializable{
 		SteamIndieImpService servicio = new SteamIndieImpServiceLocator();
 		SteamIndie ws = new SteamIndieImpPortBindingStub(new URL(servicio.getSteamIndieImpPortAddress()), servicio);
 		carrito = ws.darDatosCarritoJugador(session.getUsuario().getId());
+		
+		
+		if(carrito.getId()!=null && carrito.getTotal() > ws.darSaldoJugador(session.getUsuario().getId())) {
+			saldoInsuficiente = true;
+		}
 		return carrito;
 	}
 
@@ -91,6 +99,22 @@ public class CarritoBean implements Serializable{
 
 	public void setAddId(Integer addId) {
 		this.addId = addId;
+	}
+
+	public Boolean getSaldoInsuficiente() {
+		return saldoInsuficiente;
+	}
+
+	public void setSaldoInsuficiente(Boolean saldoInsuficiente) {
+		this.saldoInsuficiente = saldoInsuficiente;
+	}
+
+	public float getTotal() {
+		return total;
+	}
+
+	public void setTotal(float total) {
+		this.total = total;
 	}
 	
 	

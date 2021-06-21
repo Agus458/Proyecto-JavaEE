@@ -17,7 +17,7 @@
 	<ui:include src="/partials/nav.xhtml" />
 	
 	
-    <div class="min-vh-100 overflow-hidden" id="feed">
+    <h:panelGroup layout="block" styleClass="min-vh-100 overflow-hidden" id="feed" rendered="#{profileBean.user.id!=null}">
         <div class="row">
 
           
@@ -25,12 +25,13 @@
 
                 <div class="row justify-content-center mt-5 mb-5">
                     <div class="card mb-3 " style="width: 80%" id="cardC">
-                        <h1 class="text-center text-white">#{sesionBean.usuario.nickname}</h1>
-                        <p class="text-center text-white"> #{sesionBean.usuario.nombre} #{sesionBean.usuario.apellido}</p>
-                        <p class="text-center text-white"> #{sesionBean.usuario.email}</p>
+                        <h1 class="text-center text-white">#{profileBean.user.nickname}</h1>
+                        <p class="text-center text-white"> #{profileBean.user.nombre} #{profileBean.user.apellido}</p>
+                        <p class="text-center text-white"> #{profileBean.user.email}</p>
                     </div>
                 </div>
 
+				<h:panelGroup layout="block" styleClass="" rendered="#{sesionBean.activo and sesionBean.usuario.id==profileBean.user.id}">
                 <div class="row justify-content-center">
                     <div class="card mb-3 " style="width: 80%" id="cardC">
                         <h3 class="text-left text-white ml-3">Posts</h3>
@@ -40,6 +41,8 @@
                     </div>
 
                 </div>
+                </h:panelGroup>
+                <h:form>
 				<ui:repeat var="post" value="#{profileBean.posts}">
 	              
 	                <h:panelGroup layout="block" styleClass="row justify-content-center" rendered="#{post.tipo.toString().equals('IMAGEN') || post.tipo.toString().equals('VIDEO')}">
@@ -55,7 +58,7 @@
 	                            </h:panelGroup>
 	                            <div class="col-md-8">
 	                                <div class="card-body">
-	                                    <h5 class="card-title text-white">Video</h5>
+	                                    <h5 class="card-title text-white">#{profileBean.user.nickname} publico el #{post.fecha.time}</h5>
 	                                    <p class="card-text text-white">#{post.texto}</p>
 	                                </div>
 	                            </div>
@@ -69,7 +72,7 @@
 	                            
 	                            <div class="col-md-12">
 	                                <div class="card-body w-100">
-	                                    <h5 class="card-title" style="color: white;">Solo texto</h5>
+	                                    <h5 class="card-title" style="color: white;">#{profileBean.user.nickname} publico el #{post.fecha.time}</h5>
 	                                    <p class="card-text text-white">#{post.texto}</p>
 	                                </div>
 	                            </div>
@@ -77,28 +80,44 @@
 	                    </div>
 	                </h:panelGroup>
             	</ui:repeat>  
+            	
+            	<h:panelGroup layout="block" styleClass="row justify-content-center" rendered="#{not (profileBean.posts.size()>0)}">
+            		<div class="col-3"></div>
+					<div class="col-6">
+						<div class="alert alert-info w-80" role="alert">
+							No hay posts aún
+						</div>
+					</div>
+            		<div class="col-3"></div>
+				</h:panelGroup>
+            	
+            	
+	            	<h:panelGroup layout="block" styleClass="row justify-content-center" rendered="#{profileBean.posts.size()>0}">
+	                	<nav aria-label="Page navigation example">
+						  <ul class="pagination">
+						    <li class="page-item">
+						    	<h:commandLink  disabled="#{profileBean.currentPage == 1}" action="#{profileBean.cambiarPagina(profileBean.currentPage-1)}" styleClass="page-link">
+						    		<f:ajax render="@form"/>
+						    		Anterior
+						    	</h:commandLink>
+					    	</li>
+						    <li class="page-item">
+						    	<h:commandLink disabled="true" styleClass="page-link">
+							    	#{profileBean.currentPage}
+						    	</h:commandLink>
+					    	</li>
+					    	<li class="page-item">
+					    		<h:commandLink action="#{profileBean.cambiarPagina(profileBean.currentPage+1)}" styleClass="page-link">
+					    		<f:ajax render="@form"/>
+						    	Siguiente</h:commandLink>
+					    	</li>
+					      </ul>
+						</nav>
+	                </h:panelGroup>
+				</h:form>
             </div>
-
         </div>
-    </div>
-	<!-- 
-	<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-	  Launch demo modal
-	</button>
-
-	
-		<div class="card text-white bg-secondary mb-3">
-		  <div class="card-header">Header</div>
-		  <div class="card-body">
-		    <h5 class="card-title">Secondary card title</h5>
-		    <h:outputText styleClass="card-text"  value="#{post.contenido}" /> 
-		    <h:graphicImage value="#{post.contenido}" rendered="#{post.tipo.toString().equals('IMAGEN')}"/> 
-		    <h:panelGroup rendered="#{post.tipo.toString().equals('VIDEO')}">
-		    	<iframe width="1280" height="720" src="#{post.contenido}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="true"></iframe>
-		    </h:panelGroup> 
-		  </div>
-		</div>
-	</ui:repeat>	 -->
+   
 	<!-- Modal Post-->
 	<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	  <div class="modal-dialog" role="document">
@@ -134,6 +153,16 @@
 	    </div>
 	  </div>
 	</div>
+	</h:panelGroup>
+	<h:panelGroup layout="block" styleClass="container" rendered="#{profileBean.user.id==null}">
+		<div class="row justify-content-center" role="alert">
+			<div class="col">
+				<div class="alert alert-danger w-80" role="alert">
+					No existe perfil
+				</div>
+			</div>
+		</div>
+	</h:panelGroup>
 <ui:include src="/partials/footer.xhtml" />    
 
 </h:body> 

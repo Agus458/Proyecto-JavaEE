@@ -20,7 +20,7 @@
     <ui:include src="/partials/nav.xhtml" />
     
     <div class="container mt-2">
-   		<div class="row row-cols-1 row-cols-md-3">
+   		<h:panelGroup layout="block" styleClass="row row-cols-1 row-cols-md-3" rendered="#{salesBean.ofertas.size()>0}">
    			<ui:repeat var="oferta" value="#{salesBean.ofertas}">
    				
 				<div class="col mb-4">
@@ -32,18 +32,27 @@
 					        Finaliza el: #{oferta.fechaFin.time} <br></br>
 					        Descuento: #{oferta.descuento}	
 				        </p>
-				        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ofertaModalAgregar" onclick="ofertas(#{oferta.id}, 'Agregar')">
- 							Agregar juegos
-						</button>
-						<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#ofertaModalQuitar" onclick="ofertas(#{oferta.id}, 'Quitar')">
- 							Quitar juegos
-						</button>		        
+				        <h:form>
+				       		<h:commandButton actionListener="#{salesBean.cambiarJuegosAgregar(oferta.id)}" value="Agregar Juegos" class="btn btn-primary mr-2" onclick="ofertas(#{oferta.id}, 'Agregar')">
+				       				<f:ajax execute="@form" render="AgregarOferta" />
+							</h:commandButton>
+							<h:commandButton actionListener="#{salesBean.cambiarJuegosQuitar(oferta.id)}" value="Quitar juegos" class="btn btn-danger" onclick="ofertas(#{oferta.id}, 'Quitar')">
+ 								<f:ajax execute="@form" render="QuitarOferta" />
+							</h:commandButton>
+						</h:form>		        
 				      </div>
 				    </div>
 			 	</div>
 			 	
 	  		</ui:repeat>
-		</div>
+		</h:panelGroup>
+		<h:panelGroup layout="block" styleClass="row" rendered="#{not (salesBean.ofertas.size()>0)}">
+			<div class="col">
+				<div class="alert alert-info w-80" role="alert">
+						No existen ofertas disponibles
+				</div>
+			</div>
+		</h:panelGroup>
 	</div>
 	
 	<!-- Modal Agregar juego-->
@@ -59,15 +68,14 @@
 		        </button>
 		      </div>
 		      <div class="modal-body">
-			      	<h:inputText value="#{salesBean.idOferta}" id="idOfertaAgregar" a:hidden="true"></h:inputText>
 			        <h:selectManyListbox styleClass="custom-select" value="#{salesBean.juegosElegidos}" required="true">
 			    		<f:selectItem itemLabel="Seleccione Juegos" itemValue="0" itemDisabled="true"/>
-			    		<f:selectItems value="#{indexBean.displayJuegos}" itemLabel="#{juego.nombre}" var="juego"  itemValue="#{juego.id}"/>
+			    		<f:selectItems value="#{salesBean.juegosAgregar}" itemLabel="#{juego.nombre}" var="juego"  itemValue="#{juego.id}"/>
 			    	</h:selectManyListbox>
 		      	
 		      </div>
 		      <div class="modal-footer">
-		      	<h:commandButton actionListener="#{salesBean.agregarJuegoOferta()}" value="Confirmar" styleClass="btn btn-primary"/>
+		      	<h:commandButton action="#{salesBean.agregarJuegoOferta()}" value="Confirmar" styleClass="btn btn-success"/>
 		        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
 		      </div>
 	      </h:form>
@@ -88,15 +96,14 @@
 		        </button>
 		      </div>
 		      <div class="modal-body">
-			      	<h:inputText value="#{salesBean.idOferta}" id="idOfertaQuitar" a:hidden="true"></h:inputText>
 			        <h:selectManyListbox styleClass="custom-select" value="#{salesBean.juegosElegidos}" required="true">
 			    		<f:selectItem itemLabel="Seleccione Juegos" itemValue="0" itemDisabled="true"/>
-			    		<f:selectItems value="#{indexBean.displayJuegos}" itemLabel="#{juego.nombre}" var="juego"  itemValue="#{juego.id}"/>
+			    		<f:selectItems value="#{salesBean.juegosQuitar}" itemLabel="#{juego.nombre}" var="juego"  itemValue="#{juego.id}"/>
 			    	</h:selectManyListbox>
 		      	
 		      </div>
 		      <div class="modal-footer">
-		      	<h:commandButton actionListener="#{salesBean.quitarJuegoOferta()}" value="Confirmar" styleClass="btn btn-primary"/>
+		      	<h:commandButton actionListener="#{salesBean.quitarJuegoOferta()}" value="Confirmar" styleClass="btn btn-danger"/>
 		        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
 		      </div>
 	      </h:form>
@@ -105,7 +112,14 @@
 	</div>
 	<script>
 		function ofertas(id,mode){
-			document.getElementById(mode+"Oferta:idOferta"+mode).value = id;
+			console.log(mode);
+			let x = document.getElementById(mode+"Oferta:idOferta"+mode);
+		
+			modals(mode);
+		}
+
+		function modals(mode){
+			$("#ofertaModal"+mode).modal('show')
 		}
 	</script>
 	

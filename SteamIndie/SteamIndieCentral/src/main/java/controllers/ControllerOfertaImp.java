@@ -11,6 +11,7 @@ import javax.ejb.Stateless;
 
 import data_types.DataJuego;
 import data_types.DataOferta;
+import enums.EstadoBloqueo;
 import enums.EstadoOferta;
 import model.Creador;
 import model.Juego;
@@ -213,7 +214,7 @@ public class ControllerOfertaImp implements ControllerOferta {
 			List<Juego> games = juegoPersistence.darJuegosCreador(usuario);
 
 			for (Juego aux : games) {
-				if(oferta.estaEnOferta(aux)) {
+				if(oferta.estaEnOferta(aux)&&aux.getEstadoBloqueo() == EstadoBloqueo.NOACTIVO) {
 					juegos.add(aux.darDatos());
 				}
 			}
@@ -231,7 +232,7 @@ public class ControllerOfertaImp implements ControllerOferta {
 			List<Juego> games = juegoPersistence.darJuegosCreador(usuario);
 
 			for (Juego aux : games) {
-				if(!oferta.estaEnOferta(aux)) {
+				if(!oferta.estaEnOferta(aux)&&aux.getEstadoBloqueo() == EstadoBloqueo.NOACTIVO) {
 					juegos.add(aux.darDatos());
 				}
 			}

@@ -111,24 +111,28 @@
 					<div class="modal-body">
 						<div class="form-group">
 							<label>Nombre</label>
-							<h:inputText value="#{backOfficeBean.nombreOferta}" styleClass="form-control"/>
+							<h:inputText id="Nombre" value="#{backOfficeBean.nombreOferta}" styleClass="form-control" a:required="true"/>
 						</div>
 						<div class="form-group">
 							<label>Descuento</label>
-							<h:inputText a:max="100" a:min="1" a:type="number" value="#{backOfficeBean.descuentoOferta}" styleClass="form-control"/>
+							<h:inputText a:max="100" a:min="1" a:type="number" value="#{backOfficeBean.descuentoOferta}" styleClass="form-control" a:required="true"/>
 						</div>
 						<div class="form-inline justify-content-between">
 							<div>
 								<label>Fecha inicio</label>
-								<h:inputText a:type="datetime-local" value="#{backOfficeBean.fechaInicio}" styleClass="form-control">  
+								<h:inputText a:type="datetime-local" value="#{backOfficeBean.fechaInicio}" styleClass="form-control" a:required="true">  
 								</h:inputText>
 							</div>
 							<div>
 								<label>Fecha fin</label>
-								<h:inputText a:type="datetime-local" value="#{backOfficeBean.fechaFin}" styleClass="form-control">  
+								<h:inputText a:type="datetime-local" value="#{backOfficeBean.fechaFin}" styleClass="form-control" a:required="true">  
 								</h:inputText>
 							</div>	
-						</div>						
+						</div>	
+						
+                       <div class="form-group">
+                       		<h:messages styleClass="alert alert-danger" />
+                       </div>					
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-secondary"

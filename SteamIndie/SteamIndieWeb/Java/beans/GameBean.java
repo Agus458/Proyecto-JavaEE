@@ -69,6 +69,8 @@ public class GameBean implements Serializable {
 	private String videoSelect ="";
 	private ArrayList<String> videosSelect = new ArrayList<String>();
 	
+	private Boolean esImagen = true;
+	
 	//Constructor
 	public GameBean() throws MalformedURLException, NumberFormatException, RemoteException{
 		HttpServletRequest origRequest = (HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest();	
@@ -85,6 +87,9 @@ public class GameBean implements Serializable {
 		if(idRequest!=null) {
 			dataJuego = ws.buscarJuegoId(Integer.parseInt(idRequest));
 			if(dataJuego.getId()!=null) {
+				if(dataJuego.getMedia().getLogo()!=null) {
+					imagenesSelect.add(dataJuego.getMedia().getLogo());
+				}
 				if(dataJuego.getMedia().getImagenes()!=null) {
 					imagenSelect = dataJuego.getMedia().getImagenes(0);
 					for(String s : dataJuego.getMedia().getImagenes()) {
@@ -152,19 +157,25 @@ public class GameBean implements Serializable {
 	}
 		
 	public void agregarTags(){
-		tagsDisponibles.add(new DataTag(null,tag));
-		tag="";
+		if(!tag.isEmpty()) {
+			tagsDisponibles.add(new DataTag(null,tag));
+			tag="";
+		}
 	}
 	
 	public void agregarImagen(){
-		imagenes.add(imagen);
-		imagen="";
+		if(!imagen.isEmpty()) {
+			imagenes.add(imagen);
+			imagen="";
+		}
 	}
 	
 
 	public void agregarVideo(){
-		videos.add(video);
-		video="";
+		if(!video.isEmpty()) {
+			videos.add(video);
+			video="";
+		}
 	}
 	
 	//Jugador
@@ -177,7 +188,8 @@ public class GameBean implements Serializable {
 	
 	//Imagenes Seleccion
 
-	public void cambiarImagen(String img) {
+	public void cambiarImagen(String img, Boolean esImg) {
+		esImagen = esImg;
 		this.imagenSelect = img;
 	}
 	
@@ -377,6 +389,14 @@ public class GameBean implements Serializable {
 
 	public void setTag(String tag) {
 		this.tag = tag;
+	}
+
+	public Boolean getEsImagen() {
+		return esImagen;
+	}
+
+	public void setEsImagen(Boolean esImagen) {
+		this.esImagen = esImagen;
 	}
 	
 	
