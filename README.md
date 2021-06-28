@@ -52,7 +52,6 @@ Propiedades central
 			Downloads\eclipselink\jlib\eclipselink.jar
 			Downloads\eclipselink\jlib\jpa\javax.persistence_2.1.0.v201304241213
 		Marcar la librería con un tic
-
 		Abrir XAMPP
 			Iniciar Apache y MySQL
 			Crear la base de datos
@@ -68,7 +67,6 @@ Propiedades central
 			JAR list: Borramos la default y agregamos la que descargamos anteriormente
 			Properties: Cambiamos "database" por "steamindiedb"
 		Test connection
-	
 	Java Compiler
 		Window->Preferences->compiler->Compiler Compliance level 1.8
 		Window->Preferences->Installed JREs
@@ -76,11 +74,9 @@ Propiedades central
 			Descargar JDK 8
 				https://www.oracle.com/java/technologies/javase/javase-jdk8-downloads.html
 			Agregar al JRE home la carpeta del jdk
-
 	JPA->Generate tables from entities
 	Maven->Download sources
 	Maven->Update Project
-
 Web
 	Descargar apache tomcat 8.5
 		https://tomcat.apache.org/download-80.cgi
