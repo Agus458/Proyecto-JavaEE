@@ -86,5 +86,9 @@ Web
 	run SteamIndieCentral/web_service/SteamIndiePublisher as java aplication
 	windows->web browser->chrome
 	run SteamIndieWeb on server
+Chat
+	Abrir la carpeta de SteamIndieChat desde una consola de comandos de windows
+	Ejecutar npm install
+	Ejecutar npm start
  
 ```
