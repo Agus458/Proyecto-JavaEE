@@ -35,8 +35,8 @@ que permita a los usuarios (jugadores y creadores) acceder al contenido. A su ve
 que todas las funcionalidades del frontoffice se puedan acceder desde cualquier dispositivo.
 A futuro está planeado el desarrollo de una aplicación móvil.
 
-##Instalación:
-
+## Instalación:
+```
 Link al video tutorial: https://youtu.be/KP6ZDUXGddo
 
 Instalar Eclipse IDE
@@ -87,3 +87,4 @@ Web
 	windows->web browser->chrome
 	run SteamIndieWeb on server
  
+```
