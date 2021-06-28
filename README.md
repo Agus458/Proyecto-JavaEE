@@ -34,3 +34,60 @@ general de la plataforma por parte de personal de SteamIndie. Y por otro lado un
 que permita a los usuarios (jugadores y creadores) acceder al contenido. A su vez interesa
 que todas las funcionalidades del frontoffice se puedan acceder desde cualquier dispositivo.
 A futuro está planeado el desarrollo de una aplicación móvil.
+
+##Instalación:
+
+Link al video tutorial: https://youtu.be/KP6ZDUXGddo
+
+Instalar Eclipse IDE
+	https://www.eclipse.org/downloads/
+Abrir proyectos
+	Esperar a que se abran
+
+Propiedades central
+	JPA
+		Descargar eclipse link 2.5.2
+			https://www.eclipse.org/downloads/download.php?file=/rt/eclipselink/releases/2.5.2/eclipselink-2.5.2.v20140319-9ad6abd.zip
+		Agregar libreria eclipse link
+			Downloads\eclipselink\jlib\eclipselink.jar
+			Downloads\eclipselink\jlib\jpa\javax.persistence_2.1.0.v201304241213
+		Marcar la librería con un tic
+
+		Abrir XAMPP
+			Iniciar Apache y MySQL
+			Crear la base de datos
+				http://localhost/phpmyadmin/index.php
+				Nombre: steamindiedb
+				Cotejamiento: utf8_unicode_ci
+		Add conection
+		Descargar mysql connector
+			https://mvnrepository.com/artifact/mysql/mysql-connector-java/8.0.25
+		MySQL
+		Nuevo Driver
+			Name/Type: MySQL JDBC Driver v5.1
+			JAR list: Borramos la default y agregamos la que descargamos anteriormente
+			Properties: Cambiamos "database" por "steamindiedb"
+		Test connection
+	
+	Java Compiler
+		Window->Preferences->compiler->Compiler Compliance level 1.8
+		Window->Preferences->Installed JREs
+			Add->Stardard VM->Next
+			Descargar JDK 8
+				https://www.oracle.com/java/technologies/javase/javase-jdk8-downloads.html
+			Agregar al JRE home la carpeta del jdk
+
+	JPA->Generate tables from entities
+	Maven->Download sources
+	Maven->Update Project
+
+Web
+	Descargar apache tomcat 8.5
+		https://tomcat.apache.org/download-80.cgi
+	Servers->Create server->tomcat v8.5->Agregar la carpeta del tomcat descargada->next->add
+	new web service client->service definition->http://localhost:1515/SteamIndieWS?wsdl->finish
+	project facets->runtimes->Apache Tomcat v8.5
+	run SteamIndieCentral/web_service/SteamIndiePublisher as java aplication
+	windows->web browser->chrome
+	run SteamIndieWeb on server
+ 
