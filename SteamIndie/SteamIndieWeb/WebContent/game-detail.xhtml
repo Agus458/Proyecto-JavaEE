@@ -194,7 +194,9 @@
 														<h:outputLink value="views/profile.xhtml">
 	                      								<f:param name="id" value="#{comentario.idJugador}"></f:param>#{userBean.darUsuarioId(comentario.idJugador).nickname}</h:outputLink>
 	                      							</h6>
-													<i class="fas fa-reply" onclick="reply(#{comentario.id})"></i>
+	                      							<h:panelGroup layout="block" rendered="#{libraryBean.tieneJuego(j.id)}">
+														<i class="fas fa-reply" onclick="reply(#{comentario.id})"></i>
+													</h:panelGroup>
 													<h:commandLink action="#{commentsBean.reportarComentario(comentario.id)}">
 															<f:ajax/>
 					                            			<i class="ml-1 fas fa-exclamation fa-lg text-danger"></i>

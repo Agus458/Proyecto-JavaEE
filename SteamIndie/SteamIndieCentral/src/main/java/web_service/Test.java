@@ -53,13 +53,13 @@ public class Test {
 //		controllerJuego.publicarJuego(new DataJuego(null, "Minecraft","Sandbox",new Float(40), null,null,null,null, null,null, null), 1);
 //		controllerJuego.publicarJuego(new DataJuego(null, "Fortnite","Shooter",new Float(30), null,null,null,null, null,null, null), 2);
 //		
-//		List<DataJuego> juegos = controllerJuego.listarJuegos();
-//		for(DataJuego aux : juegos) {
-//			System.out.println(aux.getNombre());
-//			for(DataValoracion val : aux.getValoraciones()) {
-//				System.out.println(val.getValoracion());
-//			}
-//		}
+		List<DataJuego> juegos = controllerJuego.listarJuegos();
+		for(DataJuego aux : juegos) {
+			System.out.println(aux.getNombre());
+			for(DataValoracion val : aux.getValoraciones()) {
+				System.out.println(val.getValoracion());
+			}
+		}
 //		
 //		controller.agregarJuegoAlCarritoJugador(1, 1);
 //		controller.cargarBilleteraJugador(1, new Float(10.0));
@@ -85,9 +85,9 @@ public class Test {
 		
 		ControllerOferta controllerOferta = Fabric.getControllerOferta();
 //		controllerOferta.crearOferta("mundo abierto", new Date("2021/06/21 11:20"), new Date("2021/06/21 11:30"), new Float(30));
-		for(DataJuego j : controllerOferta.darJuegosEnOferaCreador(1, 1)) {
-			System.out.println(j.getNombre());
-		}
+//		for(DataJuego j : controllerOferta.darJuegosEnOferaCreador(1, 1)) {
+//			System.out.println(j.getNombre());
+//		}
 //		List<Integer> juegos = new ArrayList<Integer>();
 //		juegos.add(1);
 //		juegos.add(2);

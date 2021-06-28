@@ -50,10 +50,16 @@
 						</div>	    
 						<div class="col">
 					        <div class="product-content">
-					          <h2 class="product-title">#{j.nombre}</h2>							
+					          <h2 class="product-title">
+					          	<h:outputLink value="/SteamIndieWeb/game-detail.xhtml">
+                            		<f:param name="id" value="#{j.id}"></f:param>
+                            		#{j.nombre}
+		                        </h:outputLink>
+		                     </h2>							
 					        <div class="product-detail">
 					            <h2>Descripción: </h2>
 					            <p>#{j.descripcion}</p>
+					            
 							</div>
 				        </div>
 				      </div>
